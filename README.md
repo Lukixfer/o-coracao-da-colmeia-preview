@@ -1,33 +1,70 @@
-# O Coração da Colmeia — Preview Público
+<div align="center">
 
-Este repositório (preview) contém um subconjunto de capítulos da obra "O Coração da Colmeia" destinado à leitura pública e feedback da comunidade.
+# O Coração da Colmeia · Preview Público
 
-## Conteúdo
+[![Preview CI](https://github.com/Lukixfer/o-coracao-da-colmeia-preview/actions/workflows/validate-chapters.yml/badge.svg)](https://github.com/Lukixfer/o-coracao-da-colmeia-preview/actions)
+[![Stars](https://img.shields.io/github/stars/Lukixfer/o-coracao-da-colmeia-preview?style=social)](https://github.com/Lukixfer/o-coracao-da-colmeia-preview/stargazers)
+[![Issues](https://img.shields.io/github/issues/Lukixfer/o-coracao-da-colmeia-preview)](https://github.com/Lukixfer/o-coracao-da-colmeia-preview/issues)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![Contribua](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 
-- Capítulos de preview em `chapters/` (ex.: `OSDB1.txt` .. `OSDB6.txt`)
-- Código de Conduta (`CODE_OF_CONDUCT.md`) e Guia de Contribuição (`CONTRIBUTING.md`)
-- Licença (`LICENSE`)
+<br/>
 
-## Como ler
+<img src="./assets/banner.svg" alt="Banner: O Coração da Colmeia — Preview Pública" width="100%" />
 
-Os capítulos estão em formato texto. Leia em ordem (OSDB1 → OSDB2 → ...). Cada arquivo inicia com:
+<a href="#leia-agora">
+	<img alt="Leia agora" height="28" src="https://img.shields.io/badge/%F0%9F%93%9A%20Leia%20agora-OSDB1..OSDB6-8A2BE2" />
+</a>
 
-Capítulo N: Título
+</div>
 
-Corpo do capítulo...
+Bem-vindo(a)! Este repositório contém uma seleção de capítulos da obra de ficção “O Coração da Colmeia” para leitura pública e feedback da comunidade.
 
-## Como contribuir
+## ✨ Sinopse
 
-- Use Issues para feedback de leitura (ritmo, clareza, impacto emocional, continuidade).
-- Siga o `CODE_OF_CONDUCT.md`.
-- Sugestões de ajustes de ortografia/pontuação são bem-vindas via PR.
+Entre duas realidades que se espelham e se contaminam — a distopia tecnológica de Miraferro e o mundo mágico de Krawzer —, personagens lutam para manter vínculos, memória e humanidade. A travessia entre mundos cobra um preço: feridas e objetos atravessam, e a mente de Gael abriga a voz de Sophya. Em meio a política, magia elemental e ruído das máquinas, cada escolha acende ou apaga mais um filamento do coração coletivo que dá nome à obra.
 
-## Sobre o projeto completo
+## 📚 O que tem nesta preview
 
-Este é um recorte. A obra completa (30 capítulos, documentos de mundo e ferramentas) está no repositório principal:
+- Capítulos em texto puro na pasta `chapters/` (OSDB1 → OSDB6)
+- Código de Conduta, Guia de Contribuição e templates de feedback
+- Workflow simples de validação para manter os capítulos consistentes
 
-- Repositório principal: <https://github.com/Lukixfer/O-Cora-o-da-Colmeia->
+## 🚀 Leia agora
 
-## Licença
+- Capítulo 1: [OSDB1.txt](./chapters/OSDB1.txt)
+- Capítulo 2: [OSDB2.txt](./chapters/OSDB2.txt)
+- Capítulo 3: [OSDB3.txt](./chapters/OSDB3.txt)
+- Capítulo 4: [OSDB4.txt](./chapters/OSDB4.txt)
+- Capítulo 5: [OSDB5.txt](./chapters/OSDB5.txt)
+- Capítulo 6: [OSDB6.txt](./chapters/OSDB6.txt)
 
-Consulte `LICENSE`. Ao contribuir, você concorda com os termos da licença e do código de conduta.
+Se preferir, comece pelo primeiro capítulo: [Ler OSDB1 →](./chapters/OSDB1.txt)
+
+## 💬 Como participar
+
+- Deixe seu feedback de leitura (ritmo, clareza, impacto emocional, continuidade):
+	- [Abrir feedback de leitura](https://github.com/Lukixfer/o-coracao-da-colmeia-preview/issues/new?template=feedback-leitura.md)
+- Sugerir melhoria, ajuste de ortografia/pontuação, ou questionar continuidade:
+	- [Sugerir melhoria](https://github.com/Lukixfer/o-coracao-da-colmeia-preview/issues/new?template=sugestao-melhoria.md)
+- Quer enviar um ajuste pequeno? Veja o [CONTRIBUTING.md](./CONTRIBUTING.md) e abra um PR.
+
+## 🧭 Para além da preview
+
+Esta é uma amostra. A obra completa (30 capítulos, documentos de mundo e ferramentas de produção) está no repositório principal:
+
+- Repositório principal: https://github.com/Lukixfer/O-Cora-o-da-Colmeia-
+
+## 📐 Convenções (para quem for revisar)
+
+- Português brasileiro, travessão nas falas (— ) e continuidade canônica entre capítulos
+- Realidade dupla canônica: Miraferro (urbano distópico) e Krawzer (magia elemental)
+- Títulos no topo de cada capítulo: “Capítulo N: Título”
+
+## 📝 Licença
+
+Este projeto de preview é distribuído sob a licença MIT. Veja [LICENSE](./LICENSE). Ao contribuir, você concorda com os termos da licença e com o nosso [Código de Conduta](./CODE_OF_CONDUCT.md).
+
+---
+
+Se esta história tocou você de alguma forma, deixar uma estrela ajuda a obra a alcançar mais leitores. Obrigado por ler! 💛
