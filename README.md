@@ -18,6 +18,16 @@
 	<img alt="Leia agora" height="28" src="https://img.shields.io/badge/%F0%9F%93%9A%20Leia%20agora-OSDB1..OSDB6-8A2BE2" />
 </a>
 
+<p align="center">
+	<a href="./chapters/OSDB1.txt">
+		<img alt="PT-BR Preview" height="22" src="https://img.shields.io/badge/Preview-PT--BR-blue" />
+	</a>
+	&nbsp;
+	<a href="./chapters-en/OSDB1_en.txt">
+		<img alt="English Preview" height="22" src="https://img.shields.io/badge/Preview-English-green" />
+	</a>
+</p>
+
 </div>
 
 Bem-vindo(a)! Este repositório contém uma seleção de capítulos da obra de ficção “O Coração da Colmeia” para leitura pública e feedback da comunidade.
@@ -42,6 +52,17 @@ Entre duas realidades que se espelham e se contaminam — a distopia tecnológic
 - Capítulo 6: [OSDB6.txt](./chapters/OSDB6.txt)
 
 Se preferir, comece pelo primeiro capítulo: [Ler OSDB1 →](./chapters/OSDB1.txt)
+
+## 🌎 English Preview
+
+Looking for the English preview? We provide concise adaptations of Chapters 1–6 (tone-faithful summaries, not full literal translations):
+
+- Chapter 1: [OSDB1_en.txt](./chapters-en/OSDB1_en.txt)
+- Chapter 2: [OSDB2_en.txt](./chapters-en/OSDB2_en.txt)
+- Chapter 3: [OSDB3_en.txt](./chapters-en/OSDB3_en.txt)
+- Chapter 4: [OSDB4_en.txt](./chapters-en/OSDB4_en.txt)
+- Chapter 5: [OSDB5_en.txt](./chapters-en/OSDB5_en.txt)
+- Chapter 6: [OSDB6_en.txt](./chapters-en/OSDB6_en.txt)
 
 ## 💬 Como participar
 

@@ -1,12 +1,9 @@
-name: Deploy Pages
+name: GitHub Pages
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - 'docs/**'
-      - 'assets/**'
-      - '.github/workflows/pages.yml'
+    branches: [ main, master ]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,42 +11,27 @@ permissions:
   id-token: write
 
 concurrency:
-  group: 'pages'
+  group: pages
   cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: false
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Prepare assets
-        shell: bash
-        run: |
-          set -euo pipefail
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends librsvg2-bin
-          mkdir -p docs/assets
-          cp -v assets/favicon.svg docs/assets/ || true
-          cp -v assets/banner.svg docs/assets/ || true
-          cp -v assets/og-banner.svg docs/assets/ || true
-          # Gerar OG PNG 1200x630 a partir do og-banner.svg (composição própria para redes sociais)
-          if [ -f assets/og-banner.svg ]; then
-            rsvg-convert -w 1200 -h 630 assets/og-banner.svg -o docs/assets/og-image.png
-          elif [ -f assets/banner.svg ]; then
-            rsvg-convert -w 1200 -h 630 assets/banner.svg -o docs/assets/og-image.png
-          fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'docs'
+          path: .
+
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
