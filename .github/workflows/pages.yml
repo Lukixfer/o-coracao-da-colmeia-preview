@@ -24,6 +24,19 @@ jobs:
       - uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Prepare assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends librsvg2-bin
+          mkdir -p docs/assets
+          cp -v assets/favicon.svg docs/assets/ || true
+          cp -v assets/banner.svg docs/assets/ || true
+          # Gerar OG PNG 1200x630 a partir do banner.svg
+          if [ -f assets/banner.svg ]; then
+            rsvg-convert -w 1200 -h 630 assets/banner.svg -o docs/assets/og-image.png
+          fi
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
