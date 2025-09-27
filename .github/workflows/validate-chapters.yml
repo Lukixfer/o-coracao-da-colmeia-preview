@@ -1,0 +1,31 @@
+name: Validate Chapters
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Validate chapter structure
+        run: |
+          for file in chapters/OSDB*.txt; do
+            if ! grep -q '^Capítulo [0-9]\+: ' "$file"; then
+              echo "Erro: O arquivo $file não começa com 'Capítulo N: Título'"
+              exit 1
+            fi
+            if [ "$(head -n 1 "$file" | wc -l)" -ne 1 ]; then
+              echo "Erro: O arquivo $file deve ter exatamente uma linha de título"
+              exit 1
+            fi
+          done
+          echo "Todos os capítulos estão formatados corretamente."
