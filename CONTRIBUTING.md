@@ -29,3 +29,12 @@ Ao contribuir, você concorda em seguir o nosso [Código de Conduta](CODE_OF_CON
 Este projeto está sob a licença especificada em `LICENSE`. Ao contribuir, você concorda com os termos da licença.
 
 Agradecemos por sua contribuição e por fazer parte da comunidade de "O Coração da Colmeia"!
+
+## Apoio financeiro (opcional)
+
+Se desejar apoiar o projeto, você pode contribuir via Pix:
+
+- Chave Pix (e-mail): `KlausKhaus@hotmail.com`
+- Detalhes e perguntas frequentes: [docs/apoie.md](./docs/apoie.md)
+
+Observação: contribuições são voluntárias e não influenciam decisões criativas ou prioridade de mudanças. Servem para sustentar tempo de revisão e publicação.

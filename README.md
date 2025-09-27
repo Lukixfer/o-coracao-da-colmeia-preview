@@ -12,6 +12,7 @@
 <br/>
 
 <img src="./assets/banner.svg" alt="Banner: O Coração da Colmeia — Preview Pública" width="100%" />
+<p align="center"><sub>Prévia social: <a href="https://lukixfer.github.io/o-coracao-da-colmeia-preview/assets/og-image.png">og-image.png</a></sub></p>
 
 <a href="#leia-agora">
 	<img alt="Leia agora" height="28" src="https://img.shields.io/badge/%F0%9F%93%9A%20Leia%20agora-OSDB1..OSDB6-8A2BE2" />
@@ -69,3 +70,10 @@ Este projeto de preview é distribuído sob a licença MIT. Veja [LICENSE](./LIC
 ---
 
 Se esta história tocou você de alguma forma, deixar uma estrela ajuda a obra a alcançar mais leitores. Obrigado por ler! 💛
+
+## 💖 Apoie
+
+Se quiser apoiar a continuidade do projeto, você pode contribuir via Pix:
+
+- Chave Pix (e-mail): `KlausKhaus@hotmail.com`
+- Guia rápido: [docs/apoie.md](./docs/apoie.md)
