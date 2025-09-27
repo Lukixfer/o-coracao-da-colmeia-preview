@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://lukixfer.github.io/o-coracao-da-colmeia-preview/sitemap.xml
