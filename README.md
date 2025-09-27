@@ -3,6 +3,7 @@
 # O Coração da Colmeia · Preview Público
 
 [![Preview CI](https://github.com/Lukixfer/o-coracao-da-colmeia-preview/actions/workflows/validate-chapters.yml/badge.svg)](https://github.com/Lukixfer/o-coracao-da-colmeia-preview/actions)
+[![Website](https://img.shields.io/badge/site-GitHub%20Pages-0A0?logo=github)](https://lukixfer.github.io/o-coracao-da-colmeia-preview)
 [![Stars](https://img.shields.io/github/stars/Lukixfer/o-coracao-da-colmeia-preview?style=social)](https://github.com/Lukixfer/o-coracao-da-colmeia-preview/stargazers)
 [![Issues](https://img.shields.io/github/issues/Lukixfer/o-coracao-da-colmeia-preview)](https://github.com/Lukixfer/o-coracao-da-colmeia-preview/issues)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
