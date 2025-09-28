@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Coração da Colmeia - Leitor Digital</title>
+    <meta name="description" content="Leitor digital de O Coração da Colmeia. Uma experiência de leitura imersiva página por página.">
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <style>
+        :root {
+            --primary: #8A2BE2;
+            --primary-dark: #6A1B9A;
+            --bg: #1a1a1a;
+            --surface: #2d2d2d;
+            --surface-light: #3d3d3d;
+            --text: #e8e8e8;
+            --text-muted: #b8b8b8;
+            --text-accent: #ffd700;
+            --border: #444;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --page-bg: #faf8f5;
+            --page-text: #2c2c2c;
+            --page-shadow: rgba(0, 0, 0, 0.1);
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header com navegação */
+        .header {
+            background: var(--surface);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+        }
+
+        /* Container principal */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* Sidebar com índice */
+        .sidebar {
+            width: 300px;
+            background: var(--surface);
+            padding: 2rem;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            position: sticky;
+            top: 80px;
+            height: calc(100vh - 80px);
+        }
+
+        .sidebar h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .chapter-list {
+            list-style: none;
+        }
+
+        .chapter-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-link {
+            display: block;
+            padding: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .chapter-link:hover,
+        .chapter-link.active {
+            color: var(--text);
+            background: var(--surface-light);
+            border-left-color: var(--primary);
+        }
+
+        .chapter-number {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Área de leitura */
+        .reader-area {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Página do livro */
+        .book-page {
+            background: var(--page-bg);
+            color: var(--page-text);
+            max-width: 800px;
+            width: 100%;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px var(--page-shadow);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            position: relative;
+            min-height: 600px;
+        }
+
+        .chapter-title {
+            color: var(--primary-dark);
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            font-family: 'Georgia', serif;
+        }
+
+        .chapter-content {
+            text-align: justify;
+            text-indent: 2rem;
+            /* A altura será medida dinamicamente para paginação */
+            min-height: 300px;
+        }
+
+        .chapter-content p {
+            margin-bottom: 1.5rem;
+        }
+
+        .chapter-content p:first-child {
+            text-indent: 0;
+            font-size: 1.15rem;
+            font-weight: 500;
+        }
+
+        .dialogue {
+            margin-left: 1.5rem;
+            font-style: italic;
+            color: #444;
+            position: relative;
+        }
+
+        .dialogue::before {
+            content: '—';
+            position: absolute;
+            left: -1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        .character-name {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* Paginação interna (páginas) */
+        .pages-holder {
+            position: relative;
+            min-height: 400px;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Controles de navegação da página */
+        .page-controls {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .page-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Estados de loading */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            color: var(--text-muted);
+        }
+
+        .loading::after {
+            content: '';
+            width: 40px;
+            height: 40px;
+            border: 4px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 1rem;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Welcome screen */
+        .welcome {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+
+        .welcome h2 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .welcome p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Aviso WIP (EN) */
+        .notice {
+            background: #fff7e6;
+            color: #7a4b00;
+            border: 1px solid #ffd591;
+            border-left: 4px solid #faad14;
+            padding: .75rem 1rem;
+            margin: 1rem auto 0;
+            border-radius: 6px;
+            max-width: 1200px;
+        }
+        .light-theme .notice { background: #fffaf0; }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .header {
+                padding: 1rem;
+            }
+
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .book-page {
+                padding: 2rem 1.5rem;
+                margin: 0 1rem;
+            }
+
+            .page-controls {
+                position: static;
+                transform: none;
+                margin: 2rem auto;
+                width: fit-content;
+            }
+
+            .reader-area {
+                padding: 1rem;
+            }
+        }
+
+        /* Animações */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Scrollbar customizada */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--surface);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo" id="logoTitle">📚 O Coração da Colmeia</a>
+            <div class="nav-controls">
+                <a href="index.html" class="btn btn-secondary" id="backHome">← Voltar ao Início</a>
+                <button class="btn" id="toggleTheme">🌙 Tema Escuro</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div id="wipNotice" class="notice" style="display:none">
+            Preview EN: translations are a work‑in‑progress (Ch. 1–6). Some chapters may be abridged or under revision.
+        </div>
+        <aside class="sidebar">
+            <h2 id="indexHeading">📖 Índice dos Capítulos</h2>
+            <ul class="chapter-list" id="chapterList">
+                <!-- Será preenchido dinamicamente -->
+            </ul>
+        </aside>
+
+        <main class="reader-area">
+            <div class="book-page">
+                <div id="content">
+                    <div class="welcome fade-in">
+                        <h2 id="welcomeTitle">📚 Bem-vindo ao Leitor Digital</h2>
+                        <p id="welcomeP1">Selecione um capítulo no índice à esquerda para começar sua jornada por <strong>O Coração da Colmeia</strong>.</p>
+                        <p id="welcomeP2">Uma experiência de leitura imersiva pelos mundos de <em>Miraferro</em> e <em>Krawzer</em>, onde duas realidades se encontram através dos olhos de Gael.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="page-controls">
+        <button class="btn btn-secondary" id="prevPage" disabled>← Página</button>
+        <div class="page-info">
+            <span id="currentChapter">Selecione um capítulo</span>
+            <span id="pageIndicator"></span>
+        </div>
+        <button class="btn btn-secondary" id="nextPage" disabled>Página →</button>
+        <button class="btn btn-secondary" id="prevChapter" disabled style="margin-left: 1rem;">⏮ Capítulo</button>
+        <button class="btn btn-secondary" id="nextChapter" disabled>Capítulo ⏭</button>
+    </div>
+
+    <script>
+        class BookReader {
+            constructor() {
+                this.chapters = [];
+                this.currentChapter = null;
+                this.pages = [];
+                this.currentPageIndex = 0;
+                this.onResize = null;
+                // Idioma: pt (default) ou en via query string ?lang=en
+                const params = new URLSearchParams(window.location.search);
+                this.lang = (params.get('lang') || 'pt').toLowerCase();
+                this.i18n = this.lang === 'en' ? {
+                    backHome: '← Back to Home',
+                    indexHeading: '📖 Chapter Index',
+                    welcomeTitle: '📚 Welcome to the Digital Reader',
+                    welcomeP1: 'Select a chapter on the left to begin your journey through O Coração da Colmeia.',
+                    welcomeP2: 'An immersive, page-by-page reading experience across the worlds of Miraferro and Krawzer.',
+                    selectChapter: 'Select a chapter',
+                    prevPage: '← Page',
+                    nextPage: 'Page →',
+                    prevChapter: '⏮ Chapter',
+                    nextChapter: 'Chapter ⏭',
+                    pageOf: (i, total) => `— Page ${i} of ${total}`,
+                    chapterLabel: (n, title) => `Chapter ${n}: ${title}`,
+                    chapterShort: 'Ch.',
+                    themeDark: '🌙 Dark Theme',
+                    themeLight: '🌞 Light Theme',
+                    loading: 'Loading chapter…',
+                    failed: (id) => `Could not load chapter ${id}.`
+                } : {
+                    backHome: '← Voltar ao Início',
+                    indexHeading: '📖 Índice dos Capítulos',
+                    welcomeTitle: '📚 Bem-vindo ao Leitor Digital',
+                    welcomeP1: 'Selecione um capítulo no índice à esquerda para começar sua jornada por O Coração da Colmeia.',
+                    welcomeP2: 'Uma experiência de leitura imersiva pelos mundos de Miraferro e Krawzer, onde duas realidades se encontram através dos olhos de Gael.',
+                    selectChapter: 'Selecione um capítulo',
+                    prevPage: '← Página',
+                    nextPage: 'Página →',
+                    prevChapter: '⏮ Capítulo',
+                    nextChapter: 'Capítulo ⏭',
+                    pageOf: (i, total) => `— Página ${i} de ${total}`,
+                    chapterLabel: (n, title) => `Capítulo ${n}: ${title}`,
+                    chapterShort: 'Cap.',
+                    themeDark: '🌙 Tema Escuro',
+                    themeLight: '🌞 Tema Claro',
+                    loading: 'Carregando capítulo…',
+                    failed: (id) => `Não foi possível carregar o capítulo ${id}.`
+                };
+                this.init();
+            }
+
+            async init() {
+                await this.loadChapterTitles();
+                this.renderChapterList();
+                this.setupEventListeners();
+                this.setupThemeToggle();
+                // WIP banner for EN
+                if (this.lang === 'en') {
+                    const n = document.getElementById('wipNotice');
+                    if (n) n.style.display = 'block';
+                }
+            }
+
+            async loadChapterTitles() {
+                const base = this.lang === 'en' ? './chapters-en' : './chapters';
+                const suffix = this.lang === 'en' ? '_en' : '';
+                const chapterFiles = Array.from({ length: 6 }, (_, idx) => `${base}/OSDB${idx + 1}${suffix}.txt`);
+
+                for (let i = 0; i < chapterFiles.length; i++) {
+                    try {
+                        const response = await fetch(chapterFiles[i]);
+                        const text = await response.text();
+                        const firstLine = text.split('\n')[0].trim();
+
+                        // Extrair título da primeira linha (suporta PT e EN)
+                        let title = null;
+                        const mPt = firstLine.match(/Capítulo\s+\d+:\s*(.+)/i);
+                        const mEn = firstLine.match(/Chapter\s+\d+:\s*(.+)/i);
+                        if (mPt) title = mPt[1];
+                        else if (mEn) title = mEn[1];
+                        else title = (this.lang === 'en' ? `Chapter ${i + 1}` : `Capítulo ${i + 1}`);
+
+                        this.chapters.push({
+                            id: i + 1,
+                            title: title,
+                            file: chapterFiles[i],
+                            fullTitle: firstLine
+                        });
+                    } catch (error) {
+                        console.warn(`Erro ao carregar ${chapterFiles[i]}:`, error);
+                        this.chapters.push({
+                            id: i + 1,
+                            title: this.lang === 'en' ? `Chapter ${i + 1}` : `Capítulo ${i + 1}`,
+                            file: chapterFiles[i],
+                            fullTitle: this.lang === 'en' ? `Chapter ${i + 1}` : `Capítulo ${i + 1}`
+                        });
+                    }
+                }
+            }
+
+            renderChapterList() {
+                const chapterList = document.getElementById('chapterList');
+                chapterList.innerHTML = this.chapters.map(chapter => `
+                    <li class="chapter-item">
+                        <a href="#" class="chapter-link" data-chapter="${chapter.id}">
+                            <span class="chapter-number">${this.i18n.chapterShort} ${chapter.id}</span><br>
+                            ${chapter.title}
+                        </a>
+                    </li>
+                `).join('');
+
+                // Localizar rótulos estáticos
+                document.getElementById('indexHeading').textContent = this.i18n.indexHeading;
+                document.getElementById('prevPage').textContent = this.i18n.prevPage;
+                document.getElementById('nextPage').textContent = this.i18n.nextPage;
+                document.getElementById('prevChapter').textContent = this.i18n.prevChapter;
+                document.getElementById('nextChapter').textContent = this.i18n.nextChapter;
+                document.getElementById('currentChapter').textContent = this.i18n.selectChapter;
+                document.getElementById('backHome').textContent = this.i18n.backHome;
+                // Mensagem de boas-vindas
+                document.getElementById('welcomeTitle').textContent = this.i18n.welcomeTitle;
+                document.getElementById('welcomeP1').innerHTML = this.i18n.welcomeP1.replace('O Coração da Colmeia','<strong>O Coração da Colmeia</strong>');
+                document.getElementById('welcomeP2').textContent = this.i18n.welcomeP2;
+            }
+
+            setupEventListeners() {
+                // Links dos capítulos
+                document.querySelectorAll('.chapter-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const chapterId = parseInt(e.currentTarget.dataset.chapter);
+                        this.loadChapter(chapterId);
+                    });
+                });
+
+                // Navegação entre capítulos
+                document.getElementById('prevChapter').addEventListener('click', () => {
+                    if (this.currentChapter && this.currentChapter > 1) {
+                        this.loadChapter(this.currentChapter - 1);
+                    }
+                });
+
+                document.getElementById('nextChapter').addEventListener('click', () => {
+                    if (this.currentChapter && this.currentChapter < this.chapters.length) {
+                        this.loadChapter(this.currentChapter + 1);
+                    }
+                });
+
+                // Navegação entre páginas
+                document.getElementById('prevPage').addEventListener('click', () => {
+                    this.goToPage(this.currentPageIndex - 1);
+                });
+
+                document.getElementById('nextPage').addEventListener('click', () => {
+                    this.goToPage(this.currentPageIndex + 1);
+                });
+
+                // Teclas de navegação
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        // Shift + seta navega capítulos, seta navega páginas
+                        if (e.shiftKey) {
+                            if (this.currentChapter > 1) this.loadChapter(this.currentChapter - 1);
+                        } else {
+                            this.goToPage(this.currentPageIndex - 1);
+                        }
+                    } else if (e.key === 'ArrowRight') {
+                        if (e.shiftKey) {
+                            if (this.currentChapter < this.chapters.length) this.loadChapter(this.currentChapter + 1);
+                        } else {
+                            this.goToPage(this.currentPageIndex + 1);
+                        }
+                    }
+                });
+            }
+
+            async loadChapter(chapterId) {
+                const chapter = this.chapters.find(c => c.id === chapterId);
+                if (!chapter) return;
+
+                this.currentChapter = chapterId;
+                this.updateActiveChapter();
+                this.updateNavigationControls();
+
+                const content = document.getElementById('content');
+                content.innerHTML = `<div class="loading">${this.i18n.loading}</div>`;
+
+                try {
+                    const response = await fetch(chapter.file);
+                    const text = await response.text();
+                    this.renderChapter(text, chapter);
+                } catch (error) {
+                    content.innerHTML = `
+                        <div class="welcome fade-in">
+                            <h2>❌</h2>
+                            <p>${this.i18n.failed(chapterId)}</p>
+                        </div>
+                    `;
+                }
+            }
+
+            renderChapter(text, chapter) {
+                // Processar o texto do capítulo
+                const lines = text.split('\n').filter(line => line.trim());
+                const title = lines[0]; // Primeira linha é o título
+                const content = lines.slice(1).join('\n'); // Resto é o conteúdo
+
+                // Dividir em parágrafos e formatar
+                const paragraphs = content.split('\n')
+                    .filter(p => p.trim())
+                    .map(p => this.formatParagraph(p.trim()))
+                    .join('');
+
+                document.getElementById('content').innerHTML = `
+                    <div class="fade-in">
+                        <h1 class="chapter-title">${this.formatText(title)}</h1>
+                        <div class="chapter-content" id="chapterContent">
+                            ${paragraphs}
+                        </div>
+                    </div>
+                `;
+
+                // Paginar conteúdo
+                this.paginateContent();
+
+                // Scroll para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            paginateContent() {
+                const book = document.querySelector('.book-page');
+                const contentEl = document.getElementById('chapterContent');
+                if (!book || !contentEl) return;
+
+                // Reset
+                this.pages = [];
+                this.currentPageIndex = 0;
+
+                // Criar holder de páginas e mover parágrafos
+                const holder = document.createElement('div');
+                holder.className = 'pages-holder';
+
+                // Medir altura disponível: área da book-page abaixo do título
+                const bookRect = book.getBoundingClientRect();
+                const contentRect = contentEl.getBoundingClientRect();
+                const paddingBottom = 24; // margem de segurança
+                const available = book.clientHeight - (contentRect.top - bookRect.top) - paddingBottom;
+
+                // Clonar nós de parágrafo
+                const paragraphs = Array.from(contentEl.querySelectorAll('p'));
+                contentEl.innerHTML = '';
+
+                let currentPage = document.createElement('div');
+                currentPage.className = 'page';
+                contentEl.appendChild(holder);
+                holder.appendChild(currentPage);
+
+                paragraphs.forEach((p, idx) => {
+                    currentPage.appendChild(p);
+                    if (currentPage.scrollHeight > available) {
+                        // Se a página está vazia e já estourou, mantém mesmo assim (parágrafo muito longo)
+                        if (currentPage.childElementCount > 1) {
+                            // mover o último para nova página
+                            const last = currentPage.lastElementChild;
+                            currentPage.removeChild(last);
+                            const newPage = document.createElement('div');
+                            newPage.className = 'page';
+                            holder.appendChild(newPage);
+                            newPage.appendChild(last);
+                            currentPage = newPage;
+                        } else {
+                            // criar nova página a partir daqui
+                            const newPage = document.createElement('div');
+                            newPage.className = 'page';
+                            holder.appendChild(newPage);
+                            currentPage = newPage;
+                        }
+                    }
+                });
+
+                // Registrar páginas
+                this.pages = Array.from(holder.querySelectorAll('.page'));
+                if (this.pages.length === 0) {
+                    this.pages = [currentPage];
+                }
+
+                // Ativar primeira página
+                this.goToPage(0, false);
+
+                // Atualizar ao redimensionar (debounce)
+                if (this.onResize) window.removeEventListener('resize', this.onResize);
+                this.onResize = this.debounce(() => {
+                    this.paginateContent();
+                }, 200);
+                window.addEventListener('resize', this.onResize);
+            }
+
+            goToPage(index, smooth = true) {
+                if (!this.pages || this.pages.length === 0) return;
+                if (index < 0 || index >= this.pages.length) return;
+                this.pages.forEach((pg, i) => pg.classList.toggle('active', i === index));
+                this.currentPageIndex = index;
+                this.updatePageControls();
+                if (smooth) window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            updatePageControls() {
+                const prevPageBtn = document.getElementById('prevPage');
+                const nextPageBtn = document.getElementById('nextPage');
+                const indicator = document.getElementById('pageIndicator');
+                prevPageBtn.disabled = this.currentPageIndex <= 0;
+                nextPageBtn.disabled = this.currentPageIndex >= (this.pages.length - 1);
+                if (indicator) {
+                    indicator.textContent = this.pages.length > 0 ? this.i18n.pageOf(this.currentPageIndex + 1, this.pages.length) : '';
+                }
+            }
+
+            formatParagraph(text) {
+                if (!text) return '';
+
+                // Identificar diálogos (começam com —)
+                if (text.startsWith('—')) {
+                    return `<p class="dialogue">${this.formatText(text.substring(1).trim())}</p>`;
+                }
+
+                return `<p>${this.formatText(text)}</p>`;
+            }
+
+            formatText(text) {
+                // Formatação básica do texto
+                return text
+                    .replace(/—/g, '—') // Travessões para diálogos
+                    .replace(/\.\.\./g, '…') // Reticências
+                    .replace(/"([^"]+)"/g, '"$1"') // Aspas tipográficas
+                    .replace(/\b(Miraferro|Krawzer|Gael|Sophya|Sifo|Tio|Lia)\b/g, '<span class="character-name">$1</span>') // Destacar nomes importantes
+                    .replace(/\b(Clube dos Jardineiros Urbanos)\b/g, '<em>$1</em>') // Destacar organizações
+                    .replace(/(\w+):\s/g, '<strong>$1:</strong> '); // Destacar rótulos como "Vovô:", "Gael:", etc.
+            }
+
+            updateActiveChapter() {
+                // Atualizar visual do capítulo ativo
+                document.querySelectorAll('.chapter-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                const activeLink = document.querySelector(`[data-chapter="${this.currentChapter}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+
+                // Atualizar info do capítulo atual
+                const chapter = this.chapters.find(c => c.id === this.currentChapter);
+                document.getElementById('currentChapter').textContent = this.i18n.chapterLabel(this.currentChapter, chapter.title);
+            }
+
+            updateNavigationControls() {
+                const prevBtn = document.getElementById('prevChapter');
+                const nextBtn = document.getElementById('nextChapter');
+
+                prevBtn.disabled = this.currentChapter <= 1;
+                nextBtn.disabled = this.currentChapter >= this.chapters.length;
+            }
+
+            setupThemeToggle() {
+                const toggleBtn = document.getElementById('toggleTheme');
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+
+                if (savedTheme === 'light') {
+                    this.toggleLightTheme();
+                }
+
+                toggleBtn.addEventListener('click', () => {
+                    this.toggleLightTheme();
+                });
+                // Ajustar rótulo conforme idioma
+                toggleBtn.textContent = this.i18n.themeDark;
+            }
+
+            toggleLightTheme() {
+                const root = document.documentElement;
+                const toggleBtn = document.getElementById('toggleTheme');
+                const isLight = document.body.classList.contains('light-theme');
+
+                if (!isLight) {
+                    // Ativar tema claro
+                    document.body.classList.add('light-theme');
+                    root.style.setProperty('--bg', '#f5f5f5');
+                    root.style.setProperty('--surface', '#ffffff');
+                    root.style.setProperty('--surface-light', '#f0f0f0');
+                    root.style.setProperty('--text', '#2c2c2c');
+                    root.style.setProperty('--text-muted', '#666666');
+                    root.style.setProperty('--border', '#e0e0e0');
+                    toggleBtn.textContent = this.i18n.themeLight;
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    // Voltar ao tema escuro
+                    document.body.classList.remove('light-theme');
+                    root.style.setProperty('--bg', '#1a1a1a');
+                    root.style.setProperty('--surface', '#2d2d2d');
+                    root.style.setProperty('--surface-light', '#3d3d3d');
+                    root.style.setProperty('--text', '#e8e8e8');
+                    root.style.setProperty('--text-muted', '#b8b8b8');
+                    root.style.setProperty('--border', '#444');
+                    toggleBtn.textContent = this.i18n.themeDark;
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+
+            debounce(fn, delay) {
+                let t;
+                return (...args) => {
+                    clearTimeout(t);
+                    t = setTimeout(() => fn.apply(this, args), delay);
+                };
+            }
+        }
+
+        // Inicializar o leitor quando a página carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            new BookReader();
+        });
+    </script>
+</body>
+</html>

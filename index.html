@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>O Coração da Colmeia · Preview Pública</title>
+    <meta name="description" content="Prévia pública (cap. 1–6) da obra O Coração da Colmeia. Duas realidades: Ironsight (Miraferro) e Krawzer." />
+    <meta property="og:title" content="O Coração da Colmeia — Preview" />
+  <meta property="og:description" content="Leia agora os capítulos 1–6 (PT-BR) e a preview em inglês (EN)." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="./assets/og-banner.svg" />
+    <meta name="theme-color" content="#8A2BE2" />
+    <style>
+      :root {
+        --fg: #161616;
+        --muted: #555;
+        --bg: #fff;
+        --brand: #8A2BE2;
+        --brand-dark: #6A1B9A;
+        --gradient: linear-gradient(135deg, var(--brand) 0%, var(--brand-dark) 100%);
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Georgia', 'Times New Roman', serif;
+        color: var(--fg);
+        background:
+          radial-gradient(1200px 600px at 50% -120px, rgba(138,43,226,.12), transparent),
+          var(--bg);
+        line-height: 1.6;
+      }
+
+      .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      header {
+        text-align: center;
+        padding: 32px 0 24px;
+        background: var(--gradient);
+        color: white;
+        border-radius: 16px;
+        margin-bottom: 32px;
+        box-shadow: 0 8px 32px rgba(138, 43, 226, 0.2);
+      }
+
+      header h1 {
+        margin: 0;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      }
+
+      header img { max-width: 100%; height: auto; display:block; margin: 10px auto 0; }
+
+      .badges {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin: 16px 0 0;
+        flex-wrap: wrap;
+      }
+
+      .panel {
+        border: 1px solid #eee;
+        border-radius: 16px;
+        padding: 24px;
+        margin: 24px 0;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .panel:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      }
+
+      .featured {
+        background: var(--gradient);
+        color: white;
+        border: none;
+      }
+
+      .featured h2 {
+        color: white;
+      }
+
+      .reader-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.2);
+        color: white;
+        text-decoration: none;
+        padding: 16px 24px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        border: 2px solid rgba(255,255,255,0.3);
+      }
+
+      .reader-btn:hover {
+        background: white;
+        color: var(--brand);
+        transform: translateY(-2px);
+      }
+
+      h1 {
+        font-size: clamp(1.8rem, 1.4rem + 1.5vw, 2.5rem);
+        margin: 12px 0 0;
+      }
+
+      h2 {
+        margin-top: 0;
+        color: var(--brand);
+        font-size: 1.4rem;
+      }
+
+      ul.links {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 12px;
+      }
+
+      ul.links li a {
+        display: block;
+        padding: 14px 16px;
+        border: 2px solid #eee;
+        border-radius: 12px;
+        text-decoration: none;
+        color: var(--fg);
+        font-weight: 500;
+        transition: all 0.3s ease;
+        background: #fff;
+      }
+
+      .pill {
+        display: inline-block;
+        margin-left: 8px;
+        font-size: .8rem;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: #fff7e6;
+        color: #7a4b00;
+        border: 1px solid #ffd591;
+      }
+
+      ul.links li a:hover {
+        border-color: var(--brand);
+        box-shadow: 0 4px 16px rgba(138,43,226,0.15);
+        transform: translateY(-2px);
+        background: rgba(138,43,226,0.05);
+      }
+
+      footer {
+        margin-top: 48px;
+        color: var(--muted);
+        font-size: .92rem;
+        text-align: center;
+        padding-top: 24px;
+        border-top: 1px solid #eee;
+      }
+
+      .small {
+        color: var(--muted);
+        font-size: .92rem;
+      }
+
+      .intro {
+        font-size: 1.1rem;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      @media (max-width: 768px) {
+        .wrap {
+          padding: 16px;
+        }
+
+        header {
+          margin-bottom: 24px;
+        }
+
+        .panel {
+          padding: 20px;
+        }
+
+        ul.links {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>📚 O Coração da Colmeia</h1>
+        <p class="intro">Uma jornada entre duas realidades, onde Miraferro e Krawzer se encontram</p>
+        <img src="./assets/banner.svg" alt="Banner O Coração da Colmeia" width="820" height="200" loading="lazy" />
+        <div class="badges">
+          <a href="./chapters/OSDB1.txt"><img alt="PT-BR Preview" height="22" src="https://img.shields.io/badge/Preview-PT--BR-blue" /></a>
+          <a href="./chapters-en/OSDB1_en.txt"><img alt="English Preview (WIP)" height="22" src="https://img.shields.io/badge/Preview-English_(WIP)-orange" /></a>
+        </div>
+      </header>
+
+      <section class="panel featured">
+        <h2>📖 Leitores Digitais</h2>
+        <p style="margin-bottom: 1.2rem; font-size: 1.05rem;">Escolha entre o leitor paginado clássico ou o novo formato livro com efeito de folhear.</p>
+        <div style="display:flex; gap:12px; flex-wrap: wrap; justify-content:center; margin-bottom: 12px;">
+          <a href="flip-reader.html" class="reader-btn">📖 Abrir Flipbook (PT‑BR)</a>
+          <a href="flip-reader.html?lang=en" class="reader-btn" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25);">🌍 Open Flipbook (EN)</a>
+        </div>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap: wrap;">
+            <div style="width:280px; height:180px; background:#fff; color:#333; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.12); position:relative; overflow:hidden;">
+              <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0));"></div>
+              <div style="padding:14px; font-family: Georgia, serif; font-size:.92rem; line-height:1.4;">
+                <div style="text-align:center; font-weight:bold; color:#6A1B9A; margin-bottom:6px;">Capítulo 1</div>
+                <div style="height:118px; overflow:hidden; text-overflow:ellipsis;">
+                  “Miraferro ergueu-se como um monumento…” — páginas com diagramação de livro, ideal para leitura longa.
+                </div>
+                <div style="position:absolute; right:10px; bottom:8px; font-size:.8rem; color:#999;">1</div>
+              </div>
+            </div>
+            <div style="width:280px; height:180px; background:#fff; color:#333; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,0.12); position:relative; overflow:hidden;">
+              <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0));"></div>
+              <div style="padding:14px; font-family: Georgia, serif; font-size:.92rem; line-height:1.4;">
+                <div style="text-align:center; font-weight:bold; color:#6A1B9A; margin-bottom:6px;">Chapter 1</div>
+                <div style="height:118px; overflow:hidden; text-overflow:ellipsis;">
+                  “Ironsight rose like a monument…” — dual‑page layout with a natural page‑turn effect.
+                </div>
+                <div style="position:absolute; right:10px; bottom:8px; font-size:.8rem; color:#999;">2</div>
+              </div>
+            </div>
+        </div>
+      </section>
+
+        <section class="panel">
+          <h2>🧭 Leitor Paginado (alternativa)</h2>
+          <p class="small">Leitura clássica com navegação por páginas, índice lateral e tema ajustável.</p>
+          <div style="display:flex; gap:12px; flex-wrap: wrap;">
+            <a href="reader.html" class="reader-btn" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25);">📄 Leitor Paginado (PT‑BR)</a>
+            <a href="reader.html?lang=en" class="reader-btn" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25);">🌍 Paged Reader (EN)</a>
+          </div>
+        </section>
+
+      <section class="panel">
+        <h2>📚 Leitura Tradicional (PT‑BR)</h2>
+        <ul class="links">
+          <li><a href="./chapters/OSDB1.txt">📖 Capítulo 1: Miraferro, a Cidade de Aço</a></li>
+          <li><a href="./chapters/OSDB2.txt">📖 Capítulo 2: O Despertar de Krawzer</a></li>
+          <li><a href="./chapters/OSDB3.txt">📖 Capítulo 3: Entre Dois Mundos</a></li>
+          <li><a href="./chapters/OSDB4.txt">📖 Capítulo 4: A Jornada Continua</a></li>
+          <li><a href="./chapters/OSDB5.txt">📖 Capítulo 5: Descobertas e Revelações</a></li>
+          <li><a href="./chapters/OSDB6.txt">📖 Capítulo 6: O Coração da Verdade</a></li>
+        </ul>
+        <p class="small">Arquivos de texto simples com formatação canônica em português.</p>
+      </section>
+
+      <section class="panel">
+          <h2>🇬🇧 English Preview (EN)</h2>
+        <ul class="links" id="englishList">
+          <li><a href="./chapters-en/OSDB1_en.txt">Chapter 1</a></li>
+          <li><a href="./chapters-en/OSDB2_en.txt">Chapter 2</a></li>
+          <li><a href="./chapters-en/OSDB3_en.txt">Chapter 3</a></li>
+          <li><a href="./chapters-en/OSDB4_en.txt">Chapter 4</a></li>
+          <li><a href="./chapters-en/OSDB5_en.txt">Chapter 5</a></li>
+          <li><a href="./chapters-en/OSDB6_en.txt">Chapter 6</a></li>
+        </ul>
+        <p class="small">Work‑in‑progress translations (Ch. 1–6). Some chapters may be abridged or under revision. Prefer paginated reading? <a style="color:inherit;" href="reader.html?lang=en">Open the Reader (EN)</a>. License: CC BY‑NC‑ND 4.0.</p>
+      </section>
+
+      <section class="panel">
+        <h2>ℹ️ Sobre</h2>
+        <p>
+          Duas realidades: Ironsight (urbano distópico) e Krawzer (magia elemental).
+          A travessia ecoa feridas, objetos e memórias. Gael é nosso fio condutor.
+        </p>
+        <p class="small">Veja o repositório para detalhes e contribuição.</p>
+      </section>
+
+      <footer>
+        <p>© Klaus E Khaus · Preview: MIT (repositório), textos: CC BY‑NC‑ND 4.0.</p>
+      </footer>
+    </div>
+  </body>
+  <script>
+    // Annotate EN chapters with WIP if shorter than PT by 40%+
+    (function(){
+      try {
+        const EN = Array.from(document.querySelectorAll('#englishList li'));
+        if (!EN.length || !window.fetch) return;
+        const get = (url) => fetch(url).then(r=>r.text()).then(t=>t.replace(/\r\n?/g,'\n').trim()).catch(()=>"");
+        for (let i=1;i<=Math.min(6, EN.length); i++) {
+          Promise.all([
+            get(`./chapters/OSDB${i}.txt`),
+            get(`./chapters-en/OSDB${i}_en.txt`)
+          ]).then(([pt, en]) => {
+            if (!pt || !en) return; // ignore if missing
+            const ratio = en.length / pt.length;
+            if (ratio < 0.6) {
+              const a = EN[i-1].querySelector('a');
+              if (!a) return;
+              const tag = document.createElement('span');
+              tag.className = 'pill';
+              tag.textContent = 'WIP';
+              a.appendChild(tag);
+            }
+          });
+        }
+      } catch {}
+    })();
+  </script>
+  </html>
