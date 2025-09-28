@@ -1,4 +1,4 @@
-remova o branch gh-pages acidental do repo privado principal para manter limpo?(() => {
+(() => {
   // Helpers
   const qs = (s, el=document) => el.querySelector(s);
   const qsa = (s, el=document) => [...el.querySelectorAll(s)];
