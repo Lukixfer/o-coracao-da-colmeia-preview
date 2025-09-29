@@ -670,60 +670,140 @@
                 const contentEl = document.getElementById('chapterContent');
                 if (!book || !contentEl) return;
 
+                // Guardar posição relativa antes de repaginar
+                const prevTotal = this.pages?.length || 0;
+                const prevIndex = this.currentPageIndex || 0;
+
                 // Reset
                 this.pages = [];
                 this.currentPageIndex = 0;
 
-                // Criar holder de páginas e mover parágrafos
-                const holder = document.createElement('div');
-                holder.className = 'pages-holder';
-
-                // Medir altura disponível: área da book-page abaixo do título
+                // Altura disponível para o corpo (abaixo do título dentro de .book-page)
                 const bookRect = book.getBoundingClientRect();
                 const contentRect = contentEl.getBoundingClientRect();
                 const paddingBottom = 24; // margem de segurança
-                const available = book.clientHeight - (contentRect.top - bookRect.top) - paddingBottom;
+                const available = Math.max(200, book.clientHeight - (contentRect.top - bookRect.top) - paddingBottom);
 
-                // Clonar nós de parágrafo
-                const paragraphs = Array.from(contentEl.querySelectorAll('p'));
+                // Capturar blocos atuais (p, blockquote, hr)
+                const blocks = Array.from(contentEl.querySelectorAll('p, blockquote, hr'))
+                    .map(node => node.outerHTML);
+
+                // Limpar e criar holder
                 contentEl.innerHTML = '';
-
-                let currentPage = document.createElement('div');
-                currentPage.className = 'page';
+                const holder = document.createElement('div');
+                holder.className = 'pages-holder';
                 contentEl.appendChild(holder);
-                holder.appendChild(currentPage);
 
-                paragraphs.forEach((p, idx) => {
-                    currentPage.appendChild(p);
-                    if (currentPage.scrollHeight > available) {
-                        // Se a página está vazia e já estourou, mantém mesmo assim (parágrafo muito longo)
-                        if (currentPage.childElementCount > 1) {
-                            // mover o último para nova página
-                            const last = currentPage.lastElementChild;
-                            currentPage.removeChild(last);
-                            const newPage = document.createElement('div');
-                            newPage.className = 'page';
-                            holder.appendChild(newPage);
-                            newPage.appendChild(last);
-                            currentPage = newPage;
-                        } else {
-                            // criar nova página a partir daqui
-                            const newPage = document.createElement('div');
-                            newPage.className = 'page';
-                            holder.appendChild(newPage);
-                            currentPage = newPage;
-                        }
+                // Medidor (oculto) com altura fixa
+                const measure = document.createElement('div');
+                measure.style.visibility = 'hidden';
+                measure.style.position = 'absolute';
+                measure.style.left = '-9999px';
+                measure.style.top = '0';
+                measure.style.height = available + 'px';
+                measure.style.overflow = 'hidden';
+                measure.style.width = '100%';
+                contentEl.appendChild(measure);
+
+                const commitPage = (pageHTML) => {
+                    if (!pageHTML || pageHTML.length === 0) return;
+                    const page = document.createElement('div');
+                    page.className = 'page';
+                    page.innerHTML = pageHTML.join('');
+                    holder.appendChild(page);
+                };
+
+                const splitBlockToFit = (html) => {
+                    // Não dividir hr
+                    if (/^<hr\b/i.test(html)) return null;
+                    let tag = 'p';
+                    let cls = '';
+                    if (/^<blockquote\b/i.test(html)) tag = 'blockquote';
+                    if (/^<p\b[^>]*class=\"dialogue\"/i.test(html)) { tag = 'p'; cls = 'dialogue'; }
+
+                    const tmp = document.createElement('div');
+                    tmp.innerHTML = html;
+                    const fullText = (tmp.textContent || '').trim();
+                    if (!fullText) return null;
+                    const words = fullText.split(/\s+/);
+                    let lo = 0, hi = words.length, best = 0;
+                    const probe = document.createElement(tag);
+                    if (cls) probe.className = cls;
+
+                    while (lo <= hi) {
+                        const mid = Math.floor((lo + hi) / 2);
+                        probe.textContent = words.slice(0, mid).join(' ');
+                        measure.appendChild(probe);
+                        const fits = measure.scrollHeight <= measure.clientHeight;
+                        measure.removeChild(probe);
+                        if (fits) { best = mid; lo = mid + 1; } else { hi = mid - 1; }
                     }
-                });
+                    if (best <= 0) return null;
 
-                // Registrar páginas
+                    const fittedNode = document.createElement(tag);
+                    if (cls) fittedNode.className = cls;
+                    fittedNode.textContent = words.slice(0, best).join(' ');
+                    const fittedHTML = fittedNode.outerHTML;
+
+                    const remainderWords = words.slice(best);
+                    const remainderText = remainderWords.join(' ');
+                    const remainderHTML = remainderText ? (tag === 'blockquote'
+                        ? `<blockquote>${remainderText}</blockquote>`
+                        : (cls ? `<p class=\"dialogue\">${remainderText}</p>` : `<p>${remainderText}</p>`)) : '';
+                    return { fittedHTML, remainderHTML };
+                };
+
+                const pageHTML = [];
+                let i = 0;
+                while (i < blocks.length) {
+                    const html = blocks[i];
+                    // Testar adicionar bloco inteiro
+                    const test = document.createElement('div');
+                    test.innerHTML = html;
+                    measure.appendChild(test);
+                    const fits = measure.scrollHeight <= measure.clientHeight;
+                    measure.removeChild(test);
+
+                    if (fits) {
+                        pageHTML.push(html);
+                        i++;
+                    } else {
+                        // Tentar dividir
+                        const split = splitBlockToFit(html);
+                        if (split && split.fittedHTML) {
+                            pageHTML.push(split.fittedHTML);
+                            if (split.remainderHTML) {
+                                blocks[i] = split.remainderHTML; // manter o restante
+                            } else {
+                                i++;
+                            }
+                        }
+                        // Fechar página atual
+                        commitPage(pageHTML.splice(0, pageHTML.length));
+                        // Reset altura do medidor
+                        measure.innerHTML = '';
+                    }
+                }
+                // Commit final
+                commitPage(pageHTML);
+
+                // Remover medidor e registrar páginas
+                measure.remove();
                 this.pages = Array.from(holder.querySelectorAll('.page'));
                 if (this.pages.length === 0) {
-                    this.pages = [currentPage];
+                    const empty = document.createElement('div');
+                    empty.className = 'page';
+                    holder.appendChild(empty);
+                    this.pages = [empty];
                 }
 
-                // Ativar primeira página
-                this.goToPage(0, false);
+                // Preservar posição aproximada
+                let newIndex = 0;
+                if (prevTotal > 0) {
+                    const ratio = prevIndex / Math.max(prevTotal - 1, 1);
+                    newIndex = Math.max(0, Math.min(this.pages.length - 1, Math.round(ratio * (this.pages.length - 1))));
+                }
+                this.goToPage(newIndex, false);
 
                 // Atualizar ao redimensionar (debounce)
                 if (this.onResize) window.removeEventListener('resize', this.onResize);
