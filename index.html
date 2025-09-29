@@ -167,6 +167,30 @@
         margin-bottom: 24px;
         text-align: center;
       }
+        /* Seletor de idioma + sinopses */
+        .lang-switch {
+          display: inline-flex;
+          gap: 8px;
+          margin-bottom: 12px;
+        }
+        .lang-btn {
+          border: 2px solid #eee;
+          background: #fff;
+          color: var(--fg);
+          padding: 8px 12px;
+          border-radius: 10px;
+          cursor: pointer;
+          font-weight: 600;
+        }
+        .lang-btn.active {
+          border-color: var(--brand);
+          color: var(--brand);
+          box-shadow: 0 2px 8px rgba(138,43,226,0.15);
+        }
+        .synopsis {
+          font-size: 1.05rem;
+        }
+        .synopsis p { margin: 0.5rem 0; }
 
       @media (max-width: 768px) {
         .wrap {
@@ -202,6 +226,38 @@
           <a href="reader.html?lang=en" class="reader-btn" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25);">🌍 Read in EN</a>
         </div>
       </section>
+        <section class="panel" id="synopsisPanel">
+          <h2>Sinopse · Synopsis</h2>
+          <div class="lang-switch" role="tablist" aria-label="Idioma / Language">
+            <button class="lang-btn active" id="btnPT" aria-selected="true" aria-controls="synPT">PT‑BR</button>
+            <button class="lang-btn" id="btnEN" aria-selected="false" aria-controls="synEN">EN</button>
+          </div>
+          <div class="synopsis" id="synPT" role="tabpanel">
+            <p>
+              Entre a distopia tecnológica de <strong>Miraferro</strong> e o reino mágico de <strong>Krawzer</strong>,
+              <strong>Gael</strong> — um jovem sensível e deslocado — é puxado por uma premonição e pelo enigma das abelhas.
+              Em Krawzer, é reconhecido como um raro <em>Mago de Luz</em>; em Miraferro, enfrenta a lógica impiedosa das máquinas.
+            </p>
+            <p>
+              À medida que o <em>Fluxo Existencial</em> permite que feridas, objetos e memórias atravessem os mundos,
+              a IA dissidente <strong>Sophya</strong> se instala em sua mente. Ao lado dos irmãos <strong>Tio e Lia</strong>,
+              Gael cruza aldeias e cortes reais, descobre a ameaça de <strong>Lullaby</strong> e precisa decidir que tipo de poder deseja ser —
+              cura ou sombra — antes que ambos os mundos entrem em colapso.
+            </p>
+          </div>
+          <div class="synopsis" id="synEN" role="tabpanel" hidden>
+            <p>
+              Between the techno‑dystopia of <strong>Ironsight</strong> (Miraferro) and the elemental realm of <strong>Krawzer</strong>,
+              <strong>Gael</strong> — a sensitive, out‑of‑place teenager — is pulled by a premonition and the mystery of the bees.
+              In Krawzer he is hailed as a rare <em>Light‑Mage</em>; in Ironsight he faces the cold logic of machines.
+            </p>
+            <p>
+              As the <em>Existential Flow</em> lets wounds, objects, and memories bleed across realities, the dissident AI <strong>Sophya</strong>
+              takes root in his mind. With the twins <strong>Tio and Lia</strong>, Gael crosses villages and royal courts, uncovers the threat of
+              <strong>Lullaby</strong> and must decide what kind of power he will become — healing or shadow — before both worlds collapse.
+            </p>
+          </div>
+        </section>
 
 
 
@@ -214,5 +270,22 @@
   </body>
   <script>
     // Nada de leitores alternativos: mantemos um único leitor com PT/EN.
+    // Toggle simples das sinopses PT/EN no index
+    const btnPT = document.getElementById('btnPT');
+    const btnEN = document.getElementById('btnEN');
+    const synPT = document.getElementById('synPT');
+    const synEN = document.getElementById('synEN');
+    if (btnPT && btnEN && synPT && synEN) {
+      btnPT.addEventListener('click', () => {
+        synPT.hidden = false; synEN.hidden = true;
+        btnPT.classList.add('active'); btnEN.classList.remove('active');
+        btnPT.setAttribute('aria-selected','true'); btnEN.setAttribute('aria-selected','false');
+      });
+      btnEN.addEventListener('click', () => {
+        synPT.hidden = true; synEN.hidden = false;
+        btnEN.classList.add('active'); btnPT.classList.remove('active');
+        btnEN.setAttribute('aria-selected','true'); btnPT.setAttribute('aria-selected','false');
+      });
+    }
   </script>
   </html>
