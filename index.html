@@ -51,15 +51,7 @@
         text-shadow: 0 2px 4px rgba(0,0,0,0.3);
       }
 
-      header img { max-width: 100%; height: auto; display:block; margin: 10px auto 0; }
-
-      .badges {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin: 16px 0 0;
-        flex-wrap: wrap;
-      }
+      header img { display:none; }
 
       .panel {
         border: 1px solid #eee;
@@ -200,44 +192,20 @@
       <header>
         <h1>📚 O Coração da Colmeia</h1>
         <p class="intro">Uma jornada entre duas realidades, onde Miraferro e Krawzer se encontram</p>
-        <img src="./assets/banner.svg" alt="Banner O Coração da Colmeia" width="820" height="200" loading="lazy" />
-        <div class="badges">
-          <a href="./chapters/OSDB1.txt"><img alt="PT-BR Preview" height="22" src="https://img.shields.io/badge/Preview-PT--BR-blue" /></a>
-          <a href="./chapters-en/OSDB1_en.txt"><img alt="English Preview (WIP)" height="22" src="https://img.shields.io/badge/Preview-English_(WIP)-orange" /></a>
-        </div>
+        
       </header>
 
-      <section class="panel featured">
-        <h2>📖 Leitor Digital</h2>
-        <p style="margin-bottom: 1.2rem; font-size: 1.05rem;">Leitura paginada com índice lateral, tema claro/escuro e navegação por páginas.</p>
-        <div style="display:flex; gap:12px; flex-wrap: wrap; justify-content:center; margin-bottom: 12px;">
-          <a href="reader.html" class="reader-btn">� Abrir Leitor (PT‑BR)</a>
-          <a href="reader.html?lang=en" class="reader-btn" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25);">🌍 Open Reader (EN)</a>
+      <section class="panel featured" style="text-align:center;">
+        <p style="margin: 0 0 1rem; font-size: 1.05rem;">Leitura paginada com tema claro/escuro.</p>
+        <div style="display:inline-flex; gap:12px; flex-wrap: wrap; justify-content:center;">
+          <a href="reader.html" class="reader-btn">📄 Ler em PT‑BR</a>
+          <a href="reader.html?lang=en" class="reader-btn" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25);">🌍 Read in EN</a>
         </div>
       </section>
 
-      <section class="panel">
-        <h2>📚 Arquivos (opcional)</h2>
-        <p class="small">Se preferir, você pode abrir os arquivos em texto puro:</p>
-        <ul class="links">
-          <li><a href="./chapters/OSDB1.txt">PT‑BR Capítulo 1</a></li>
-          <li><a href="./chapters/OSDB2.txt">PT‑BR Capítulo 2</a></li>
-          <li><a href="./chapters/OSDB3.txt">PT‑BR Capítulo 3</a></li>
-          <li><a href="./chapters/OSDB4.txt">PT‑BR Capítulo 4</a></li>
-          <li><a href="./chapters/OSDB5.txt">PT‑BR Capítulo 5</a></li>
-          <li><a href="./chapters/OSDB6.txt">PT‑BR Capítulo 6</a></li>
-        </ul>
-        <p class="small">🇬🇧 EN (WIP): <a href="./chapters-en/OSDB1_en.txt">Ch. 1</a>, <a href="./chapters-en/OSDB2_en.txt">Ch. 2</a>, <a href="./chapters-en/OSDB3_en.txt">Ch. 3</a>, <a href="./chapters-en/OSDB4_en.txt">Ch. 4</a>, <a href="./chapters-en/OSDB5_en.txt">Ch. 5</a>, <a href="./chapters-en/OSDB6_en.txt">Ch. 6</a></p>
-      </section>
+      
 
-      <section class="panel">
-        <h2>ℹ️ Sobre</h2>
-        <p>
-          Duas realidades: Ironsight (urbano distópico) e Krawzer (magia elemental).
-          A travessia ecoa feridas, objetos e memórias. Gael é nosso fio condutor.
-        </p>
-        <p class="small">Veja o repositório para detalhes e contribuição.</p>
-      </section>
+      
 
       <footer>
         <p>© Klaus E Khaus · Preview: MIT (repositório), textos: CC BY‑NC‑ND 4.0.</p>
