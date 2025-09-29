@@ -145,6 +145,58 @@
       result.push(pageEl);
     };
 
+    // Tenta dividir um HTML de parágrafo para caber no espaço restante do body
+    // Retorna { fittedHTML, remainderHTML } ou null se nada couber
+    const splitParagraphToFit = (html, body) => {
+      // HR não divide; blockquote e p dividem por palavras
+      const isHR = /^<hr\b/i.test(html);
+      if (isHR) return null;
+
+      // Identificar tag e classe
+      let tag = 'p';
+      let cls = '';
+      if (/^<blockquote\b/i.test(html)) tag = 'blockquote';
+      if (/^<p\b[^>]*class=\"dialogue\"/i.test(html)) { tag = 'p'; cls = 'dialogue'; }
+
+      // Extrair texto simples
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      const fullText = (tmp.textContent || '').trim();
+      if (!fullText) return null;
+
+      const words = fullText.split(/\s+/);
+      let lo = 0, hi = words.length, best = 0;
+      const test = document.createElement(tag);
+      if (cls) test.className = cls;
+
+      // Busca binária do maior prefixo que cabe
+      while (lo <= hi) {
+        const mid = Math.floor((lo + hi) / 2);
+        test.textContent = words.slice(0, mid).join(' ');
+        // Inserir para medir
+        body.appendChild(test);
+        const fits = body.scrollHeight <= body.clientHeight;
+        body.removeChild(test);
+        if (fits) { best = mid; lo = mid + 1; } else { hi = mid - 1; }
+      }
+
+      if (best <= 0) return null;
+
+      // Construir elementos finais
+      const fittedNode = document.createElement(tag);
+      if (cls) fittedNode.className = cls;
+      fittedNode.textContent = words.slice(0, best).join(' ');
+      body.appendChild(fittedNode);
+
+      const remainderWords = words.slice(best);
+      const remainderText = remainderWords.join(' ');
+      const remainderHTML = remainderText ? (tag === 'blockquote'
+        ? `<blockquote>${remainderText}</blockquote>`
+        : (cls ? `<p class="dialogue">${remainderText}</p>` : `<p>${remainderText}</p>`)) : '';
+
+      return { fittedHTML: body.lastChild.outerHTML, remainderHTML };
+    };
+
     while (i < paragraphs.length) {
       // Define se esta página mostrará título
       const showTitle = firstPage && !carryTitleToNext ? true : (carryTitleToNext ? true : false);
@@ -177,9 +229,24 @@
               body2.appendChild(wrapper);
               if (body2.scrollHeight > body2.clientHeight) {
                 // Mesmo sem título, parágrafo não cabe inteiro. Não vamos quebrá-lo; empurraremos para a página seguinte.
-                // Esta página ficará vazia (não será criada), seguimos para próxima.
-                // Restaurar i sem consumir e sair do while interno para abrir nova página.
-                break;
+                // Tentar dividir o parágrafo para caber parcialmente
+                const split = splitParagraphToFit(html, body2);
+                if (split && split.fittedHTML) {
+                  pageHTML.push(split.fittedHTML);
+                  addedAny = true;
+                  // Se sobrar, substitui o atual paragraphs[i] pelo restante
+                  if (split.remainderHTML) {
+                    paragraphs[i] = split.remainderHTML;
+                  } else {
+                    i++; // consumiu tudo
+                  }
+                  // Atualiza o body visível para body2
+                  content.innerHTML = '';
+                  content.appendChild(body2);
+                } else {
+                  // Nem divisão ajudou; não cria página vazia, segue para próxima página
+                  break;
+                }
               } else {
                 // Coube sem título; comitar página sem título com este parágrafo
                 pageHTML.push(html);
@@ -194,6 +261,17 @@
             }
           } else {
             // Já havia conteúdo; finaliza página e tenta na próxima
+            // Antes de quebrar, tentar dividir o parágrafo para aproveitar espaço restante
+            const split = splitParagraphToFit(html, body);
+            if (split && split.fittedHTML) {
+              pageHTML.push(split.fittedHTML);
+              // Se sobrou, mantém o restante para próxima página sem avançar i
+              if (split.remainderHTML) {
+                paragraphs[i] = split.remainderHTML;
+              } else {
+                i++;
+              }
+            }
             break;
           }
         } else {
