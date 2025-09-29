@@ -308,18 +308,7 @@
             margin-right: auto;
         }
 
-        /* Aviso WIP (EN) */
-        .notice {
-            background: #fff7e6;
-            color: #7a4b00;
-            border: 1px solid #ffd591;
-            border-left: 4px solid #faad14;
-            padding: .75rem 1rem;
-            margin: 1rem auto 0;
-            border-radius: 6px;
-            max-width: 1200px;
-        }
-        .light-theme .notice { background: #fffaf0; }
+        /* (removido) aviso WIP EN */
 
         /* Responsividade */
         @media (max-width: 768px) {
@@ -402,9 +391,6 @@
     </header>
 
     <div class="container">
-        <div id="wipNotice" class="notice" style="display:none">
-            Preview EN: translations are a work‑in‑progress (Ch. 1–6). Some chapters may be abridged or under revision.
-        </div>
         <aside class="sidebar">
             <h2 id="indexHeading">📖 Índice dos Capítulos</h2>
             <ul class="chapter-list" id="chapterList">
@@ -492,11 +478,7 @@
                 this.renderChapterList();
                 this.setupEventListeners();
                 this.setupThemeToggle();
-                // WIP banner for EN
-                if (this.lang === 'en') {
-                    const n = document.getElementById('wipNotice');
-                    if (n) n.style.display = 'block';
-                }
+                // aviso WIP removido
             }
 
             async loadChapterTitles() {
