@@ -192,11 +192,10 @@
             text-align: justify;
             text-indent: 2rem;
             /* A altura será medida dinamicamente para paginação */
-            min-height: 250px;
-            max-height: 500px; /* Limitar altura máxima das páginas */
-        }
-
-        .chapter-content p {
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }        .chapter-content p {
             margin-bottom: 1.5rem;
         }
 
@@ -230,15 +229,24 @@
         /* Paginação interna (páginas) */
         .pages-holder {
             position: relative;
-            min-height: 400px;
+            width: 100%;
+            min-height: 350px;
         }
 
         .page {
             display: none;
+            width: 100%;
+            min-height: 300px;
         }
 
         .page.active {
             display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* Controles de navegação da página */
@@ -682,14 +690,16 @@
                 this.pages = [];
                 this.currentPageIndex = 0;
 
-                // Altura disponível para o corpo (abaixo do título dentro de .book-page)
+                // Calcular altura disponível de forma mais robusta
                 const bookRect = book.getBoundingClientRect();
                 const contentRect = contentEl.getBoundingClientRect();
-                const paddingBottom = 80; // maior margem de segurança para páginas menores
-                const headerHeight = contentRect.top - bookRect.top;
-                // Reduzir altura disponível para criar páginas menores e mais legíveis
-                const baseHeight = book.clientHeight - headerHeight - paddingBottom;
-                const available = Math.max(300, Math.min(baseHeight * 0.7, 450)); // páginas menores
+                const titleEl = book.querySelector('.chapter-title');
+                const titleHeight = titleEl ? titleEl.offsetHeight + 32 : 100; // margem do título
+                const paddingBottom = 100; // margem inferior
+                
+                // Altura base mais conservadora para melhor leitura
+                const baseHeight = Math.max(400, book.clientHeight - titleHeight - paddingBottom);
+                const available = Math.max(350, Math.min(baseHeight * 0.75, 500)); // páginas otimizadas
 
                 // Capturar blocos atuais (p, blockquote, hr)
                 const blocks = Array.from(contentEl.querySelectorAll('p, blockquote, hr'))
@@ -701,22 +711,31 @@
                 holder.className = 'pages-holder';
                 contentEl.appendChild(holder);
 
-                // Medidor (oculto) com altura fixa
+                // Medidor (oculto) com altura fixa mais robusta
                 const measure = document.createElement('div');
-                measure.style.visibility = 'hidden';
-                measure.style.position = 'absolute';
-                measure.style.left = '-9999px';
-                measure.style.top = '0';
-                measure.style.height = available + 'px';
-                measure.style.overflow = 'hidden';
-                measure.style.width = '100%';
-                contentEl.appendChild(measure);
+                measure.style.cssText = `
+                    visibility: hidden;
+                    position: absolute;
+                    left: -9999px;
+                    top: 0;
+                    height: ${available}px;
+                    overflow: hidden;
+                    width: ${book.clientWidth - 80}px;
+                    padding: 0;
+                    margin: 0;
+                    box-sizing: border-box;
+                    font-family: inherit;
+                    font-size: inherit;
+                    line-height: inherit;
+                `;
+                document.body.appendChild(measure);
 
                 const commitPage = (pageHTML) => {
                     if (!pageHTML || pageHTML.length === 0) return;
                     const page = document.createElement('div');
                     page.className = 'page';
                     page.innerHTML = pageHTML.join('');
+                    page.style.minHeight = '300px';
                     holder.appendChild(page);
                 };
 
@@ -831,14 +850,27 @@
                 commitPage(pageHTML);
 
                 // Remover medidor e registrar páginas
-                measure.remove();
+                if (measure && measure.parentNode) {
+                    measure.remove();
+                }
+                
                 this.pages = Array.from(holder.querySelectorAll('.page'));
+                
+                // Garantir que há pelo menos uma página
                 if (this.pages.length === 0) {
                     const empty = document.createElement('div');
                     empty.className = 'page';
+                    empty.innerHTML = '<p>Conteúdo não encontrado.</p>';
+                    empty.style.minHeight = '300px';
                     holder.appendChild(empty);
                     this.pages = [empty];
                 }
+                
+                // Remover páginas vazias desnecessárias
+                this.pages = this.pages.filter(page => {
+                    const content = page.textContent.trim();
+                    return content.length > 0;
+                });
 
                 // Preservar posição aproximada
                 let newIndex = 0;
