@@ -192,7 +192,8 @@
             text-align: justify;
             text-indent: 2rem;
             /* A altura será medida dinamicamente para paginação */
-            min-height: 300px;
+            min-height: 250px;
+            max-height: 500px; /* Limitar altura máxima das páginas */
         }
 
         .chapter-content p {
@@ -261,6 +262,24 @@
             gap: 1rem;
             color: var(--text-muted);
             font-size: 0.9rem;
+            flex-direction: column;
+        }
+
+        .progress-bar {
+            width: 200px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 2px;
         }
 
         /* Estados de loading */
@@ -416,6 +435,9 @@
         <div class="page-info">
             <span id="currentChapter">Selecione um capítulo</span>
             <span id="pageIndicator"></span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
         </div>
         <button class="btn btn-secondary" id="nextPage" disabled>Página →</button>
         <button class="btn btn-secondary" id="prevChapter" disabled style="margin-left: 1rem;">⏮ Capítulo</button>
@@ -663,8 +685,11 @@
                 // Altura disponível para o corpo (abaixo do título dentro de .book-page)
                 const bookRect = book.getBoundingClientRect();
                 const contentRect = contentEl.getBoundingClientRect();
-                const paddingBottom = 24; // margem de segurança
-                const available = Math.max(200, book.clientHeight - (contentRect.top - bookRect.top) - paddingBottom);
+                const paddingBottom = 80; // maior margem de segurança para páginas menores
+                const headerHeight = contentRect.top - bookRect.top;
+                // Reduzir altura disponível para criar páginas menores e mais legíveis
+                const baseHeight = book.clientHeight - headerHeight - paddingBottom;
+                const available = Math.max(300, Math.min(baseHeight * 0.7, 450)); // páginas menores
 
                 // Capturar blocos atuais (p, blockquote, hr)
                 const blocks = Array.from(contentEl.querySelectorAll('p, blockquote, hr'))
@@ -707,6 +732,42 @@
                     tmp.innerHTML = html;
                     const fullText = (tmp.textContent || '').trim();
                     if (!fullText) return null;
+                    
+                    // Dividir em frases primeiro para melhor quebra
+                    const sentences = fullText.split(/(?<=[.!?])\s+/);
+                    if (sentences.length > 1) {
+                        // Tentar dividir por frases primeiro
+                        let bestSentences = 0;
+                        const probe = document.createElement(tag);
+                        if (cls) probe.className = cls;
+                        
+                        for (let i = 1; i <= sentences.length; i++) {
+                            const testText = sentences.slice(0, i).join(' ');
+                            probe.textContent = testText;
+                            measure.appendChild(probe);
+                            const fits = measure.scrollHeight <= measure.clientHeight;
+                            measure.removeChild(probe);
+                            if (fits) bestSentences = i;
+                            else break;
+                        }
+                        
+                        if (bestSentences > 0 && bestSentences < sentences.length) {
+                            const fittedText = sentences.slice(0, bestSentences).join(' ');
+                            const remainderText = sentences.slice(bestSentences).join(' ');
+                            
+                            const fittedNode = document.createElement(tag);
+                            if (cls) fittedNode.className = cls;
+                            fittedNode.textContent = fittedText;
+                            const fittedHTML = fittedNode.outerHTML;
+                            
+                            const remainderHTML = remainderText ? (tag === 'blockquote'
+                                ? `<blockquote>${remainderText}</blockquote>`
+                                : (cls ? `<p class=\"dialogue\">${remainderText}</p>` : `<p>${remainderText}</p>`)) : '';
+                            return { fittedHTML, remainderHTML };
+                        }
+                    }
+                    
+                    // Fallback para divisão por palavras se não conseguir por frases
                     const words = fullText.split(/\s+/);
                     let lo = 0, hi = words.length, best = 0;
                     const probe = document.createElement(tag);
@@ -808,10 +869,42 @@
                 const prevPageBtn = document.getElementById('prevPage');
                 const nextPageBtn = document.getElementById('nextPage');
                 const indicator = document.getElementById('pageIndicator');
+                const prevChapterBtn = document.getElementById('prevChapter');
+                const nextChapterBtn = document.getElementById('nextChapter');
+                
                 prevPageBtn.disabled = this.currentPageIndex <= 0;
                 nextPageBtn.disabled = this.currentPageIndex >= (this.pages.length - 1);
-                if (indicator) {
-                    indicator.textContent = this.pages.length > 0 ? this.i18n.pageOf(this.currentPageIndex + 1, this.pages.length) : '';
+                
+                // Melhorar feedback visual dos botões
+                if (this.currentPageIndex <= 0) {
+                    prevPageBtn.style.opacity = '0.5';
+                } else {
+                    prevPageBtn.style.opacity = '1';
+                }
+                
+                if (this.currentPageIndex >= (this.pages.length - 1)) {
+                    nextPageBtn.style.opacity = '0.5';
+                } else {
+                    nextPageBtn.style.opacity = '1';
+                }
+                
+                if (indicator && this.pages.length > 0) {
+                    const current = this.currentPageIndex + 1;
+                    const total = this.pages.length;
+                    const percentage = Math.round((current / total) * 100);
+                    indicator.textContent = `${this.i18n.pageOf(current, total)} (${percentage}%)`;
+                    
+                    // Atualizar barra de progresso
+                    const progressFill = document.getElementById('progressFill');
+                    if (progressFill) {
+                        progressFill.style.width = `${percentage}%`;
+                    }
+                } else if (indicator) {
+                    indicator.textContent = '';
+                    const progressFill = document.getElementById('progressFill');
+                    if (progressFill) {
+                        progressFill.style.width = '0%';
+                    }
                 }
             }
 
