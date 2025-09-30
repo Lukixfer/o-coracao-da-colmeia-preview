@@ -314,6 +314,60 @@
             to { transform: rotate(360deg); }
         }
 
+        /* Zonas de clique para navegação por toque/click */
+        .nav-zone {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 25%;
+            cursor: pointer;
+            z-index: 5;
+        }
+        .nav-zone.left { left: 0; }
+        .nav-zone.right { right: 0; }
+        .nav-zone:hover { background: transparent; }
+
+        /* Slider de página inline */
+        .page-slider {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+        }
+        .page-slider input[type="range"] {
+            width: 180px;
+        }
+
+        /* Modal de ajustes */
+        .modal.hidden { display: none; }
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 200;
+        }
+        .modal .card {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem 1.25rem;
+            min-width: 280px;
+            max-width: 420px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+        .modal header { display:flex; align-items:center; justify-content:space-between; margin-bottom:.5rem; }
+        .modal h3 { margin: 0; font-size: 1.1rem; color: var(--primary); }
+        .modal .row { display:flex; align-items:center; justify-content:space-between; gap: .75rem; margin: .5rem 0; }
+        .modal label { font-size: .95rem; color: var(--text-muted); }
+        .modal input[type="range"] { width: 180px; }
+        .modal .actions { display:flex; justify-content:flex-end; gap:.5rem; margin-top:.5rem; }
+
+        /* Botões desabilitados mais claros */
+        .btn[disabled] { opacity: .5; cursor: not-allowed; }
+
         /* Welcome screen */
         .welcome {
             text-align: center;
@@ -427,6 +481,8 @@
 
         <main class="reader-area">
             <div class="book-page">
+                <div class="nav-zone left" id="zonePrev" title="Página anterior"></div>
+                <div class="nav-zone right" id="zoneNext" title="Próxima página"></div>
                 <div id="content">
                     <div class="welcome fade-in">
                         <h2 id="welcomeTitle">📚 Bem-vindo ao Leitor Digital</h2>
@@ -447,9 +503,38 @@
                 <div class="progress-fill" id="progressFill"></div>
             </div>
         </div>
+        <div class="page-slider">
+            <input type="range" id="pageRange" min="1" max="1" value="1" />
+        </div>
         <button class="btn btn-secondary" id="nextPage" disabled>Página →</button>
         <button class="btn btn-secondary" id="prevChapter" disabled style="margin-left: 1rem;">⏮ Capítulo</button>
         <button class="btn btn-secondary" id="nextChapter" disabled>Capítulo ⏭</button>
+        <button class="btn" id="openSettings" title="Ajustes de leitura">⚙️</button>
+    </div>
+
+    <!-- Modal de ajustes de leitura -->
+    <div class="modal hidden" id="settingsModal" aria-hidden="true" role="dialog">
+        <div class="card">
+            <header>
+                <h3>Ajustes de leitura</h3>
+                <button class="btn btn-secondary" id="closeSettings">Fechar</button>
+            </header>
+            <div class="row">
+                <label for="fontSizeRange">Tamanho da fonte</label>
+                <input type="range" id="fontSizeRange" min="16" max="22" value="18" />
+            </div>
+            <div class="row">
+                <label for="lineHeightRange">Altura da linha</label>
+                <input type="range" id="lineHeightRange" min="16" max="22" value="18" />
+            </div>
+            <div class="row">
+                <label for="pageWidthRange">Largura da página</label>
+                <input type="range" id="pageWidthRange" min="640" max="900" value="800" />
+            </div>
+            <div class="actions">
+                <button class="btn btn-secondary" id="resetSettings">Restaurar padrão</button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -460,6 +545,7 @@
                 this.pages = [];
                 this.currentPageIndex = 0;
                 this.onResize = null;
+                this.settings = this.loadSettings();
                 // Idioma: pt (default) ou en via query string ?lang=en
                 const params = new URLSearchParams(window.location.search);
                 this.lang = (params.get('lang') || 'pt').toLowerCase();
@@ -671,6 +757,7 @@
                 `;
 
                 // Paginar conteúdo
+                this.applySettingsToUI();
                 this.paginateContent();
 
                 // Scroll para o topo
@@ -696,7 +783,7 @@
                 const titleEl = book.querySelector('.chapter-title');
                 const titleHeight = titleEl ? titleEl.offsetHeight + 32 : 100; // margem do título
                 const paddingBottom = 100; // margem inferior
-                
+
                 // Altura base mais conservadora para melhor leitura
                 const baseHeight = Math.max(400, book.clientHeight - titleHeight - paddingBottom);
                 const available = Math.max(350, Math.min(baseHeight * 0.75, 500)); // páginas otimizadas
@@ -751,7 +838,7 @@
                     tmp.innerHTML = html;
                     const fullText = (tmp.textContent || '').trim();
                     if (!fullText) return null;
-                    
+
                     // Dividir em frases primeiro para melhor quebra
                     const sentences = fullText.split(/(?<=[.!?])\s+/);
                     if (sentences.length > 1) {
@@ -759,7 +846,7 @@
                         let bestSentences = 0;
                         const probe = document.createElement(tag);
                         if (cls) probe.className = cls;
-                        
+
                         for (let i = 1; i <= sentences.length; i++) {
                             const testText = sentences.slice(0, i).join(' ');
                             probe.textContent = testText;
@@ -769,23 +856,23 @@
                             if (fits) bestSentences = i;
                             else break;
                         }
-                        
+
                         if (bestSentences > 0 && bestSentences < sentences.length) {
                             const fittedText = sentences.slice(0, bestSentences).join(' ');
                             const remainderText = sentences.slice(bestSentences).join(' ');
-                            
+
                             const fittedNode = document.createElement(tag);
                             if (cls) fittedNode.className = cls;
                             fittedNode.textContent = fittedText;
                             const fittedHTML = fittedNode.outerHTML;
-                            
+
                             const remainderHTML = remainderText ? (tag === 'blockquote'
                                 ? `<blockquote>${remainderText}</blockquote>`
                                 : (cls ? `<p class=\"dialogue\">${remainderText}</p>` : `<p>${remainderText}</p>`)) : '';
                             return { fittedHTML, remainderHTML };
                         }
                     }
-                    
+
                     // Fallback para divisão por palavras se não conseguir por frases
                     const words = fullText.split(/\s+/);
                     let lo = 0, hi = words.length, best = 0;
@@ -853,9 +940,9 @@
                 if (measure && measure.parentNode) {
                     measure.remove();
                 }
-                
+
                 this.pages = Array.from(holder.querySelectorAll('.page'));
-                
+
                 // Garantir que há pelo menos uma página
                 if (this.pages.length === 0) {
                     const empty = document.createElement('div');
@@ -865,7 +952,7 @@
                     holder.appendChild(empty);
                     this.pages = [empty];
                 }
-                
+
                 // Remover páginas vazias desnecessárias
                 this.pages = this.pages.filter(page => {
                     const content = page.textContent.trim();
@@ -879,6 +966,8 @@
                     newIndex = Math.max(0, Math.min(this.pages.length - 1, Math.round(ratio * (this.pages.length - 1))));
                 }
                 this.goToPage(newIndex, false);
+                // Restaurar progresso salvo (se houver)
+                this.restoreProgressIfAny();
 
                 // Atualizar ao redimensionar (debounce)
                 if (this.onResize) window.removeEventListener('resize', this.onResize);
@@ -903,33 +992,39 @@
                 const indicator = document.getElementById('pageIndicator');
                 const prevChapterBtn = document.getElementById('prevChapter');
                 const nextChapterBtn = document.getElementById('nextChapter');
-                
+
                 prevPageBtn.disabled = this.currentPageIndex <= 0;
                 nextPageBtn.disabled = this.currentPageIndex >= (this.pages.length - 1);
-                
+
                 // Melhorar feedback visual dos botões
                 if (this.currentPageIndex <= 0) {
                     prevPageBtn.style.opacity = '0.5';
                 } else {
                     prevPageBtn.style.opacity = '1';
                 }
-                
+
                 if (this.currentPageIndex >= (this.pages.length - 1)) {
                     nextPageBtn.style.opacity = '0.5';
                 } else {
                     nextPageBtn.style.opacity = '1';
                 }
-                
+
                 if (indicator && this.pages.length > 0) {
                     const current = this.currentPageIndex + 1;
                     const total = this.pages.length;
                     const percentage = Math.round((current / total) * 100);
                     indicator.textContent = `${this.i18n.pageOf(current, total)} (${percentage}%)`;
-                    
+
                     // Atualizar barra de progresso
                     const progressFill = document.getElementById('progressFill');
                     if (progressFill) {
                         progressFill.style.width = `${percentage}%`;
+                    }
+                    // Atualizar slider
+                    const range = document.getElementById('pageRange');
+                    if (range) {
+                        if (range.max !== String(total)) range.max = String(total);
+                        if (range.value !== String(current)) range.value = String(current);
                     }
                 } else if (indicator) {
                     indicator.textContent = '';
@@ -937,6 +1032,12 @@
                     if (progressFill) {
                         progressFill.style.width = '0%';
                     }
+                }
+
+                // Persistir progresso por capítulo
+                if (this.currentChapter) {
+                    const key = `progress:${this.lang}:${this.currentChapter}`;
+                    localStorage.setItem(key, String(this.currentPageIndex));
                 }
             }
 
@@ -989,16 +1090,69 @@
             setupThemeToggle() {
                 const toggleBtn = document.getElementById('toggleTheme');
                 const savedTheme = localStorage.getItem('theme') || 'dark';
-
                 if (savedTheme === 'light') {
                     this.toggleLightTheme();
                 }
-
                 toggleBtn.addEventListener('click', () => {
                     this.toggleLightTheme();
                 });
                 // Ajustar rótulo conforme idioma
                 toggleBtn.textContent = this.i18n.themeDark;
+            }
+
+            // Ajustes de leitura e persistência
+            loadSettings() {
+                const raw = localStorage.getItem('readerSettings');
+                return raw ? JSON.parse(raw) : { fontSize: 18, lineHeight: 18, pageWidth: 800 };
+            }
+            saveSettings() {
+                localStorage.setItem('readerSettings', JSON.stringify(this.settings));
+            }
+            applySettingsToUI() {
+                const rootPage = document.querySelector('.book-page');
+                if (rootPage) rootPage.style.maxWidth = `${this.settings.pageWidth}px`;
+                const content = document.getElementById('chapterContent');
+                if (content) {
+                    content.style.fontSize = `${this.settings.fontSize}px`;
+                    // converter faixa 16..22 para 1.4..2.0
+                    const lh = Math.max(1.2, Math.min(2.0, (this.settings.lineHeight - 10) / 10));
+                    content.style.lineHeight = String(lh);
+                }
+                // Controles do modal
+                const fs = document.getElementById('fontSizeRange');
+                const lhRange = document.getElementById('lineHeightRange');
+                const pw = document.getElementById('pageWidthRange');
+                if (fs) fs.value = String(this.settings.fontSize);
+                if (lhRange) lhRange.value = String(this.settings.lineHeight);
+                if (pw) pw.value = String(this.settings.pageWidth);
+            }
+
+            bindSettingsUI() {
+                const modal = document.getElementById('settingsModal');
+                const open = document.getElementById('openSettings');
+                const close = document.getElementById('closeSettings');
+                const reset = document.getElementById('resetSettings');
+                const fs = document.getElementById('fontSizeRange');
+                const lh = document.getElementById('lineHeightRange');
+                const pw = document.getElementById('pageWidthRange');
+                if (open && modal) open.addEventListener('click', ()=>{ modal.classList.remove('hidden'); modal.setAttribute('aria-hidden','false'); });
+                if (close && modal) close.addEventListener('click', ()=>{ modal.classList.add('hidden'); modal.setAttribute('aria-hidden','true'); });
+                if (modal) modal.addEventListener('click', (e)=>{ if (e.target === modal) { modal.classList.add('hidden'); modal.setAttribute('aria-hidden','true'); }});
+                const onChange = this.debounce(()=>{ this.saveSettings(); this.applySettingsToUI(); this.paginateContent(); }, 150);
+                if (fs) fs.addEventListener('input', (e)=>{ this.settings.fontSize = Number(e.target.value); onChange(); });
+                if (lh) lh.addEventListener('input', (e)=>{ this.settings.lineHeight = Number(e.target.value); onChange(); });
+                if (pw) pw.addEventListener('input', (e)=>{ this.settings.pageWidth = Number(e.target.value); onChange(); });
+                if (reset) reset.addEventListener('click', ()=>{ this.settings = { fontSize: 18, lineHeight: 18, pageWidth: 800 }; this.saveSettings(); this.applySettingsToUI(); this.paginateContent(); });
+            }
+
+            restoreProgressIfAny() {
+                if (!this.currentChapter) return;
+                const key = `progress:${this.lang}:${this.currentChapter}`;
+                const saved = localStorage.getItem(key);
+                if (saved) {
+                    const idx = Math.min(this.pages.length - 1, Math.max(0, parseInt(saved, 10)));
+                    this.goToPage(idx, false);
+                }
             }
 
             toggleLightTheme() {
@@ -1042,7 +1196,22 @@
 
         // Inicializar o leitor quando a página carregar
         document.addEventListener('DOMContentLoaded', () => {
-            new BookReader();
+            const reader = new BookReader();
+            // Slider de página
+            const range = document.getElementById('pageRange');
+            if (range) {
+                range.addEventListener('input', (e) => {
+                    const val = parseInt(e.target.value, 10);
+                    reader.goToPage(val - 1, false);
+                });
+            }
+            // Zonas de clique
+            const zonePrev = document.getElementById('zonePrev');
+            const zoneNext = document.getElementById('zoneNext');
+            if (zonePrev) zonePrev.addEventListener('click', ()=> reader.goToPage(reader.currentPageIndex - 1));
+            if (zoneNext) zoneNext.addEventListener('click', ()=> reader.goToPage(reader.currentPageIndex + 1));
+            // Modal ajustes
+            reader.bindSettingsUI();
         });
     </script>
 </body>
