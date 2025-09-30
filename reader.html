@@ -161,6 +161,7 @@
             padding: 2rem;
             display: flex;
             justify-content: center;
+            padding-bottom: 160px; /* espaço para o menu fixo não cobrir o texto */
         }
 
         /* Página do livro */
@@ -170,6 +171,7 @@
             max-width: 800px;
             width: 100%;
             padding: 3rem;
+            margin-bottom: 180px; /* espaço extra para não ficar sob o menu fixo */
             border-radius: 12px;
             box-shadow: 0 8px 32px var(--page-shadow);
             font-size: 1.1rem;
@@ -798,23 +800,24 @@
                 holder.className = 'pages-holder';
                 contentEl.appendChild(holder);
 
-                // Medidor (oculto) com altura fixa mais robusta
+                // Medidor (oculto) com altura fixa – clonando estilos do conteúdo
+                const contentStyles = window.getComputedStyle(contentEl);
                 const measure = document.createElement('div');
-                measure.style.cssText = `
-                    visibility: hidden;
-                    position: absolute;
-                    left: -9999px;
-                    top: 0;
-                    height: ${available}px;
-                    overflow: hidden;
-                    width: ${book.clientWidth - 80}px;
-                    padding: 0;
-                    margin: 0;
-                    box-sizing: border-box;
-                    font-family: inherit;
-                    font-size: inherit;
-                    line-height: inherit;
-                `;
+                measure.style.visibility = 'hidden';
+                measure.style.position = 'absolute';
+                measure.style.left = '-9999px';
+                measure.style.top = '0';
+                measure.style.height = available + 'px';
+                measure.style.overflow = 'hidden';
+                measure.style.width = contentEl.clientWidth + 'px';
+                measure.style.padding = contentStyles.padding;
+                measure.style.margin = '0';
+                measure.style.boxSizing = 'border-box';
+                measure.style.fontFamily = contentStyles.fontFamily;
+                measure.style.fontSize = contentStyles.fontSize;
+                measure.style.lineHeight = contentStyles.lineHeight;
+                measure.style.letterSpacing = contentStyles.letterSpacing;
+                measure.style.wordSpacing = contentStyles.wordSpacing;
                 document.body.appendChild(measure);
 
                 const commitPage = (pageHTML) => {
@@ -906,32 +909,61 @@
                 let i = 0;
                 while (i < blocks.length) {
                     const html = blocks[i];
-                    // Testar adicionar bloco inteiro
-                    const test = document.createElement('div');
-                    test.innerHTML = html;
-                    measure.appendChild(test);
-                    const fits = measure.scrollHeight <= measure.clientHeight;
-                    measure.removeChild(test);
+                    // Tentar adicionar o bloco ao conteúdo já acumulado
+                    const testWrap = document.createElement('div');
+                    testWrap.innerHTML = (pageHTML.join('') + html);
+                    measure.innerHTML = '';
+                    measure.appendChild(testWrap);
+                    const fitsAccumulated = measure.scrollHeight <= measure.clientHeight;
 
-                    if (fits) {
+                    if (fitsAccumulated) {
                         pageHTML.push(html);
                         i++;
-                    } else {
-                        // Tentar dividir
-                        const split = splitBlockToFit(html);
-                        if (split && split.fittedHTML) {
-                            pageHTML.push(split.fittedHTML);
-                            if (split.remainderHTML) {
-                                blocks[i] = split.remainderHTML; // manter o restante
-                            } else {
-                                i++;
-                            }
-                        }
-                        // Fechar página atual
-                        commitPage(pageHTML.splice(0, pageHTML.length));
-                        // Reset altura do medidor
-                        measure.innerHTML = '';
+                        continue;
                     }
+
+                    // Se com o acumulado não coube, tentar dividir o bloco atual
+                    const split = splitBlockToFit(html);
+                    if (split && split.fittedHTML) {
+                        // Primeiro, fecha a página atual se já tem conteúdo
+                        if (pageHTML.length) {
+                            commitPage(pageHTML.splice(0, pageHTML.length));
+                        }
+                        // A nova página começa com a parte que coube
+                        pageHTML.push(split.fittedHTML);
+                        // Fecha essa página
+                        commitPage(pageHTML.splice(0, pageHTML.length));
+                        // O restante volta para a fila
+                        if (split.remainderHTML) {
+                            blocks[i] = split.remainderHTML;
+                        } else {
+                            i++;
+                        }
+                        continue;
+                    }
+
+                    // Se não conseguiu dividir, força quebra mínima por palavras
+                    const tmp = document.createElement('div'); tmp.innerHTML = html;
+                    const text = (tmp.textContent || '').trim();
+                    const words = text.split(/\s+/);
+                    const minChunk = Math.max(5, Math.floor(words.length * 0.2));
+                    const head = words.slice(0, minChunk).join(' ');
+                    const tail = words.slice(minChunk).join(' ');
+                    const tag = /^<blockquote\b/i.test(html) ? 'blockquote' : 'p';
+                    const isDlg = /^<p\b[^>]*class=\"dialogue\"/i.test(html);
+                    const headHTML = tag === 'blockquote' ? `<blockquote>${head}</blockquote>` : (isDlg ? `<p class=\"dialogue\">${head}</p>` : `<p>${head}</p>`);
+                    const tailHTML = tag === 'blockquote' ? `<blockquote>${tail}</blockquote>` : (isDlg ? `<p class=\"dialogue\">${tail}</p>` : `<p>${tail}</p>`);
+                    // Se já tinha conteúdo acumulado, fecha como uma página
+                    if (pageHTML.length) {
+                        commitPage(pageHTML.splice(0, pageHTML.length));
+                    }
+                    // Começa nova página com a cabeça mínima
+                    pageHTML.push(headHTML);
+                    // Fecha a página da cabeça
+                    commitPage(pageHTML.splice(0, pageHTML.length));
+                    // Devolve o restante
+                    blocks[i] = tail ? tailHTML : null;
+                    if (!tail) i++;
                 }
                 // Commit final
                 commitPage(pageHTML);
