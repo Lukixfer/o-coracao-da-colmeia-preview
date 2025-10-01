@@ -196,6 +196,9 @@
             min-height: 300px;
             position: relative;
             overflow: hidden;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+            -ms-hyphens: auto;
         }        .chapter-content p {
             margin-bottom: 1.5rem;
         }
@@ -846,7 +849,8 @@
                         if (!parts.length) return [ft, rt];
                         const lastRaw = parts[parts.length - 1];
                         const last = lastRaw.toLowerCase().replace(/[.,;:!?…]+$/,'');
-                        if (connectors.has(last) || last.length <= 2) {
+                        const restCount = rt ? rt.split(/\s+/).filter(Boolean).length : 0;
+                        if ((connectors.has(last) || last.length <= 2) && restCount >= 3) {
                             parts.pop();
                             const moved = lastRaw.replace(/[.,;:!?…]+$/,'');
                             const newFt = parts.join(' ');
