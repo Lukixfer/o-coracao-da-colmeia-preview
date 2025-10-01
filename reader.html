@@ -549,6 +549,9 @@
                 this.pages = [];
                 this.currentPageIndex = 0;
                 this.onResize = null;
+                // Flags de controle de navegação/paginação
+                this.forceFirstPage = false;       // força abrir página 1 após troca de capítulo
+                this.restoreOnPaginate = false;     // controla se deve restaurar progresso do storage
                 this.settings = this.loadSettings();
                 // Idioma: pt (default) ou en via query string ?lang=en
                 const params = new URLSearchParams(window.location.search);
@@ -668,6 +671,9 @@
                 document.querySelectorAll('.chapter-link').forEach(link => {
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
+                        // Navegação explícita de capítulo -> começar na página 1
+                        this.forceFirstPage = true;
+                        this.restoreOnPaginate = false;
                         const chapterId = parseInt(e.currentTarget.dataset.chapter);
                         this.loadChapter(chapterId);
                     });
@@ -676,12 +682,16 @@
                 // Navegação entre capítulos
                 document.getElementById('prevChapter').addEventListener('click', () => {
                     if (this.currentChapter && this.currentChapter > 1) {
+                        this.forceFirstPage = true;
+                        this.restoreOnPaginate = false;
                         this.loadChapter(this.currentChapter - 1);
                     }
                 });
 
                 document.getElementById('nextChapter').addEventListener('click', () => {
                     if (this.currentChapter && this.currentChapter < this.chapters.length) {
+                        this.forceFirstPage = true;
+                        this.restoreOnPaginate = false;
                         this.loadChapter(this.currentChapter + 1);
                     }
                 });
@@ -760,9 +770,16 @@
                     </div>
                 `;
 
-                // Paginar conteúdo
+                // Paginar conteúdo — sempre começar na página 1 quando trocou de capítulo
                 this.applySettingsToUI();
+                // Se a troca foi de capítulo, não tentar restaurar progresso nessa primeira paginação
+                this.restoreOnPaginate = !this.forceFirstPage;
                 this.paginateContent();
+                if (this.forceFirstPage) {
+                    // Garantir página 1
+                    this.goToPage(0, false);
+                    this.forceFirstPage = false;
+                }
 
                 // Scroll para o topo
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1041,15 +1058,17 @@
                     return content.length > 0;
                 });
 
-                // Preservar posição aproximada
+                // Preservar posição aproximada apenas se não for forçar página 1
                 let newIndex = 0;
-                if (prevTotal > 0) {
+                if (!this.forceFirstPage && prevTotal > 0) {
                     const ratio = prevIndex / Math.max(prevTotal - 1, 1);
                     newIndex = Math.max(0, Math.min(this.pages.length - 1, Math.round(ratio * (this.pages.length - 1))));
                 }
                 this.goToPage(newIndex, false);
-                // Restaurar progresso salvo (se houver)
-                this.restoreProgressIfAny();
+                // Restaurar progresso salvo (se habilitado e não for troca de capítulo)
+                if (this.restoreOnPaginate) {
+                    this.restoreProgressIfAny();
+                }
 
                 // Atualizar ao redimensionar (debounce)
                 if (this.onResize) window.removeEventListener('resize', this.onResize);
