@@ -984,9 +984,8 @@
                                 commitPage(pageHTML.splice(0, pageHTML.length));
                             }
                         }
-                        // Começa nova página com a parte ajustada
+                        // Começa nova página com a parte ajustada (não comitar ainda; tentar preencher com próximos blocos)
                         pageHTML.push(split.fittedHTML);
-                        commitPage(pageHTML.splice(0, pageHTML.length));
                         if (split.remainderHTML) {
                             blocks[i] = split.remainderHTML;
                         } else {
@@ -1010,10 +1009,8 @@
                     if (pageHTML.length) {
                         commitPage(pageHTML.splice(0, pageHTML.length));
                     }
-                    // Começa nova página com a cabeça mínima
+                    // Começa nova página com a cabeça mínima (não comitar ainda; tentar preencher com próximos blocos)
                     pageHTML.push(headHTML);
-                    // Fecha a página da cabeça
-                    commitPage(pageHTML.splice(0, pageHTML.length));
                     // Devolve o restante
                     blocks[i] = tail ? tailHTML : null;
                     if (!tail) i++;
