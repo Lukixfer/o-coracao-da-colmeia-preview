@@ -839,6 +839,24 @@
                     const fullText = (tmp.textContent || '').trim();
                     if (!fullText) return null;
 
+                    // utilitário para ajustar última palavra (evitar conectivos no fim da página)
+                    const adjustSplit = (ft, rt) => {
+                        if (!ft) return [ft, rt];
+                        const connectors = new Set(['e','de','da','do','das','dos','em','no','na','nos','nas','ou','a','o','um','uma','por','como','que']);
+                        const parts = ft.split(/\s+/);
+                        if (!parts.length) return [ft, rt];
+                        const lastRaw = parts[parts.length - 1];
+                        const last = lastRaw.toLowerCase().replace(/[.,;:!?…]+$/,'');
+                        if (connectors.has(last) || last.length <= 2) {
+                            parts.pop();
+                            const moved = lastRaw.replace(/[.,;:!?…]+$/,'');
+                            const newFt = parts.join(' ');
+                            const newRt = (moved ? moved + ' ' : '') + (rt || '');
+                            return [newFt.trim(), newRt.trim()];
+                        }
+                        return [ft, rt];
+                    };
+
                     // Dividir em frases primeiro para melhor quebra
                     const sentences = fullText.split(/(?<=[.!?])\s+/);
                     if (sentences.length > 1) {
@@ -858,8 +876,9 @@
                         }
 
                         if (bestSentences > 0 && bestSentences < sentences.length) {
-                            const fittedText = sentences.slice(0, bestSentences).join(' ');
-                            const remainderText = sentences.slice(bestSentences).join(' ');
+                            let fittedText = sentences.slice(0, bestSentences).join(' ');
+                            let remainderText = sentences.slice(bestSentences).join(' ');
+                            [fittedText, remainderText] = adjustSplit(fittedText, remainderText);
 
                             const fittedNode = document.createElement(tag);
                             if (cls) fittedNode.className = cls;
@@ -889,13 +908,29 @@
                     }
                     if (best <= 0) return null;
 
+                    // Garantir um mínimo de palavras no restante
+                    const minRest = 3;
+                    let chosen = best;
+                    while ((words.length - chosen) < minRest && chosen > 1) {
+                        // re-medida reduzindo uma palavra para deixar resto mínimo
+                        const mid2 = chosen - 1;
+                        probe.textContent = words.slice(0, mid2).join(' ');
+                        measure.appendChild(probe);
+                        const fits2 = measure.scrollHeight <= measure.clientHeight;
+                        measure.removeChild(probe);
+                        if (!fits2) break;
+                        chosen = mid2;
+                    }
+
                     const fittedNode = document.createElement(tag);
                     if (cls) fittedNode.className = cls;
-                    fittedNode.textContent = words.slice(0, best).join(' ');
+                    let fittedText = words.slice(0, chosen).join(' ');
+                    let remainderText = words.slice(chosen).join(' ');
+                    [fittedText, remainderText] = adjustSplit(fittedText, remainderText);
+                    fittedNode.textContent = fittedText;
                     const fittedHTML = fittedNode.outerHTML;
 
-                    const remainderWords = words.slice(best);
-                    const remainderText = remainderWords.join(' ');
+                    const remainderWords = remainderText ? remainderText.split(/\s+/) : [];
                     const remainderHTML = remainderText ? (tag === 'blockquote'
                         ? `<blockquote>${remainderText}</blockquote>`
                         : (cls ? `<p class=\"dialogue\">${remainderText}</p>` : `<p>${remainderText}</p>`)) : '';
