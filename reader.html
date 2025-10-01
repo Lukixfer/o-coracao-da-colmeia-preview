@@ -783,10 +783,9 @@
                 const bookRect = book.getBoundingClientRect();
                 const contentRect = contentEl.getBoundingClientRect();
                 const headerHeight = Math.max(0, contentRect.top - bookRect.top);
-                const safety = 24;
-                const baseHeight = Math.max(420, book.clientHeight - headerHeight - safety);
-                const viewportCap = Math.floor(window.innerHeight * 0.8);
-                const available = Math.max(380, Math.min(baseHeight, viewportCap));
+                const safety = 16;
+                const baseHeight = Math.max(520, book.clientHeight - headerHeight - safety);
+                const available = Math.max(480, Math.min(baseHeight, 820));
 
                 // Capturar blocos atuais (p, blockquote, hr)
                 const blocks = Array.from(contentEl.querySelectorAll('p, blockquote, hr'))
@@ -923,15 +922,33 @@
                     // Se com o acumulado não coube, tentar dividir o bloco atual
                     const split = splitBlockToFit(html);
                     if (split && split.fittedHTML) {
-                        // Primeiro, fecha a página atual se já tem conteúdo
-                        if (pageHTML.length) {
-                            commitPage(pageHTML.splice(0, pageHTML.length));
+                        // Tentar preencher o espaço restante da página atual
+                        if (pageHTML.length > 0) {
+                            const fillWrap = document.createElement('div');
+                            fillWrap.innerHTML = (pageHTML.join('') + split.fittedHTML);
+                            measure.innerHTML = '';
+                            measure.appendChild(fillWrap);
+                            const fitsWithFitted = measure.scrollHeight <= measure.clientHeight;
+                            if (fitsWithFitted) {
+                                // Preenche a página atual com a parte ajustada do bloco
+                                pageHTML.push(split.fittedHTML);
+                                // Fecha a página atual agora preenchida
+                                commitPage(pageHTML.splice(0, pageHTML.length));
+                                // O restante fica para próxima iteração
+                                if (split.remainderHTML) {
+                                    blocks[i] = split.remainderHTML;
+                                } else {
+                                    i++;
+                                }
+                                continue;
+                            } else {
+                                // Mesmo a parte ajustada não cabe no restante; fecha página atual vazia
+                                commitPage(pageHTML.splice(0, pageHTML.length));
+                            }
                         }
-                        // A nova página começa com a parte que coube
+                        // Começa nova página com a parte ajustada
                         pageHTML.push(split.fittedHTML);
-                        // Fecha essa página
                         commitPage(pageHTML.splice(0, pageHTML.length));
-                        // O restante volta para a fila
                         if (split.remainderHTML) {
                             blocks[i] = split.remainderHTML;
                         } else {
