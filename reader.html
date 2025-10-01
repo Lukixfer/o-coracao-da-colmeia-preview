@@ -98,6 +98,9 @@
             background: var(--primary);
         }
 
+        /* Visibilidade condicional */
+        #toggleSidebar { display: none; }
+
         /* Container principal */
         .container {
             display: flex;
@@ -408,6 +411,13 @@
                 border-right: none;
                 border-bottom: 1px solid var(--border);
             }
+            .sidebar.collapsed { display: none; }
+
+            #toggleSidebar { display: inline-flex; }
+
+            .book-page {
+                margin-bottom: 80px;
+            }
 
             .header {
                 padding: 1rem;
@@ -429,6 +439,8 @@
                 margin: 2rem auto;
                 width: fit-content;
             }
+
+            .page-slider { display: none; }
 
             .reader-area {
                 padding: 1rem;
@@ -469,6 +481,7 @@
         <nav class="nav">
             <a href="index.html" class="logo" id="logoTitle">📚 O Coração da Colmeia</a>
             <div class="nav-controls">
+                <button class="btn btn-secondary" id="toggleSidebar">☰ Índice</button>
                 <a href="index.html" class="btn btn-secondary" id="backHome">← Voltar ao Início</a>
                 <button class="btn" id="toggleTheme">🌙 Tema Escuro</button>
             </div>
@@ -679,6 +692,15 @@
                     });
                 });
 
+                // Toggle do índice (mobile)
+                const toggleSidebarBtn = document.getElementById('toggleSidebar');
+                const sidebar = document.querySelector('.sidebar');
+                if (toggleSidebarBtn && sidebar) {
+                    toggleSidebarBtn.addEventListener('click', () => {
+                        sidebar.classList.toggle('collapsed');
+                    });
+                }
+
                 // Navegação entre capítulos
                 document.getElementById('prevChapter').addEventListener('click', () => {
                     if (this.currentChapter && this.currentChapter > 1) {
@@ -721,6 +743,24 @@
                             this.goToPage(this.currentPageIndex + 1);
                         }
                     }
+                });
+
+                // Gestos básicos de swipe no mobile
+                let touchStartX = null;
+                document.addEventListener('touchstart', (e) => {
+                    if (e.touches && e.touches.length === 1) {
+                        touchStartX = e.touches[0].clientX;
+                    }
+                }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    if (touchStartX === null) return;
+                    const dx = (e.changedTouches && e.changedTouches[0].clientX) - touchStartX;
+                    const threshold = 50; // px
+                    if (Math.abs(dx) > threshold) {
+                        if (dx > 0) this.goToPage(this.currentPageIndex - 1);
+                        else this.goToPage(this.currentPageIndex + 1);
+                    }
+                    touchStartX = null;
                 });
             }
 
@@ -803,8 +843,12 @@
                 const contentRect = contentEl.getBoundingClientRect();
                 const headerHeight = Math.max(0, contentRect.top - bookRect.top);
                 const safety = 16;
-                const baseHeight = Math.max(520, book.clientHeight - headerHeight - safety);
-                const available = Math.max(480, Math.min(baseHeight, 820));
+                let baseHeight = Math.max(520, book.clientHeight - headerHeight - safety);
+                // Mobile: use viewport para evitar overscrolls
+                if (window.innerWidth <= 768) {
+                    baseHeight = Math.floor(window.innerHeight * 0.7);
+                }
+                const available = Math.max(420, Math.min(baseHeight, 820));
 
                 // Capturar blocos atuais (p, blockquote, hr)
                 const blocks = Array.from(contentEl.querySelectorAll('p, blockquote, hr'))
