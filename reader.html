@@ -779,16 +779,14 @@
                 this.pages = [];
                 this.currentPageIndex = 0;
 
-                // Calcular altura disponível de forma mais robusta
+                // Altura disponível baseada na posição real do conteúdo dentro da página
                 const bookRect = book.getBoundingClientRect();
                 const contentRect = contentEl.getBoundingClientRect();
-                const titleEl = book.querySelector('.chapter-title');
-                const titleHeight = titleEl ? titleEl.offsetHeight + 32 : 100; // margem do título
-                const paddingBottom = 100; // margem inferior
-
-                // Altura base mais conservadora para melhor leitura
-                const baseHeight = Math.max(400, book.clientHeight - titleHeight - paddingBottom);
-                const available = Math.max(350, Math.min(baseHeight * 0.75, 500)); // páginas otimizadas
+                const headerHeight = Math.max(0, contentRect.top - bookRect.top);
+                const safety = 24;
+                const baseHeight = Math.max(420, book.clientHeight - headerHeight - safety);
+                const viewportCap = Math.floor(window.innerHeight * 0.8);
+                const available = Math.max(380, Math.min(baseHeight, viewportCap));
 
                 // Capturar blocos atuais (p, blockquote, hr)
                 const blocks = Array.from(contentEl.querySelectorAll('p, blockquote, hr'))
@@ -825,7 +823,7 @@
                     const page = document.createElement('div');
                     page.className = 'page';
                     page.innerHTML = pageHTML.join('');
-                    page.style.minHeight = '300px';
+                    page.style.minHeight = Math.max(300, available - 8) + 'px';
                     holder.appendChild(page);
                 };
 
