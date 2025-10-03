@@ -269,6 +269,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 16px var(--shadow);
             border: 1px solid var(--border);
+            z-index: 1000;
         }
 
         .page-info {
@@ -328,7 +329,8 @@
             bottom: 0;
             width: 25%;
             cursor: pointer;
-            z-index: 5;
+            z-index: 10;
+            pointer-events: auto;
         }
         .nav-zone.left { left: 0; }
         .nav-zone.right { right: 0; }
@@ -719,12 +721,13 @@
                 });
 
                 // Navegação entre páginas
-                document.getElementById('prevPage').addEventListener('click', () => {
-                    this.goToPage(this.currentPageIndex - 1);
-                });
-
-                document.getElementById('nextPage').addEventListener('click', () => {
-                    this.goToPage(this.currentPageIndex + 1);
+                const prevBtn = document.getElementById('prevPage');
+                const nextBtn = document.getElementById('nextPage');
+                const navPrev = () => this.goToPage(this.currentPageIndex - 1);
+                const navNext = () => this.goToPage(this.currentPageIndex + 1);
+                ['click','pointerup','touchend'].forEach(evt => {
+                    prevBtn.addEventListener(evt, (e)=>{ e.preventDefault(); navPrev(); }, { passive: true });
+                    nextBtn.addEventListener(evt, (e)=>{ e.preventDefault(); navNext(); }, { passive: true });
                 });
 
                 // Teclas de navegação
