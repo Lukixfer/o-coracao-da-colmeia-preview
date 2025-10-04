@@ -30,7 +30,7 @@ Abra `preview/o-coracao-da-colmeia-preview/index.html` no navegador para a home;
 
 ## Sobre o projeto completo
 
-Este é um recorte. A obra completa (30 capítulos, documentos de mundo e ferramentas) está no repositório principal:
+Este é um recorte. A obra completa (31 capítulos, documentos de mundo e ferramentas) está no repositório principal:
 
 - Repositório principal: <https://github.com/Lukixfer/o-coracao-da-colmeia>
 
