@@ -1,0 +1,72 @@
+<!-- Lia — Maga da Terra, objetiva e observacional -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" width="200" height="260">
+  <defs>
+    <radialGradient id="bg_lia" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#141a0a"/>
+      <stop offset="100%" stop-color="#0d0e08"/>
+    </radialGradient>
+    <radialGradient id="aura_lia" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#4a7a2a" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#2a4a10" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="circle_lia">
+      <circle cx="100" cy="105" r="78"/>
+    </clipPath>
+  </defs>
+  <rect width="200" height="260" fill="url(#bg_lia)" rx="8"/>
+  <circle cx="100" cy="105" r="80" fill="#0e1005" stroke="#4a7a2a" stroke-width="2"/>
+  <circle cx="100" cy="105" r="78" fill="url(#aura_lia)"/>
+
+  <!-- Torso -->
+  <ellipse cx="100" cy="170" rx="40" ry="26" fill="#0d1005" clip-path="url(#circle_lia)"/>
+  <!-- Pescoço esguio -->
+  <rect x="94" y="140" width="12" height="22" rx="4" fill="#c0a870"/>
+  <!-- Rosto oval, mais fino, feminino -->
+  <ellipse cx="100" cy="104" rx="27" ry="34" fill="#c0a870"/>
+  <!-- Cabelo (preso para trás, algumas mechas) -->
+  <path d="M 73,100 Q 75,68 100,65 Q 125,68 127,100 Q 124,72 100,70 Q 76,72 73,100Z"
+        fill="#2d3a0a"/>
+  <!-- Coque / cabelo preso -->
+  <ellipse cx="100" cy="62" rx="16" ry="10" fill="#3a4a10"/>
+  <path d="M 84,65 Q 100,60 116,65" stroke="#2d3a0a" stroke-width="2" fill="none"/>
+  <!-- Mecha solta lateral esquerda -->
+  <path d="M 73,90 Q 68,100 70,115 Q 65,105 67,95 Q 70,85 73,90Z"
+        fill="#3a4a10"/>
+  <!-- Olhos (avelã-verde, observadores, levemente amendoados) -->
+  <ellipse cx="88" cy="103" rx="7.5" ry="5.5" fill="#1a1a08"/>
+  <ellipse cx="112" cy="103" rx="7.5" ry="5.5" fill="#1a1a08"/>
+  <circle cx="88" cy="103" r="4" fill="#4a6a20"/>
+  <circle cx="112" cy="103" r="4" fill="#4a6a20"/>
+  <circle cx="89.5" cy="101.5" r="1.5" fill="white" fill-opacity="0.9"/>
+  <circle cx="113.5" cy="101.5" r="1.5" fill="white" fill-opacity="0.9"/>
+  <!-- Cílios superiores (traços finos) -->
+  <path d="M 80.5,99 Q 88,96 95.5,99" stroke="#2d3a0a" stroke-width="1.2" fill="none"/>
+  <path d="M 104.5,99 Q 112,96 119.5,99" stroke="#2d3a0a" stroke-width="1.2" fill="none"/>
+  <!-- Sobrancelhas arqueadas (expressão analítica) -->
+  <path d="M 82,96.5 Q 88,94 94,96" stroke="#2d3a0a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 106,96 Q 112,94 118,96.5" stroke="#2d3a0a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Boca (linha fina, séria mas não fria) -->
+  <path d="M 91,120 Q 100,123 109,120" stroke="#9a7848" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Orelhas -->
+  <ellipse cx="73" cy="107" rx="5" ry="8" fill="#b89a60"/>
+  <ellipse cx="127" cy="107" rx="5" ry="8" fill="#b89a60"/>
+  <!-- Roupa (veste mais ajustada, verde-floresta) -->
+  <path d="M 60,168 Q 72,155 100,152 Q 128,155 140,168 L 143,182 Q 100,188 57,182Z"
+        fill="#2a4010" clip-path="url(#circle_lia)"/>
+  <!-- Partículas Terra (mais sutis, precisas — círculos menores) -->
+  <circle cx="52" cy="80" r="1.5" fill="#4a7a2a" fill-opacity="0.7"/>
+  <circle cx="150" cy="75" r="2" fill="#4a7a2a" fill-opacity="0.6"/>
+  <circle cx="48" cy="125" r="1.5" fill="#4a7a2a" fill-opacity="0.5"/>
+  <circle cx="154" cy="130" r="1.5" fill="#4a7a2a" fill-opacity="0.7"/>
+  <circle cx="100" cy="30" r="1.5" fill="#4a7a2a" fill-opacity="0.6"/>
+
+  <!-- Nome -->
+  <text x="100" y="207" font-family="Georgia, serif" font-size="18" font-weight="bold"
+        fill="#4a7a2a" text-anchor="middle" letter-spacing="2">LIA</text>
+  <text x="100" y="225" font-family="Georgia, serif" font-size="10"
+        fill="#a0c870" text-anchor="middle" letter-spacing="3" font-style="italic">Maga da Terra</text>
+  <line x1="62" y1="232" x2="90" y2="232" stroke="#4a7a2a" stroke-width="0.7" stroke-opacity="0.6"/>
+  <polygon points="100,228 104,236 96,236" fill="#4a7a2a" fill-opacity="0.7"/>
+  <line x1="110" y1="232" x2="138" y2="232" stroke="#4a7a2a" stroke-width="0.7" stroke-opacity="0.6"/>
+  <rect x="3" y="3" width="194" height="254" rx="8" fill="none" stroke="#4a7a2a" stroke-width="0.8" stroke-opacity="0.3"/>
+</svg>

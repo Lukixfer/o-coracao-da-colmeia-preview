@@ -192,6 +192,95 @@
         }
         .synopsis p { margin: 0.5rem 0; }
 
+      /* ── Ilustrações ── */
+      .cover-section {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        flex-wrap: wrap;
+      }
+      .cover-img {
+        flex: 0 0 auto;
+        width: clamp(160px, 30%, 220px);
+        filter: drop-shadow(0 8px 24px rgba(138,43,226,0.35));
+        transition: filter 0.3s ease;
+      }
+      .cover-img:hover { filter: drop-shadow(0 8px 32px rgba(138,43,226,0.6)); }
+      .cover-text { flex: 1; min-width: 220px; }
+      .cover-text h2 { margin-top: 0; }
+
+      .char-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 1rem;
+      }
+      .char-card {
+        background: #f9f6ff;
+        border: 2px solid #eee;
+        border-radius: 12px;
+        padding: 0.75rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: default;
+      }
+      .char-card:hover {
+        border-color: var(--brand);
+        box-shadow: 0 6px 20px rgba(138,43,226,0.18);
+        transform: translateY(-4px);
+      }
+      .char-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      .char-name {
+        margin-top: 0.5rem;
+        font-weight: 700;
+        color: var(--brand-dark);
+        font-size: 0.95rem;
+      }
+      .char-role {
+        font-size: 0.78rem;
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      .map-wrap {
+        overflow-x: auto;
+        border-radius: 10px;
+      }
+      .map-wrap img {
+        width: 100%;
+        min-width: 480px;
+        height: auto;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .objects-wrap {
+        overflow-x: auto;
+        border-radius: 10px;
+      }
+      .objects-wrap img {
+        width: 100%;
+        min-width: 400px;
+        height: auto;
+        border-radius: 10px;
+        display: block;
+      }
+
+      .vinhetas-strip {
+        overflow-x: auto;
+        border-radius: 10px;
+      }
+      .vinhetas-strip img {
+        width: 100%;
+        min-width: 520px;
+        height: auto;
+        display: block;
+        border-radius: 10px;
+      }
+
       @media (max-width: 768px) {
         .wrap {
           padding: 16px;
@@ -208,22 +297,36 @@
         ul.links {
           grid-template-columns: 1fr;
         }
+
+        .cover-section {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        .cover-img { width: clamp(140px, 50%, 200px); }
+        .char-grid { grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); }
       }
     </style>
   </head>
   <body>
     <div class="wrap">
       <header>
-        <h1>📚 O Coração da Colmeia</h1>
+        <h1>O Coração da Colmeia</h1>
         <p class="intro">Uma jornada entre duas realidades, onde Miraferro e Krawzer se encontram</p>
-
       </header>
 
-      <section class="panel featured" style="text-align:center;">
-        <p style="margin: 0 0 1rem; font-size: 1.05rem;">Leitura paginada com tema claro/escuro.</p>
-        <div style="display:inline-flex; gap:12px; flex-wrap: wrap; justify-content:center;">
-          <a href="reader.html" class="reader-btn">📄 Ler em PT‑BR</a>
-          <a href="reader.html?lang=en" class="reader-btn" style="background: rgba(255,255,255,0.15); border-color: rgba(255,255,255,0.25);">🌍 Read in EN</a>
+      <!-- CAPA + CTA -->
+      <section class="panel featured">
+        <div class="cover-section">
+          <img src="./assets/illustrations/capa.svg" alt="Capa — O Coração da Colmeia" class="cover-img"/>
+          <div class="cover-text">
+            <h2 style="color:white;">Leitura paginada</h2>
+            <p style="margin-bottom:1.2rem;">Tema claro/escuro · PT‑BR e EN · Capítulos 1–6 disponíveis gratuitamente.</p>
+            <div style="display:inline-flex; gap:12px; flex-wrap:wrap;">
+              <a href="reader.html" class="reader-btn">📄 Ler em PT‑BR</a>
+              <a href="reader.html?lang=en" class="reader-btn" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.25);">🌍 Read in EN</a>
+            </div>
+          </div>
         </div>
       </section>
         <section class="panel" id="synopsisPanel">
@@ -259,9 +362,64 @@
           </div>
         </section>
 
+      <!-- PERSONAGENS -->
+      <section class="panel">
+        <h2>🎭 Personagens</h2>
+        <div class="char-grid">
+          <div class="char-card">
+            <img src="./assets/illustrations/characters/gael.svg" alt="Gael" loading="lazy"/>
+            <div class="char-name">Gael</div>
+            <div class="char-role">Mago de Luz · Protagonista</div>
+          </div>
+          <div class="char-card">
+            <img src="./assets/illustrations/characters/tio.svg" alt="Tio" loading="lazy"/>
+            <div class="char-name">Tio</div>
+            <div class="char-role">Mago da Terra · Krawzer</div>
+          </div>
+          <div class="char-card">
+            <img src="./assets/illustrations/characters/lia.svg" alt="Lia" loading="lazy"/>
+            <div class="char-name">Lia</div>
+            <div class="char-role">Maga da Terra · Krawzer</div>
+          </div>
+          <div class="char-card">
+            <img src="./assets/illustrations/characters/sifo.svg" alt="Sifo" loading="lazy"/>
+            <div class="char-name">Sifo</div>
+            <div class="char-role">Trovadora dos Ventos</div>
+          </div>
+          <div class="char-card">
+            <img src="./assets/illustrations/characters/sophya.svg" alt="Sophya" loading="lazy"/>
+            <div class="char-name">Sophya</div>
+            <div class="char-role">I.A. · Miraferro</div>
+          </div>
+        </div>
+      </section>
 
+      <!-- MAPA -->
+      <section class="panel">
+        <h2>🗺️ O Mundo — Mapa de Krawzer</h2>
+        <p class="small" style="margin-bottom:1rem;">Reino da Pedra e territórios adjacentes: Reino do Fogo, Reino da Água e Reino do Vento.</p>
+        <div class="map-wrap">
+          <img src="./assets/illustrations/maps/krawzer.svg" alt="Mapa de Krawzer" loading="lazy"/>
+        </div>
+      </section>
 
+      <!-- ITENS MÁGICOS -->
+      <section class="panel">
+        <h2>⚗️ Itens Mágicos</h2>
+        <p class="small" style="margin-bottom:1rem;">Artefatos que moldam a narrativa — do Bálsamo Azul de Coral ao Pterofyllos e à Obsidiana Viva dos Ígneos.</p>
+        <div class="objects-wrap">
+          <img src="./assets/illustrations/objects/objetos-magicos.svg" alt="Itens Mágicos" loading="lazy"/>
+        </div>
+      </section>
 
+      <!-- VINHETAS -->
+      <section class="panel">
+        <h2>✦ Vinhetas dos Capítulos</h2>
+        <p class="small" style="margin-bottom:1rem;">Ícones temáticos que acompanham cada capítulo.</p>
+        <div class="vinhetas-strip">
+          <img src="./assets/illustrations/vignettes/vinhetas-preview.svg" alt="Vinhetas" loading="lazy"/>
+        </div>
+      </section>
 
       <footer>
         <p>© Klaus E Khaus · Preview: MIT (repositório), textos: CC BY‑NC‑ND 4.0.</p>

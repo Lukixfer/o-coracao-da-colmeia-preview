@@ -1,0 +1,81 @@
+<!-- Sifo — Trovadora dos Ventos, arcaica e poética -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" width="200" height="260">
+  <defs>
+    <radialGradient id="bg_sifo" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#080e1a"/>
+      <stop offset="100%" stop-color="#050810"/>
+    </radialGradient>
+    <radialGradient id="aura_vento" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#8ab4e0" stop-opacity="0.35"/>
+      <stop offset="60%" stop-color="#5090c8" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#2060a0" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="circle_sifo">
+      <circle cx="100" cy="105" r="78"/>
+    </clipPath>
+  </defs>
+  <rect width="200" height="260" fill="url(#bg_sifo)" rx="8"/>
+  <circle cx="100" cy="105" r="80" fill="#06080e" stroke="#5090c8" stroke-width="2"/>
+  <!-- Linhas de vento na borda (decorativo) -->
+  <path d="M 20,105 Q 40,85 60,105 Q 80,125 100,105" stroke="#2060a0" stroke-width="0.8" fill="none" stroke-opacity="0.4"/>
+  <path d="M 100,105 Q 120,85 140,105 Q 160,125 180,105" stroke="#2060a0" stroke-width="0.8" fill="none" stroke-opacity="0.4"/>
+  <circle cx="100" cy="105" r="78" fill="url(#aura_vento)"/>
+
+  <!-- Vestes flutuantes ao vento (nas bordas do clip) -->
+  <path d="M 45,165 Q 60,150 100,148 Q 140,150 158,162 Q 165,175 160,185 Q 100,192 40,185Z"
+        fill="#1a2a40" clip-path="url(#circle_sifo)"/>
+  <!-- Manto que flutua à esquerda -->
+  <path d="M 25,120 Q 35,130 50,145 Q 38,130 30,118Z"
+        fill="#1a2a40" fill-opacity="0.6" clip-path="url(#circle_sifo)"/>
+  <!-- Pescoço esguio -->
+  <rect x="94" y="140" width="12" height="22" rx="5" fill="#a8b8c8"/>
+  <!-- Rosto oval, etéreo (tom mais pálido, ventano) -->
+  <ellipse cx="100" cy="103" rx="28" ry="35" fill="#b0c0d0"/>
+  <!-- Cabelo (longo, flutuando ao vento) -->
+  <path d="M 72,98 Q 74,65 100,63 Q 126,65 128,98 Q 125,70 100,68 Q 75,70 72,98Z"
+        fill="#1a3050"/>
+  <!-- Mechas flutuantes ao vento (direita) -->
+  <path d="M 128,85 Q 142,75 155,80 Q 148,78 138,88 Q 132,82 128,85Z"
+        fill="#1a3050"/>
+  <path d="M 130,100 Q 148,95 160,105 Q 152,100 142,108 Q 136,104 130,100Z"
+        fill="#1a3050" fill-opacity="0.7"/>
+  <!-- Mechas esquerda -->
+  <path d="M 72,90 Q 58,82 48,88 Q 55,85 65,93 Q 68,90 72,90Z"
+        fill="#1a3050" fill-opacity="0.7"/>
+  <!-- Olhos (prateado-azulados, profundos, proféticos) -->
+  <ellipse cx="88" cy="101" rx="7" ry="5.5" fill="#080e1a"/>
+  <ellipse cx="112" cy="101" rx="7" ry="5.5" fill="#080e1a"/>
+  <circle cx="88" cy="101" r="4" fill="#4878b0"/>
+  <circle cx="112" cy="101" r="4" fill="#4878b0"/>
+  <circle cx="88" cy="101" r="2" fill="#a0c0e0" fill-opacity="0.9"/>
+  <circle cx="112" cy="101" r="2" fill="#a0c0e0" fill-opacity="0.9"/>
+  <circle cx="89" cy="99.5" r="1" fill="white"/>
+  <circle cx="113" cy="99.5" r="1" fill="white"/>
+  <!-- Sobrancelhas (finas, elevadas — expressão profética) -->
+  <path d="M 82,94 Q 88,91.5 94,93.5" stroke="#1a3050" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <path d="M 106,93.5 Q 112,91.5 118,94" stroke="#1a3050" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  <!-- Boca (pequena, expressiva, poetisa) -->
+  <path d="M 92,119 Q 100,123 108,119" stroke="#7090a8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Orelhas finas -->
+  <ellipse cx="72" cy="106" rx="4.5" ry="7" fill="#a8b8c8"/>
+  <ellipse cx="128" cy="106" rx="4.5" ry="7" fill="#a8b8c8"/>
+  <!-- Turbilhão de vento ao redor (curvas finas) -->
+  <path d="M 30,70 Q 55,55 80,70 Q 55,60 30,70Z" stroke="#5090c8" stroke-width="0.8" fill="none" stroke-opacity="0.5"/>
+  <path d="M 120,65 Q 148,52 170,68 Q 148,58 120,65Z" stroke="#5090c8" stroke-width="0.8" fill="none" stroke-opacity="0.5"/>
+  <path d="M 25,145 Q 40,135 55,145 Q 40,140 25,145Z" stroke="#3070a8" stroke-width="0.7" fill="none" stroke-opacity="0.5"/>
+  <path d="M 145,142 Q 162,130 178,142 Q 162,137 145,142Z" stroke="#3070a8" stroke-width="0.7" fill="none" stroke-opacity="0.5"/>
+  <!-- Folha prateada (mensageira dos Ventos) -->
+  <ellipse cx="155" cy="140" rx="12" ry="7" fill="#c0d0e0" fill-opacity="0.7"
+           transform="rotate(-30, 155, 140)"/>
+  <line x1="149" y1="143" x2="161" y2="137" stroke="#8ab4e0" stroke-width="0.8" stroke-opacity="0.7"/>
+
+  <!-- Nome -->
+  <text x="100" y="207" font-family="Georgia, serif" font-size="18" font-weight="bold"
+        fill="#5090c8" text-anchor="middle" letter-spacing="2">SIFO</text>
+  <text x="100" y="225" font-family="Georgia, serif" font-size="10"
+        fill="#90b8e0" text-anchor="middle" letter-spacing="2" font-style="italic">Trovadora dos Ventos</text>
+  <line x1="55" y1="232" x2="88" y2="232" stroke="#5090c8" stroke-width="0.7" stroke-opacity="0.6"/>
+  <polygon points="100,228 104,236 96,236" fill="#5090c8" fill-opacity="0.7"/>
+  <line x1="112" y1="232" x2="145" y2="232" stroke="#5090c8" stroke-width="0.7" stroke-opacity="0.6"/>
+  <rect x="3" y="3" width="194" height="254" rx="8" fill="none" stroke="#5090c8" stroke-width="0.8" stroke-opacity="0.3"/>
+</svg>

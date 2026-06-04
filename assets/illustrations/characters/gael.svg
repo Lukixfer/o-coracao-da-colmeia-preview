@@ -1,0 +1,78 @@
+<!-- Gael — Mago de Luz, protagonista -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" width="200" height="260">
+  <defs>
+    <radialGradient id="bg_gael" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#0d0d18"/>
+    </radialGradient>
+    <radialGradient id="aura_luz" cx="50%" cy="42%" r="45%">
+      <stop offset="0%" stop-color="#f5f0a0" stop-opacity="0.4"/>
+      <stop offset="60%" stop-color="#f0c040" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#f0c040" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="circle_gael">
+      <circle cx="100" cy="105" r="78"/>
+    </clipPath>
+    <filter id="glow_soft">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Fundo -->
+  <rect width="200" height="260" fill="url(#bg_gael)" rx="8"/>
+  <!-- Moldura circular -->
+  <circle cx="100" cy="105" r="80" fill="#111128" stroke="#f0c040" stroke-width="2"/>
+  <!-- Aura de Luz -->
+  <circle cx="100" cy="105" r="78" fill="url(#aura_luz)"/>
+
+  <!-- Silhueta: torso -->
+  <ellipse cx="100" cy="172" rx="42" ry="28" fill="#0e0e20" clip-path="url(#circle_gael)"/>
+  <!-- Pescoço -->
+  <rect x="93" y="142" width="14" height="22" rx="4" fill="#c8a87a"/>
+  <!-- Rosto (oval) -->
+  <ellipse cx="100" cy="105" rx="30" ry="36" fill="#c8a87a"/>
+  <!-- Cabelo (escuro, levemente despentado) -->
+  <path d="M 70,100 Q 72,70 100,68 Q 128,70 130,100 Q 125,75 100,73 Q 75,75 70,100Z"
+        fill="#2a1800"/>
+  <path d="M 70,100 Q 68,88 72,80 Q 76,72 80,70" stroke="#2a1800" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M 130,100 Q 132,88 128,80 Q 124,72 120,70" stroke="#2a1800" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Olhos (brilho de luz) -->
+  <ellipse cx="88" cy="104" rx="6" ry="5" fill="#1a1018"/>
+  <ellipse cx="112" cy="104" rx="6" ry="5" fill="#1a1018"/>
+  <circle cx="88" cy="104" r="3.5" fill="#f5f0a0" fill-opacity="0.9"/>
+  <circle cx="112" cy="104" r="3.5" fill="#f5f0a0" fill-opacity="0.9"/>
+  <circle cx="89.5" cy="102.5" r="1.2" fill="white"/>
+  <circle cx="113.5" cy="102.5" r="1.2" fill="white"/>
+  <!-- Sobrancelhas (expressão contemplativa) -->
+  <path d="M 83,97 Q 88,95 93,97" stroke="#2a1800" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 107,97 Q 112,95 117,97" stroke="#2a1800" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Boca (suave, introspectiva) -->
+  <path d="M 93,120 Q 100,124 107,120" stroke="#a07050" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Orelhas -->
+  <ellipse cx="70" cy="108" rx="5" ry="8" fill="#c0a070"/>
+  <ellipse cx="130" cy="108" rx="5" ry="8" fill="#c0a070"/>
+  <!-- Partículas de Luz ao redor -->
+  <circle cx="55" cy="70" r="2.5" fill="#f5f0a0" fill-opacity="0.7" filter="url(#glow_soft)"/>
+  <circle cx="148" cy="78" r="2" fill="#f5f0a0" fill-opacity="0.6"/>
+  <circle cx="62" cy="130" r="1.5" fill="#f0c040" fill-opacity="0.8"/>
+  <circle cx="141" cy="125" r="2" fill="#f0c040" fill-opacity="0.7"/>
+  <circle cx="75" cy="52" r="1.5" fill="#f5f0a0" fill-opacity="0.5"/>
+  <circle cx="130" cy="50" r="2" fill="#f5f0a0" fill-opacity="0.6"/>
+  <circle cx="100" cy="35" r="1.5" fill="#f0c040" fill-opacity="0.8"/>
+  <!-- Roupas (Krawzer) visíveis pelo clip -->
+  <path d="M 58,170 Q 70,158 100,155 Q 130,158 142,170 L 145,185 Q 100,190 55,185Z"
+        fill="#2d4a2a" clip-path="url(#circle_gael)"/>
+
+  <!-- Nome e elemento -->
+  <text x="100" y="207" font-family="Georgia, serif" font-size="18" font-weight="bold"
+        fill="#f0c040" text-anchor="middle" letter-spacing="2">GAEL</text>
+  <text x="100" y="225" font-family="Georgia, serif" font-size="10"
+        fill="#d0d0d0" text-anchor="middle" letter-spacing="3" font-style="italic">Mago de Luz</text>
+  <!-- Divisor decorativo -->
+  <line x1="60" y1="232" x2="90" y2="232" stroke="#f0c040" stroke-width="0.7" stroke-opacity="0.6"/>
+  <polygon points="100,228 104,236 96,236" fill="#f0c040" fill-opacity="0.7"/>
+  <line x1="110" y1="232" x2="140" y2="232" stroke="#f0c040" stroke-width="0.7" stroke-opacity="0.6"/>
+  <!-- Moldura externa -->
+  <rect x="3" y="3" width="194" height="254" rx="8" fill="none" stroke="#f0c040" stroke-width="0.8" stroke-opacity="0.3"/>
+</svg>

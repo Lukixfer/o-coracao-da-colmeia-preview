@@ -1,0 +1,161 @@
+<!-- Objetos Mágicos — Bálsamo Azul e Pterofyllos + Obsidiana Viva -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 260" width="600" height="260">
+  <defs>
+    <radialGradient id="balsa_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#60c8ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0050a0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="obsidiana_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff6020" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#802010" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="ptero_glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#52b788" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#1a4a2a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="item_glow">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Fundo -->
+  <rect width="600" height="260" fill="#0a0a14" rx="10"/>
+  <rect x="3" y="3" width="594" height="254" rx="8" fill="none" stroke="#f0c040" stroke-width="0.7" stroke-opacity="0.3"/>
+
+  <!-- Título -->
+  <text x="300" y="25" font-family="Georgia, serif" font-size="13" font-weight="bold"
+        fill="#f0c040" text-anchor="middle" letter-spacing="3">ITENS MÁGICOS</text>
+  <line x1="80" y1="32" x2="520" y2="32" stroke="#f0c040" stroke-width="0.6" stroke-opacity="0.4"/>
+
+  <!-- ==================== -->
+  <!-- 1. BÁLSAMO AZUL      -->
+  <!-- ==================== -->
+  <g transform="translate(80, 140)">
+    <!-- Aura brilhante -->
+    <ellipse cx="0" cy="0" rx="55" ry="65" fill="url(#balsa_glow)"/>
+    <!-- Frasco (forma arredondada) -->
+    <!-- Corpo do frasco -->
+    <path d="M -20,40 Q -25,42 -25,30 L -25,-10 Q -25,-15 -18,-18 L -8,-28 L 8,-28 L 18,-18 Q 25,-15 25,-10 L 25,30 Q 25,42 20,40 Z"
+          fill="#0a2040" stroke="#0090d0" stroke-width="1.5"/>
+    <!-- Conteúdo (líquido azul brilhante) -->
+    <path d="M -22,38 Q -22,32 -22,20 L -22,-8 Q -22,-12 -16,-15 L -7,-24 L 7,-24 L 16,-15 Q 22,-12 22,-8 L 22,20 Q 22,32 22,38Z"
+          fill="#0060c0" fill-opacity="0.7"/>
+    <!-- Brilho interno (reflexo) -->
+    <ellipse cx="-8" cy="0" rx="5" ry="18" fill="#60c8ff" fill-opacity="0.35"/>
+    <!-- Bolhas mágicas dentro -->
+    <circle cx="5" cy="10" r="2.5" fill="#90d8ff" fill-opacity="0.5"/>
+    <circle cx="-5" cy="20" r="1.5" fill="#60c8ff" fill-opacity="0.6"/>
+    <circle cx="8" cy="25" r="2" fill="#90d8ff" fill-opacity="0.4"/>
+    <circle cx="-10" cy="5" r="1.5" fill="#60c8ff" fill-opacity="0.5"/>
+    <!-- Boca do frasco -->
+    <rect x="-8" y="-32" width="16" height="10" rx="3" fill="#1a3a5a" stroke="#0090d0" stroke-width="1.2"/>
+    <!-- Tampa -->
+    <rect x="-10" y="-40" width="20" height="10" rx="4" fill="#0060a0" stroke="#00b8ff" stroke-width="1.5"/>
+    <circle cx="0" cy="-40" r="3" fill="#00b8ff" fill-opacity="0.8" filter="url(#item_glow)"/>
+    <!-- Símbolo de água na tampa (onda) -->
+    <path d="M -7,-36 Q -3,-32 0,-36 Q 3,-32 7,-36" stroke="#00b8ff" stroke-width="1.2" fill="none" stroke-opacity="0.9"/>
+    <!-- Rótulo no frasco -->
+    <rect x="-18" y="5" width="36" height="20" rx="3" fill="#0a2040" stroke="#0060a0" stroke-width="0.8"/>
+    <text x="0" y="15" font-family="Georgia, serif" font-size="5.5" font-style="italic"
+          fill="#60c8ff" text-anchor="middle">bálsamo</text>
+    <text x="0" y="22" font-family="Georgia, serif" font-size="5.5" font-style="italic"
+          fill="#60c8ff" text-anchor="middle">azul</text>
+    <!-- Gotas caindo -->
+    <ellipse cx="15" cy="50" rx="3" ry="5" fill="#0090d0" fill-opacity="0.7"/>
+    <ellipse cx="10" cy="58" rx="2" ry="3.5" fill="#0090d0" fill-opacity="0.5"/>
+  </g>
+  <!-- Label Bálsamo -->
+  <text x="80" y="218" font-family="Georgia, serif" font-size="13" font-weight="bold"
+        fill="#0090d0" text-anchor="middle">Bálsamo Azul</text>
+  <text x="80" y="232" font-family="Georgia, serif" font-size="9" font-style="italic"
+        fill="#6090c0" text-anchor="middle">Criado por Coral (Aquanos)</text>
+  <text x="80" y="245" font-family="Georgia, serif" font-size="8"
+        fill="#4a6880" text-anchor="middle">Cura exaustão · restaura energia</text>
+
+  <!-- ==================== -->
+  <!-- 2. PTEROFYLLOS       -->
+  <!-- ==================== -->
+  <g transform="translate(300, 130)">
+    <!-- Aura da folha -->
+    <ellipse cx="0" cy="0" rx="80" ry="70" fill="url(#ptero_glow)"/>
+    <!-- Folha mágica gigante (virada diagonalmente para mostrar que é veículo) -->
+    <!-- Corpo da folha -->
+    <path d="M 0,55 Q -50,25 -55,-10 Q -58,-45 0,-60 Q 58,-45 55,-10 Q 50,25 0,55Z"
+          fill="#1a4a1a" stroke="#52b788" stroke-width="2" transform="rotate(-15)"/>
+    <!-- Nervura central -->
+    <line x1="0" y1="-55" x2="0" y2="50" stroke="#b7e4c7" stroke-width="1.5" stroke-opacity="0.9" transform="rotate(-15)"/>
+    <!-- Nervuras laterais -->
+    <g stroke="#95d5b2" stroke-width="0.9" fill="none" stroke-opacity="0.7" transform="rotate(-15)">
+      <path d="M 0,30 Q -30,20 -45,5"/>
+      <path d="M 0,30 Q 30,20 45,5"/>
+      <path d="M 0,10 Q -35,-5 -48,-18"/>
+      <path d="M 0,10 Q 35,-5 48,-18"/>
+      <path d="M 0,-10 Q -32,-22 -44,-33"/>
+      <path d="M 0,-10 Q 32,-22 44,-33"/>
+      <path d="M 0,-28 Q -22,-38 -32,-46"/>
+      <path d="M 0,-28 Q 22,-38 32,-46"/>
+    </g>
+    <!-- Reflexo luminoso da folha -->
+    <ellipse cx="-15" cy="-10" rx="15" ry="35" fill="#52b788" fill-opacity="0.2" transform="rotate(-25)"/>
+    <!-- Partículas mágicas ao redor -->
+    <circle cx="-60" cy="-20" r="2.5" fill="#b7e4c7" fill-opacity="0.8"/>
+    <circle cx="65" cy="-15" r="2" fill="#95d5b2" fill-opacity="0.7"/>
+    <circle cx="-55" cy="25" r="1.5" fill="#74c69d" fill-opacity="0.9"/>
+    <circle cx="58" cy="30" r="2" fill="#b7e4c7" fill-opacity="0.6"/>
+    <circle cx="0" cy="-70" r="2.5" fill="#52b788" fill-opacity="0.7"/>
+    <circle cx="-30" cy="55" r="1.5" fill="#95d5b2" fill-opacity="0.8"/>
+    <circle cx="35" cy="52" r="2" fill="#74c69d" fill-opacity="0.7"/>
+    <!-- Sombra/projeção de um passageiro (Gael em cima) — silhueta simples -->
+    <ellipse cx="5" cy="-18" rx="10" ry="14" fill="#1a1a0a" fill-opacity="0.5" transform="rotate(-15)"/>
+    <ellipse cx="5" cy="-26" rx="6" ry="8" fill="#1a1a0a" fill-opacity="0.6" transform="rotate(-15)"/>
+  </g>
+  <!-- Label Pterofyllos -->
+  <text x="300" y="218" font-family="Georgia, serif" font-size="13" font-weight="bold"
+        fill="#52b788" text-anchor="middle">Pterofyllos</text>
+  <text x="300" y="232" font-family="Georgia, serif" font-size="9" font-style="italic"
+        fill="#3a8a5a" text-anchor="middle">Folha mágica de transporte</text>
+  <text x="300" y="245" font-family="Georgia, serif" font-size="8"
+        fill="#2a5a3a" text-anchor="middle">Voo entre cidades de Krawzer</text>
+
+  <!-- ======================== -->
+  <!-- 3. OBSIDIANA VIVA        -->
+  <!-- ======================== -->
+  <g transform="translate(510, 140)">
+    <!-- Aura de calor/fogo -->
+    <ellipse cx="0" cy="0" rx="58" ry="65" fill="url(#obsidiana_glow)"/>
+    <!-- Fragmento de obsidiana (poliedro irregular) -->
+    <path d="M 0,-45 L 30,-20 L 35,15 L 15,45 L -15,45 L -35,15 L -30,-20 Z"
+          fill="#1a0a08" stroke="#c04010" stroke-width="1.5"/>
+    <!-- Fissuras incandescentes -->
+    <path d="M 0,-45 Q 5,-15 10,0 Q 15,15 8,40" stroke="#ff6020" stroke-width="2" fill="none" stroke-opacity="0.9" filter="url(#item_glow)"/>
+    <path d="M -30,-20 Q -10,-5 0,5 Q 10,15 30,-20" stroke="#e05010" stroke-width="1.5" fill="none" stroke-opacity="0.7"/>
+    <path d="M -35,15 Q -15,10 0,18 Q 18,25 35,15" stroke="#ff4000" stroke-width="1.2" fill="none" stroke-opacity="0.6"/>
+    <path d="M -15,45 Q -5,30 5,20 Q 15,28 15,45" stroke="#e05010" stroke-width="1.2" fill="none" stroke-opacity="0.7"/>
+    <!-- Brilho interno (magma) -->
+    <path d="M 0,-10 Q 10,0 8,15 Q 6,25 0,30 Q -6,25 -8,15 Q -10,0 0,-10Z"
+          fill="#ff4000" fill-opacity="0.3"/>
+    <!-- Reflexo superfície (obsidiana = brilhante) -->
+    <path d="M -28,-18 Q -15,-35 -5,-38" stroke="white" stroke-width="1.2" fill="none" stroke-opacity="0.25"/>
+    <!-- Calor irradiando (ondas) -->
+    <path d="M 0,-55 Q 8,-52 5,-45" stroke="#ff8040" stroke-width="0.8" fill="none" stroke-opacity="0.5"/>
+    <path d="M 40,5 Q 45,10 38,15" stroke="#ff6020" stroke-width="0.8" fill="none" stroke-opacity="0.5"/>
+    <path d="M -40,5 Q -45,10 -38,15" stroke="#ff6020" stroke-width="0.8" fill="none" stroke-opacity="0.5"/>
+    <!-- Faíscas -->
+    <circle cx="38" cy="-28" r="2" fill="#ff8020" fill-opacity="0.8"/>
+    <circle cx="-38" cy="-25" r="1.5" fill="#ff6010" fill-opacity="0.7"/>
+    <circle cx="5" cy="-55" r="2" fill="#ff9030" fill-opacity="0.9"/>
+    <circle cx="-42" cy="20" r="1.5" fill="#ff5010" fill-opacity="0.7"/>
+  </g>
+  <!-- Label Obsidiana -->
+  <text x="510" y="218" font-family="Georgia, serif" font-size="13" font-weight="bold"
+        fill="#e05010" text-anchor="middle">Obsidiana Viva</text>
+  <text x="510" y="232" font-family="Georgia, serif" font-size="9" font-style="italic"
+        fill="#a04010" text-anchor="middle">Item mágico dos Ígneos</text>
+  <text x="510" y="245" font-family="Georgia, serif" font-size="8"
+        fill="#804020" text-anchor="middle">Luz · calor · conduz magia de Fogo</text>
+
+  <!-- Divisórias decorativas entre itens -->
+  <line x1="170" y1="50" x2="170" y2="200" stroke="#f0c040" stroke-width="0.5" stroke-opacity="0.2"/>
+  <line x1="420" y1="50" x2="420" y2="200" stroke="#f0c040" stroke-width="0.5" stroke-opacity="0.2"/>
+</svg>

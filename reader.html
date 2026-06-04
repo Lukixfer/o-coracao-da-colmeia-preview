@@ -121,6 +121,17 @@
             height: calc(100vh - 80px);
         }
 
+        .sidebar-cover {
+            display: block;
+            width: 100%;
+            max-width: 160px;
+            margin: 0 auto 1.5rem;
+            filter: drop-shadow(0 4px 12px rgba(138,43,226,0.45));
+            transition: filter 0.3s;
+            border-radius: 4px;
+        }
+        .sidebar-cover:hover { filter: drop-shadow(0 4px 18px rgba(138,43,226,0.7)); }
+
         .sidebar h2 {
             color: var(--primary);
             margin-bottom: 1.5rem;
@@ -390,6 +401,14 @@
             margin-bottom: 1rem;
         }
 
+        .welcome-cover {
+            width: clamp(120px, 30%, 180px);
+            margin: 0 auto 1.5rem;
+            display: block;
+            filter: drop-shadow(0 6px 18px rgba(138,43,226,0.5));
+            border-radius: 4px;
+        }
+
         .welcome p {
             font-size: 1.2rem;
             margin-bottom: 2rem;
@@ -492,6 +511,7 @@
 
     <div class="container">
         <aside class="sidebar">
+            <img src="./assets/illustrations/capa.svg" alt="Capa do livro" class="sidebar-cover" loading="lazy"/>
             <h2 id="indexHeading">📖 Índice dos Capítulos</h2>
             <ul class="chapter-list" id="chapterList">
                 <!-- Será preenchido dinamicamente -->
@@ -504,6 +524,7 @@
                 <div class="nav-zone right" id="zoneNext" title="Próxima página"></div>
                 <div id="content">
                     <div class="welcome fade-in">
+                        <img src="./assets/illustrations/capa.svg" alt="Capa" class="welcome-cover" loading="lazy"/>
                         <h2 id="welcomeTitle">📚 Bem-vindo ao Leitor Digital</h2>
                         <p id="welcomeP1">Selecione um capítulo no índice à esquerda para começar sua jornada por <strong>O Coração da Colmeia</strong>.</p>
                         <p id="welcomeP2">Uma experiência de leitura imersiva pelos mundos de <em>Miraferro</em> e <em>Krawzer</em>, onde duas realidades se encontram através dos olhos de Gael.</p>
@@ -807,6 +828,19 @@
                 document.getElementById('content').innerHTML = `
                     <div class="fade-in">
                         <h1 class="chapter-title">${this.formatText(title)}</h1>
+                        <div style="text-align:center;margin:0.5rem 0 1.5rem;opacity:0.7;">
+                          <svg width="120" height="28" viewBox="0 0 120 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <g fill="#8A2BE2" opacity="0.85">
+                              <polygon points="14,2 20,8 20,16 14,22 8,16 8,8" opacity="0.5"/>
+                              <polygon points="30,2 36,8 36,16 30,22 24,16 24,8" opacity="0.7"/>
+                              <polygon points="46,2 52,8 52,16 46,22 40,16 40,8" opacity="1"/>
+                              <polygon points="62,2 68,8 68,16 62,22 56,16 56,8"/>
+                              <polygon points="78,2 84,8 84,16 78,22 72,16 72,8" opacity="1"/>
+                              <polygon points="94,2 100,8 100,16 94,22 88,16 88,8" opacity="0.7"/>
+                              <polygon points="110,2 116,8 116,16 110,22 104,16 104,8" opacity="0.5"/>
+                            </g>
+                          </svg>
+                        </div>
                         <div class="chapter-content" id="chapterContent">
                             ${paragraphs}
                         </div>

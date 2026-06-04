@@ -1,0 +1,200 @@
+<!-- Vinhetas de Capítulos — conjunto de ícones SVG reutilizáveis -->
+<!-- Cada <symbol> pode ser usado com <use href="#vinheta_N"/> -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="0" height="0" style="display:none">
+
+  <!-- VINHETA 1: Abelha (Capítulo 1 — Descoberta das abelhas) -->
+  <symbol id="vinheta_abelha" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" fill="#1a1000" stroke="#f0c040" stroke-width="2"/>
+    <ellipse cx="50" cy="55" rx="14" ry="9" fill="#f0c040"/>
+    <ellipse cx="44" cy="54" rx="8" ry="7" fill="#f5d030"/>
+    <line x1="45" y1="47" x2="45" y2="63" stroke="#1a1000" stroke-width="1.5"/>
+    <line x1="49" y1="46" x2="49" y2="64" stroke="#1a1000" stroke-width="1.5"/>
+    <line x1="53" y1="47" x2="53" y2="63" stroke="#1a1000" stroke-width="1.5"/>
+    <line x1="57" y1="48" x2="57" y2="62" stroke="#1a1000" stroke-width="1.2"/>
+    <ellipse cx="48" cy="48" rx="10" ry="5" fill="white" fill-opacity="0.45" transform="rotate(-20,48,48)"/>
+    <ellipse cx="56" cy="48" rx="10" ry="5" fill="white" fill-opacity="0.45" transform="rotate(20,56,48)"/>
+    <ellipse cx="47" cy="60" rx="8" ry="4" fill="white" fill-opacity="0.3" transform="rotate(15,47,60)"/>
+    <ellipse cx="55" cy="60" rx="8" ry="4" fill="white" fill-opacity="0.3" transform="rotate(-15,55,60)"/>
+    <line x1="42" y1="47" x2="37" y2="41" stroke="#1a1000" stroke-width="0.8"/>
+    <circle cx="37" cy="41" r="1.5" fill="#f0c040"/>
+    <line x1="45" y1="46" x2="41" y2="40" stroke="#1a1000" stroke-width="0.8"/>
+    <circle cx="41" cy="40" r="1.5" fill="#f0c040"/>
+  </symbol>
+
+  <!-- VINHETA 2: Engrenagem + Código (Miraferro/tecnologia) -->
+  <symbol id="vinheta_tech" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" fill="#0d0d18" stroke="#e94560" stroke-width="2"/>
+    <circle cx="50" cy="50" r="18" fill="none" stroke="#cc3350" stroke-width="3"/>
+    <circle cx="50" cy="50" r="10" fill="#cc3350" fill-opacity="0.3"/>
+    <g stroke="#e94560" stroke-width="3" fill="none">
+      <line x1="50" y1="20" x2="50" y2="30"/>
+      <line x1="50" y1="70" x2="50" y2="80"/>
+      <line x1="20" y1="50" x2="30" y2="50"/>
+      <line x1="70" y1="50" x2="80" y2="50"/>
+      <line x1="29" y1="29" x2="36" y2="36"/>
+      <line x1="64" y1="64" x2="71" y2="71"/>
+      <line x1="71" y1="29" x2="64" y2="36"/>
+      <line x1="36" y1="64" x2="29" y2="71"/>
+    </g>
+    <g stroke="#e94560" stroke-width="2" fill="#e94560">
+      <rect x="47" y="17" width="6" height="8" rx="1"/>
+      <rect x="47" y="75" width="6" height="8" rx="1"/>
+      <rect x="17" y="47" width="8" height="6" rx="1"/>
+      <rect x="75" y="47" width="8" height="6" rx="1"/>
+    </g>
+    <text x="50" y="54" font-family="'Courier New', monospace" font-size="12" font-weight="bold"
+          fill="#e94560" text-anchor="middle">01</text>
+  </symbol>
+
+  <!-- VINHETA 3: Folha mágica (Krawzer / pterofyllos) -->
+  <symbol id="vinheta_folha" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" fill="#0d1505" stroke="#52b788" stroke-width="2"/>
+    <path d="M 50,75 Q 25,60 22,40 Q 20,22 50,20 Q 80,22 78,40 Q 75,60 50,75Z"
+          fill="#2d6a1f" stroke="#52b788" stroke-width="1.5"/>
+    <!-- Nervuras -->
+    <line x1="50" y1="75" x2="50" y2="22" stroke="#b7e4c7" stroke-width="1.2" stroke-opacity="0.8"/>
+    <path d="M 50,55 Q 35,48 28,42" stroke="#95d5b2" stroke-width="0.8" fill="none" stroke-opacity="0.7"/>
+    <path d="M 50,55 Q 65,48 72,42" stroke="#95d5b2" stroke-width="0.8" fill="none" stroke-opacity="0.7"/>
+    <path d="M 50,45 Q 38,38 32,33" stroke="#95d5b2" stroke-width="0.7" fill="none" stroke-opacity="0.6"/>
+    <path d="M 50,45 Q 62,38 68,33" stroke="#95d5b2" stroke-width="0.7" fill="none" stroke-opacity="0.6"/>
+    <path d="M 50,35 Q 43,30 38,26" stroke="#95d5b2" stroke-width="0.6" fill="none" stroke-opacity="0.5"/>
+    <path d="M 50,35 Q 57,30 62,26" stroke="#95d5b2" stroke-width="0.6" fill="none" stroke-opacity="0.5"/>
+    <!-- Brilho mágico -->
+    <circle cx="50" cy="38" r="4" fill="#b7e4c7" fill-opacity="0.4"/>
+    <!-- Partículas -->
+    <circle cx="30" cy="62" r="1.5" fill="#74c69d" fill-opacity="0.8"/>
+    <circle cx="70" cy="60" r="1.5" fill="#74c69d" fill-opacity="0.8"/>
+    <circle cx="50" cy="80" r="2" fill="#52b788" fill-opacity="0.6"/>
+  </symbol>
+
+  <!-- VINHETA 4: Hexágono (Coração da Colmeia) -->
+  <symbol id="vinheta_colmeia" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" fill="#1a1200" stroke="#f0c040" stroke-width="2"/>
+    <!-- Favo central -->
+    <polygon points="50,30 60,24 70,30 70,42 60,48 50,42" fill="#2a2000" stroke="#f0c040" stroke-width="1.5"/>
+    <polygon points="30,30 40,24 50,30 50,42 40,48 30,42" fill="#2a2000" stroke="#d4a017" stroke-width="1.5"/>
+    <polygon points="70,30 80,24 90,30 90,42 80,48 70,42" fill="#2a2000" stroke="#d4a017" stroke-width="1.2"/>
+    <polygon points="40,48 50,42 60,48 60,60 50,66 40,60" fill="#302800" stroke="#f5d030" stroke-width="2"/>
+    <polygon points="20,48 30,42 40,48 40,60 30,66 20,60" fill="#2a2000" stroke="#d4a017" stroke-width="1.2"/>
+    <polygon points="60,48 70,42 80,48 80,60 70,66 60,60" fill="#2a2000" stroke="#d4a017" stroke-width="1.2"/>
+    <polygon points="50,66 60,60 70,66 70,78 60,84 50,78" fill="#2a2000" stroke="#d4a017" stroke-width="1.2"/>
+    <polygon points="30,66 40,60 50,66 50,78 40,84 30,78" fill="#2a2000" stroke="#d4a017" stroke-width="1.2"/>
+    <!-- Abelha pequena no centro -->
+    <ellipse cx="50" cy="54" rx="5" ry="3.5" fill="#f0c040"/>
+    <line x1="48" y1="51" x2="48" y2="57" stroke="#1a1000" stroke-width="0.8"/>
+    <line x1="51" y1="50.5" x2="51" y2="57.5" stroke="#1a1000" stroke-width="0.8"/>
+    <ellipse cx="49" cy="51" rx="4" ry="2.2" fill="white" fill-opacity="0.4" transform="rotate(-15,49,51)"/>
+    <ellipse cx="53" cy="51" rx="4" ry="2.2" fill="white" fill-opacity="0.4" transform="rotate(15,53,51)"/>
+  </symbol>
+
+  <!-- VINHETA 5: Espiral de Vento (Sifo) -->
+  <symbol id="vinheta_vento" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" fill="#060a14" stroke="#5090c8" stroke-width="2"/>
+    <path d="M 50,50 Q 65,35 75,45 Q 85,55 70,65 Q 55,75 40,62 Q 25,49 35,35 Q 45,21 62,26 Q 78,31 80,48"
+          stroke="#5090c8" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M 50,50 Q 58,42 63,47 Q 68,52 62,57 Q 56,62 50,57 Q 44,52 47,46"
+          stroke="#a0c8f0" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <circle cx="50" cy="50" r="3" fill="#5090c8"/>
+    <!-- Partículas de vento -->
+    <circle cx="35" cy="38" r="1.5" fill="#a0c8f0" fill-opacity="0.7"/>
+    <circle cx="68" cy="35" r="1.5" fill="#a0c8f0" fill-opacity="0.6"/>
+    <circle cx="72" cy="65" r="1.5" fill="#a0c8f0" fill-opacity="0.7"/>
+    <circle cx="33" cy="65" r="1.5" fill="#a0c8f0" fill-opacity="0.5"/>
+    <!-- Folha prateada (Sifo) -->
+    <ellipse cx="75" cy="30" rx="8" ry="4.5" fill="#c0d8f0" fill-opacity="0.8" transform="rotate(-40,75,30)"/>
+    <line x1="70" y1="33" x2="80" y2="27" stroke="#8ab8e0" stroke-width="0.8"/>
+  </symbol>
+
+  <!-- VINHETA 6: Luz pura (Gael / Fluxo Existencial) -->
+  <symbol id="vinheta_luz" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" fill="#0d0d1a" stroke="#f5f0a0" stroke-width="1.5"/>
+    <!-- Raios de luz -->
+    <g stroke="#f0c040" stroke-width="1.5" fill="none" stroke-linecap="round">
+      <line x1="50" y1="18" x2="50" y2="30"/>
+      <line x1="50" y1="70" x2="50" y2="82"/>
+      <line x1="18" y1="50" x2="30" y2="50"/>
+      <line x1="70" y1="50" x2="82" y2="50"/>
+      <line x1="27" y1="27" x2="35" y2="35"/>
+      <line x1="65" y1="65" x2="73" y2="73"/>
+      <line x1="73" y1="27" x2="65" y2="35"/>
+      <line x1="35" y1="65" x2="27" y2="73"/>
+    </g>
+    <!-- Raios menores -->
+    <g stroke="#d4a017" stroke-width="1" fill="none" stroke-opacity="0.6" stroke-linecap="round">
+      <line x1="50" y1="22" x2="50" y2="28"/>
+      <line x1="31" y1="31" x2="36" y2="36"/>
+      <line x1="69" y1="31" x2="64" y2="36"/>
+      <line x1="31" y1="69" x2="36" y2="64"/>
+      <line x1="69" y1="69" x2="64" y2="64"/>
+    </g>
+    <!-- Círculo de luz central -->
+    <circle cx="50" cy="50" r="16" fill="#f5f0a0" fill-opacity="0.15"/>
+    <circle cx="50" cy="50" r="10" fill="#f5f0a0" fill-opacity="0.25"/>
+    <circle cx="50" cy="50" r="5" fill="#f5f0a0" fill-opacity="0.8"/>
+    <circle cx="50" cy="50" r="2" fill="white"/>
+  </symbol>
+
+  <!-- VINHETA 7: Árvore das Raízes (Krawzer capital) -->
+  <symbol id="vinheta_raizes" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" fill="#080f05" stroke="#3a7a1a" stroke-width="2"/>
+    <!-- Tronco -->
+    <rect x="45" y="52" width="10" height="30" rx="4" fill="#5a3a10"/>
+    <!-- Copa principal -->
+    <circle cx="50" cy="42" rx="22" ry="22" r="22" fill="#3a7a1a"/>
+    <circle cx="37" cy="38" r="15" fill="#4a8a2a" fill-opacity="0.8"/>
+    <circle cx="63" cy="38" r="15" fill="#4a8a2a" fill-opacity="0.8"/>
+    <circle cx="50" cy="30" r="16" fill="#52b788" fill-opacity="0.6"/>
+    <!-- Raízes visíveis na base -->
+    <path d="M 45,82 Q 35,88 25,85" stroke="#5a3a10" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 50,82 Q 50,90 50,88" stroke="#5a3a10" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 55,82 Q 65,88 75,85" stroke="#5a3a10" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M 43,80 Q 30,82 22,78" stroke="#6b4a20" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <path d="M 57,80 Q 70,82 78,78" stroke="#6b4a20" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+    <!-- Partículas mágicas -->
+    <circle cx="32" cy="52" r="1.5" fill="#95d5b2" fill-opacity="0.8"/>
+    <circle cx="70" cy="48" r="1.5" fill="#95d5b2" fill-opacity="0.8"/>
+    <circle cx="50" cy="22" r="1.5" fill="#b7e4c7" fill-opacity="0.9"/>
+  </symbol>
+
+  <!-- VINHETA 8: IA / Circuito (Sophya) -->
+  <symbol id="vinheta_ia" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="45" fill="#04040c" stroke="#00e5ff" stroke-width="1.5"/>
+    <circle cx="50" cy="50" r="40" fill="none" stroke="#7c4dff" stroke-width="0.7" stroke-dasharray="3,3"/>
+    <!-- Circuito (linhas retas) -->
+    <g stroke="#00acc1" stroke-width="1.2" fill="none">
+      <line x1="20" y1="50" x2="35" y2="50"/>
+      <line x1="65" y1="50" x2="80" y2="50"/>
+      <line x1="50" y1="20" x2="50" y2="35"/>
+      <line x1="50" y1="65" x2="50" y2="80"/>
+      <line x1="35" y1="50" x2="35" y2="38"/>
+      <line x1="35" y1="38" x2="45" y2="38"/>
+      <line x1="65" y1="50" x2="65" y2="62"/>
+      <line x1="65" y1="62" x2="55" y2="62"/>
+      <line x1="50" y1="35" x2="62" y2="35"/>
+      <line x1="62" y1="35" x2="62" y2="43"/>
+      <line x1="50" y1="65" x2="38" y2="65"/>
+      <line x1="38" y1="65" x2="38" y2="57"/>
+    </g>
+    <!-- Nós do circuito -->
+    <g fill="#00e5ff">
+      <circle cx="35" cy="50" r="2.5"/>
+      <circle cx="65" cy="50" r="2.5"/>
+      <circle cx="50" cy="35" r="2.5"/>
+      <circle cx="50" cy="65" r="2.5"/>
+      <circle cx="45" cy="38" r="2"/>
+      <circle cx="55" cy="62" r="2"/>
+      <circle cx="62" cy="43" r="2"/>
+      <circle cx="38" cy="57" r="2"/>
+    </g>
+    <!-- Nó central (olho IA) -->
+    <circle cx="50" cy="50" r="10" fill="#040414" stroke="#00e5ff" stroke-width="1.5"/>
+    <circle cx="50" cy="50" r="6" fill="#00acc1" fill-opacity="0.5"/>
+    <circle cx="50" cy="50" r="3" fill="#00e5ff"/>
+    <circle cx="51.5" cy="48.5" r="1.5" fill="white" fill-opacity="0.9"/>
+  </symbol>
+
+</svg>
+
+<!-- ================================================ -->
+<!-- ARQUIVO DE DEMONSTRAÇÃO: mostra todas as vinhetas -->
+<!-- ================================================ -->

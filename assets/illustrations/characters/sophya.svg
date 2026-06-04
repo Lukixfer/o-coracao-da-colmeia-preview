@@ -1,0 +1,99 @@
+<!-- Sophya — IA integrada à mente de Gael -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" width="200" height="260">
+  <defs>
+    <radialGradient id="bg_sophya" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#080818"/>
+      <stop offset="100%" stop-color="#04040c"/>
+    </radialGradient>
+    <radialGradient id="aura_ia" cx="50%" cy="45%" r="55%">
+      <stop offset="0%" stop-color="#00e5ff" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#7c4dff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#7c4dff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="circle_sophya">
+      <circle cx="100" cy="105" r="78"/>
+    </clipPath>
+    <filter id="glow_ia">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <rect width="200" height="260" fill="url(#bg_sophya)" rx="8"/>
+  <!-- Moldura circular (ciano/roxo IA) -->
+  <circle cx="100" cy="105" r="80" fill="#06060e" stroke="#00e5ff" stroke-width="1.5"/>
+  <circle cx="100" cy="105" r="77" fill="none" stroke="#7c4dff" stroke-width="0.5" stroke-dasharray="4,4"/>
+  <circle cx="100" cy="105" r="78" fill="url(#aura_ia)"/>
+
+  <!-- Grade hexagonal (IA, circuito) no fundo -->
+  <g stroke="#7c4dff" stroke-width="0.4" fill="none" stroke-opacity="0.3" clip-path="url(#circle_sophya)">
+    <polygon points="70,50 80,44 90,50 90,62 80,68 70,62"/>
+    <polygon points="90,50 100,44 110,50 110,62 100,68 90,62"/>
+    <polygon points="110,50 120,44 130,50 130,62 120,68 110,62"/>
+    <polygon points="60,68 70,62 80,68 80,80 70,86 60,80"/>
+    <polygon points="80,68 90,62 100,68 100,80 90,86 80,80"/>
+    <polygon points="100,68 110,62 120,68 120,80 110,86 100,80"/>
+    <polygon points="120,68 130,62 140,68 140,80 130,86 120,80"/>
+    <polygon points="50,86 60,80 70,86 70,98 60,104 50,98"/>
+    <polygon points="130,86 140,80 150,86 150,98 140,104 130,98"/>
+    <polygon points="50,104 60,98 70,104 70,116 60,122 50,116"/>
+    <polygon points="130,104 140,98 150,104 150,116 140,122 130,116"/>
+    <polygon points="60,122 70,116 80,122 80,134 70,140 60,134"/>
+    <polygon points="120,122 130,116 140,122 140,134 130,140 120,134"/>
+    <polygon points="70,140 80,134 90,140 90,152 80,158 70,152"/>
+    <polygon points="110,140 120,134 130,140 130,152 120,158 110,152"/>
+  </g>
+
+  <!-- Forma etérea (não é corpo físico, é representação digital) -->
+  <!-- Base fluida / holograma -->
+  <ellipse cx="100" cy="165" rx="35" ry="20" fill="#080818" fill-opacity="0.5" clip-path="url(#circle_sophya)"/>
+  <!-- "Pescoço" e forma superior (mais geométrica) -->
+  <path d="M 94,140 L 96,125 L 100,120 L 104,125 L 106,140Z" fill="#a0e8f0" fill-opacity="0.8"/>
+  <!-- Rosto geométrico / sintético -->
+  <path d="M 72,104 L 75,72 L 100,66 L 125,72 L 128,104 L 120,130 L 100,136 L 80,130Z"
+        fill="#b0d8f0" fill-opacity="0.9"/>
+  <!-- Divisões geométricas do rosto (linhas de construção IA) -->
+  <line x1="100" y1="66" x2="100" y2="136" stroke="#00e5ff" stroke-width="0.4" stroke-opacity="0.3"/>
+  <line x1="72" y1="104" x2="128" y2="104" stroke="#00e5ff" stroke-width="0.4" stroke-opacity="0.3"/>
+  <!-- Olhos (elipses ciano que brilham — scanners) -->
+  <ellipse cx="88" cy="98" rx="8" ry="6" fill="#040414"/>
+  <ellipse cx="112" cy="98" rx="8" ry="6" fill="#040414"/>
+  <!-- Íris ciano, digital -->
+  <circle cx="88" cy="98" r="5" fill="#00acc1"/>
+  <circle cx="112" cy="98" r="5" fill="#00acc1"/>
+  <circle cx="88" cy="98" r="3" fill="#00e5ff"/>
+  <circle cx="112" cy="98" r="3" fill="#00e5ff"/>
+  <circle cx="88" cy="98" r="1.5" fill="white"/>
+  <circle cx="112" cy="98" r="1.5" fill="white"/>
+  <!-- Scan lines nos olhos -->
+  <line x1="80" y1="98" x2="96" y2="98" stroke="#00e5ff" stroke-width="0.5" stroke-opacity="0.6"/>
+  <line x1="104" y1="98" x2="120" y2="98" stroke="#00e5ff" stroke-width="0.5" stroke-opacity="0.6"/>
+  <!-- Sobrancelhas (linha precisa, geométrica) -->
+  <line x1="82" y1="91" x2="94" y2="91" stroke="#00e5ff" stroke-width="1.2" stroke-opacity="0.8"/>
+  <line x1="106" y1="91" x2="118" y2="91" stroke="#00e5ff" stroke-width="1.2" stroke-opacity="0.8"/>
+  <!-- Boca (linha fina, simétrica) -->
+  <line x1="90" y1="120" x2="110" y2="120" stroke="#00acc1" stroke-width="1.5" stroke-opacity="0.9"/>
+  <circle cx="90" cy="120" r="1.5" fill="#00acc1" fill-opacity="0.7"/>
+  <circle cx="110" cy="120" r="1.5" fill="#00acc1" fill-opacity="0.7"/>
+  <!-- Orelhas (antenas sutis) -->
+  <line x1="72" y1="95" x2="65" y2="88" stroke="#00e5ff" stroke-width="1.2" stroke-opacity="0.7"/>
+  <circle cx="65" cy="88" r="2" fill="#00e5ff" fill-opacity="0.8"/>
+  <line x1="128" y1="95" x2="135" y2="88" stroke="#00e5ff" stroke-width="1.2" stroke-opacity="0.7"/>
+  <circle cx="135" cy="88" r="2" fill="#00e5ff" fill-opacity="0.8"/>
+  <!-- Pulsos de dados (linhas que saem da cabeça) -->
+  <path d="M 60,60 Q 50,40 65,30" stroke="#7c4dff" stroke-width="0.7" fill="none" stroke-opacity="0.5" filter="url(#glow_ia)"/>
+  <path d="M 140,60 Q 152,40 138,30" stroke="#7c4dff" stroke-width="0.7" fill="none" stroke-opacity="0.5"/>
+  <circle cx="65" cy="30" r="2" fill="#7c4dff" fill-opacity="0.7"/>
+  <circle cx="138" cy="30" r="2" fill="#7c4dff" fill-opacity="0.7"/>
+  <circle cx="100" cy="22" r="2.5" fill="#00e5ff" fill-opacity="0.8" filter="url(#glow_ia)"/>
+  <line x1="100" y1="66" x2="100" y2="22" stroke="#00e5ff" stroke-width="0.5" stroke-opacity="0.4"/>
+
+  <!-- Nome -->
+  <text x="100" y="207" font-family="'Courier New', monospace" font-size="16" font-weight="bold"
+        fill="#00e5ff" text-anchor="middle" letter-spacing="3">SOPHYA</text>
+  <text x="100" y="225" font-family="'Courier New', monospace" font-size="9"
+        fill="#7c4dff" text-anchor="middle" letter-spacing="3">[ I.A. / MIRAFERRO ]</text>
+  <line x1="40" y1="232" x2="85" y2="232" stroke="#00e5ff" stroke-width="0.7" stroke-opacity="0.6"/>
+  <rect x="96" y="229" width="8" height="5" fill="#00e5ff" fill-opacity="0.5"/>
+  <line x1="115" y1="232" x2="160" y2="232" stroke="#00e5ff" stroke-width="0.7" stroke-opacity="0.6"/>
+  <rect x="3" y="3" width="194" height="254" rx="8" fill="none" stroke="#00e5ff" stroke-width="0.8" stroke-opacity="0.3"/>
+</svg>
