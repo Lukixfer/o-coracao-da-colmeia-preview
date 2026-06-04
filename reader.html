@@ -1,107 +1,115 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O Coração da Colmeia - Leitor Digital</title>
-    <meta name="description" content="Leitor digital de O Coração da Colmeia. Uma experiência de leitura imersiva página por página.">
+    <title>O CoraÃ§Ã£o da Colmeia - Leitor Digital</title>
+    <meta name="description" content="Leitor digital de O CoraÃ§Ã£o da Colmeia. Uma experiÃªncia de leitura imersiva pÃ¡gina por pÃ¡gina.">
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #8A2BE2;
-            --primary-dark: #6A1B9A;
-            --bg: #1a1a1a;
-            --surface: #2d2d2d;
-            --surface-light: #3d3d3d;
-            --text-muted: #b8b8b8;
-            --text-accent: #ffd700;
-            --border: #444;
-            --shadow: rgba(0, 0, 0, 0.3);
+            --primary: #7C3AED;
+            --primary-dark: #5b21b6;
+            --primary-glow: rgba(124,58,237,.35);
+            --bg: #13111a;
+            --surface: #1e1b28;
+            --surface-light: #2a2638;
+            --text: #e8e4f0;
+            --text-muted: #9b93ae;
+            --text-accent: #fbbf24;
+            --border: #332e45;
+            --shadow: rgba(0,0,0,.4);
             --page-bg: #faf8f5;
-            --page-text: #2c2c2c;
-            --page-shadow: rgba(0, 0, 0, 0.1);
-            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            --page-text: #1c1612;
+            --page-shadow: rgba(0,0,0,.12);
+            --gradient: linear-gradient(135deg, #7C3AED 0%, #5b21b6 100%);
+            --gold: #c9a227;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: 'Lora', 'Georgia', serif;
             background: var(--bg);
+            background-image: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124,58,237,.12), transparent);
             color: var(--text);
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.7;
         }
 
-        /* Header com navegação */
+        /* â”€â”€ HEADER â”€â”€ */
         .header {
             background: var(--surface);
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 10px var(--shadow);
+            padding: .85rem 2rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,.4);
             position: sticky;
             top: 0;
             z-index: 100;
             border-bottom: 2px solid var(--primary);
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: .4;
         }
 
         .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
             color: var(--primary);
             text-decoration: none;
+            letter-spacing: .04em;
+            transition: color .2s;
         }
+        .logo:hover { color: #a78bfa; }
 
-        .nav-controls {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
+        .nav-controls { display: flex; gap: .75rem; align-items: center; }
 
         .btn {
             background: var(--gradient);
             color: white;
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
+            padding: .45rem 1rem;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: .88rem;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
+            font-family: inherit;
+            letter-spacing: .02em;
         }
-
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 4px 16px var(--primary-glow);
         }
-
         .btn-secondary {
             background: var(--surface-light);
             border: 1px solid var(--border);
         }
-
-        .btn-secondary:hover {
-            background: var(--primary);
-        }
+        .btn-secondary:hover { background: var(--primary-dark); }
 
         /* Visibilidade condicional */
         #toggleSidebar { display: none; }
 
-        /* Container principal */
+        /* â”€â”€ LAYOUT â”€â”€ */
         .container {
             display: flex;
             max-width: 1400px;
@@ -109,129 +117,137 @@
             min-height: calc(100vh - 80px);
         }
 
-        /* Sidebar com índice */
+        /* â”€â”€ SIDEBAR â”€â”€ */
         .sidebar {
             width: 300px;
             background: var(--surface);
-            padding: 2rem;
+            padding: 1.75rem;
             border-right: 1px solid var(--border);
             overflow-y: auto;
             position: sticky;
-            top: 80px;
-            height: calc(100vh - 80px);
+            top: 62px;
+            height: calc(100vh - 62px);
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--surface-light);
         }
 
         .sidebar-cover {
             display: block;
             width: 100%;
-            max-width: 160px;
+            max-width: 150px;
             margin: 0 auto 1.5rem;
-            filter: drop-shadow(0 4px 12px rgba(138,43,226,0.45));
-            transition: filter 0.3s;
-            border-radius: 4px;
+            filter: drop-shadow(0 6px 16px var(--primary-glow));
+            transition: filter 0.3s, transform .3s;
+            border-radius: 6px;
         }
-        .sidebar-cover:hover { filter: drop-shadow(0 4px 18px rgba(138,43,226,0.7)); }
+        .sidebar-cover:hover {
+            filter: drop-shadow(0 8px 22px var(--primary-glow));
+            transform: scale(1.03);
+        }
 
         .sidebar h2 {
             color: var(--primary);
-            margin-bottom: 1.5rem;
-            font-size: 1.2rem;
+            margin-bottom: 1.25rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: .6rem;
         }
 
-        .chapter-list {
-            list-style: none;
-        }
-
-        .chapter-item {
-            margin-bottom: 0.5rem;
-        }
-
+        .chapter-list { list-style: none; }
+        .chapter-item { margin-bottom: .35rem; }
         .chapter-link {
             display: block;
-            padding: 0.8rem;
+            padding: .65rem .85rem;
             color: var(--text-muted);
             text-decoration: none;
-            border-radius: 6px;
-            transition: all 0.3s ease;
+            border-radius: 8px;
+            transition: all 0.25s ease;
             border-left: 3px solid transparent;
+            font-size: .92rem;
         }
-
-        .chapter-link:hover,
-        .chapter-link.active {
+        .chapter-link:hover, .chapter-link.active {
             color: var(--text);
             background: var(--surface-light);
             border-left-color: var(--primary);
         }
+        .chapter-link.active { color: #a78bfa; font-weight: 600; }
+        .chapter-number { color: var(--primary); font-weight: bold; }
 
-        .chapter-number {
-            color: var(--primary);
-            font-weight: bold;
-        }
-
-        /* Área de leitura */
+        /* â”€â”€ READER AREA â”€â”€ */
         .reader-area {
             flex: 1;
             padding: 2rem;
             display: flex;
             justify-content: center;
-            padding-bottom: 160px; /* espaço para o menu fixo não cobrir o texto */
+            padding-bottom: 160px;
         }
 
-        /* Página do livro */
+        /* â”€â”€ BOOK PAGE â”€â”€ */
         .book-page {
             background: var(--page-bg);
             color: var(--page-text);
-            max-width: 800px;
+            max-width: 820px;
             width: 100%;
-            padding: 3rem;
-            margin-bottom: 180px; /* espaço extra para não ficar sob o menu fixo */
-            border-radius: 12px;
-            box-shadow: 0 8px 32px var(--page-shadow);
-            font-size: 1.1rem;
-            line-height: 1.8;
+            padding: 3.5rem 3.5rem 3rem;
+            margin-bottom: 180px;
+            border-radius: 16px;
+            box-shadow:
+                0 2px 0 rgba(255,255,255,.08),
+                0 12px 40px var(--page-shadow),
+                0 0 0 1px rgba(0,0,0,.06);
+            font-size: 1.08rem;
+            line-height: 1.9;
             position: relative;
             min-height: 600px;
+        }
+        .book-page::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--gold) 50%, var(--primary) 100%);
+            border-radius: 16px 16px 0 0;
+            opacity: .6;
         }
 
         .chapter-title {
             color: var(--primary-dark);
-            font-size: 2rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.9rem;
             text-align: center;
             margin-bottom: 2rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid var(--primary);
-            font-family: 'Georgia', serif;
+            border-bottom: 1px solid #d4caed;
+            letter-spacing: .04em;
         }
 
         .chapter-content {
             text-align: justify;
             text-indent: 2rem;
-            /* A altura será medida dinamicamente para paginação */
             min-height: 300px;
             position: relative;
             overflow: hidden;
             hyphens: auto;
             -webkit-hyphens: auto;
-            -ms-hyphens: auto;
-        }        .chapter-content p {
-            margin-bottom: 1.5rem;
         }
-
+        .chapter-content p { margin-bottom: 1.5rem; }
         .chapter-content p:first-child {
             text-indent: 0;
-            font-size: 1.15rem;
+            font-size: 1.12rem;
             font-weight: 500;
         }
 
         .dialogue {
             margin-left: 1.5rem;
             font-style: italic;
-            color: #444;
+            color: #3d2f5f;
             position: relative;
         }
-
         .dialogue::before {
-            content: '—';
+            content: 'â€”';
             position: absolute;
             left: -1.5rem;
             color: var(--primary);
@@ -239,272 +255,191 @@
             font-style: normal;
         }
 
-        .character-name {
-            color: var(--primary-dark);
-            font-weight: 600;
-        }
+        .character-name { color: var(--primary-dark); font-weight: 600; }
 
-        /* Paginação interna (páginas) */
-        .pages-holder {
-            position: relative;
-            width: 100%;
-            min-height: 350px;
-        }
-
-        .page {
-            display: none;
-            width: 100%;
-            min-height: 300px;
-        }
-
+        /* â”€â”€ PAGINATION â”€â”€ */
+        .pages-holder { position: relative; width: 100%; min-height: 350px; }
+        .page { display: none; width: 100%; min-height: 300px; }
         .page.active {
             display: block;
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn .4s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
-        /* Controles de navegação da página */
+        /* â”€â”€ NAV ZONES â”€â”€ */
+        .nav-zone {
+            position: absolute;
+            top: 0; bottom: 140px;
+            width: 25%;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .nav-zone.left  { left: 0; }
+        .nav-zone.right { right: 0; }
+
+        /* â”€â”€ PAGE CONTROLS â”€â”€ */
         .page-controls {
             position: fixed;
-            bottom: 2rem;
+            bottom: 1.5rem;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 1rem;
+            gap: .75rem;
             background: var(--surface);
-            padding: 1rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 16px var(--shadow);
+            padding: .85rem 1.25rem;
+            border-radius: 50px;
+            box-shadow: 0 8px 28px rgba(0,0,0,.5), 0 0 0 1px var(--border);
             border: 1px solid var(--border);
             z-index: 1000;
+            backdrop-filter: blur(8px);
         }
 
         .page-info {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: .75rem;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: .85rem;
             flex-direction: column;
         }
-
         .progress-bar {
-            width: 200px;
-            height: 4px;
+            width: 160px;
+            height: 3px;
             background: var(--border);
             border-radius: 2px;
             overflow: hidden;
-            margin-top: 0.5rem;
         }
-
         .progress-fill {
             height: 100%;
-            background: var(--primary);
+            background: linear-gradient(90deg, var(--primary), var(--gold));
             width: 0%;
-            transition: width 0.3s ease;
+            transition: width 0.4s ease;
             border-radius: 2px;
         }
 
-        /* Estados de loading */
+        /* â”€â”€ LOADING â”€â”€ */
         .loading {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 400px;
             color: var(--text-muted);
+            gap: 1rem;
         }
-
         .loading::after {
             content: '';
-            width: 40px;
-            height: 40px;
-            border: 4px solid var(--border);
+            width: 36px;
+            height: 36px;
+            border: 3px solid var(--border);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin-left: 1rem;
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        /* â”€â”€ SLIDER + MODAL â”€â”€ */
+        .page-slider { display: flex; align-items: center; gap: .5rem; }
+        .page-slider input[type="range"] { width: 160px; accent-color: var(--primary); }
 
-        /* Zonas de clique para navegação por toque/click */
-        .nav-zone {
-            position: absolute;
-            top: 0;
-            bottom: 140px; /* não cobrir a área dos controles fixos */
-            width: 25%;
-            cursor: pointer;
-            z-index: 10;
-            pointer-events: auto;
-        }
-        .nav-zone.left { left: 0; }
-        .nav-zone.right { right: 0; }
-        .nav-zone:hover { background: transparent; }
-
-        /* Slider de página inline */
-        .page-slider {
-            display: flex;
-            align-items: center;
-            gap: .5rem;
-        }
-        .page-slider input[type="range"] {
-            width: 180px;
-        }
-
-        /* Modal de ajustes */
         .modal.hidden { display: none; }
         .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,.65);
+            display: flex; align-items: center; justify-content: center;
             z-index: 200;
+            backdrop-filter: blur(4px);
         }
         .modal .card {
             background: var(--surface);
             color: var(--text);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1rem 1.25rem;
-            min-width: 280px;
-            max-width: 420px;
-            box-shadow: 0 10px 30px var(--shadow);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            min-width: 300px;
+            max-width: 440px;
+            box-shadow: 0 16px 48px rgba(0,0,0,.5);
         }
-        .modal header { display:flex; align-items:center; justify-content:space-between; margin-bottom:.5rem; }
-        .modal h3 { margin: 0; font-size: 1.1rem; color: var(--primary); }
-        .modal .row { display:flex; align-items:center; justify-content:space-between; gap: .75rem; margin: .5rem 0; }
-        .modal label { font-size: .95rem; color: var(--text-muted); }
-        .modal input[type="range"] { width: 180px; }
-        .modal .actions { display:flex; justify-content:flex-end; gap:.5rem; margin-top:.5rem; }
+        .modal header { display:flex; align-items:center; justify-content:space-between; margin-bottom:.75rem; }
+        .modal h3 { margin:0; font-size:1.1rem; color: var(--primary); font-family:'Cinzel',serif; }
+        .modal .row { display:flex; align-items:center; justify-content:space-between; gap:.75rem; margin:.6rem 0; }
+        .modal label { font-size:.9rem; color:var(--text-muted); }
+        .modal input[type="range"] { width: 180px; accent-color: var(--primary); }
+        .modal .actions { display:flex; justify-content:flex-end; gap:.5rem; margin-top:.75rem; }
 
-        /* Botões desabilitados mais claros */
-        .btn[disabled] { opacity: .5; cursor: not-allowed; }
+        .btn[disabled] { opacity:.45; cursor:not-allowed; }
 
-        /* Welcome screen */
+        /* â”€â”€ WELCOME SCREEN â”€â”€ */
         .welcome {
             text-align: center;
             padding: 4rem 2rem;
             color: var(--text-muted);
         }
-
         .welcome h2 {
             color: var(--primary);
-            font-size: 2.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
             margin-bottom: 1rem;
+            letter-spacing: .04em;
         }
-
         .welcome-cover {
-            width: clamp(120px, 30%, 180px);
-            margin: 0 auto 1.5rem;
+            width: clamp(110px, 28%, 170px);
+            margin: 0 auto 1.75rem;
             display: block;
-            filter: drop-shadow(0 6px 18px rgba(138,43,226,0.5));
-            border-radius: 4px;
+            filter: drop-shadow(0 8px 24px var(--primary-glow));
+            border-radius: 6px;
+            transition: transform .3s, filter .3s;
         }
-
+        .welcome-cover:hover {
+            transform: scale(1.04) rotate(-1deg);
+            filter: drop-shadow(0 12px 32px var(--primary-glow));
+        }
         .welcome p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
+            font-size: 1.12rem;
+            margin-bottom: 1.25rem;
+            max-width: 580px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.8;
         }
 
-        /* (removido) aviso WIP EN */
+        /* â”€â”€ SIDEBAR COVER â”€â”€ */
+        .sidebar-cover-link { display: block; }
 
-        /* Responsividade */
+        /* â”€â”€ SCROLLBAR â”€â”€ */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--surface); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+        /* â”€â”€ RESPONSIVE â”€â”€ */
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: static;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); top: auto; }
             .sidebar.collapsed { display: none; }
-
             #toggleSidebar { display: inline-flex; }
-
-            .book-page {
-                margin-bottom: 80px;
-            }
-
-            .header {
-                padding: 1rem;
-            }
-
-            .nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .book-page {
-                padding: 2rem 1.5rem;
-                margin: 0 1rem;
-            }
-
-            .page-controls {
-                position: static;
-                transform: none;
-                margin: 2rem auto;
-                width: fit-content;
-            }
-
+            .book-page { padding: 2rem 1.5rem; margin: 0 .5rem; }
+            .page-controls { position: static; transform: none; border-radius: 12px; margin: 1.5rem auto; width: fit-content; }
             .page-slider { display: none; }
-
-            .reader-area {
-                padding: 1rem;
-            }
+            .reader-area { padding: 1rem; }
+            .header { padding: .85rem 1rem; }
+            .nav { flex-wrap: wrap; gap: .5rem; }
         }
 
-        /* Animações */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Scrollbar customizada */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--surface);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-dark);
-        }
+        .fade-in { animation: fadeIn .5s ease-in-out; }
     </style>
 </head>
 <body>
     <header class="header">
         <nav class="nav">
-            <a href="index.html" class="logo" id="logoTitle">📚 O Coração da Colmeia</a>
+            <a href="index.html" class="logo" id="logoTitle">ðŸ“š O CoraÃ§Ã£o da Colmeia</a>
             <div class="nav-controls">
-                <button class="btn btn-secondary" id="toggleSidebar">☰ Índice</button>
-                <a href="index.html" class="btn btn-secondary" id="backHome">← Voltar ao Início</a>
-                <button class="btn" id="toggleTheme">🌙 Tema Escuro</button>
+                <button class="btn btn-secondary" id="toggleSidebar">â˜° Ãndice</button>
+                <a href="index.html" class="btn btn-secondary" id="backHome">â† Voltar ao InÃ­cio</a>
+                <button class="btn" id="toggleTheme">ðŸŒ™ Tema Escuro</button>
             </div>
         </nav>
     </header>
@@ -512,22 +447,22 @@
     <div class="container">
         <aside class="sidebar">
             <img src="./assets/illustrations/capa.svg" alt="Capa do livro" class="sidebar-cover" loading="lazy"/>
-            <h2 id="indexHeading">📖 Índice dos Capítulos</h2>
+            <h2 id="indexHeading">ðŸ“– Ãndice dos CapÃ­tulos</h2>
             <ul class="chapter-list" id="chapterList">
-                <!-- Será preenchido dinamicamente -->
+                <!-- SerÃ¡ preenchido dinamicamente -->
             </ul>
         </aside>
 
         <main class="reader-area">
             <div class="book-page">
-                <div class="nav-zone left" id="zonePrev" title="Página anterior"></div>
-                <div class="nav-zone right" id="zoneNext" title="Próxima página"></div>
+                <div class="nav-zone left" id="zonePrev" title="PÃ¡gina anterior"></div>
+                <div class="nav-zone right" id="zoneNext" title="PrÃ³xima pÃ¡gina"></div>
                 <div id="content">
                     <div class="welcome fade-in">
                         <img src="./assets/illustrations/capa.svg" alt="Capa" class="welcome-cover" loading="lazy"/>
-                        <h2 id="welcomeTitle">📚 Bem-vindo ao Leitor Digital</h2>
-                        <p id="welcomeP1">Selecione um capítulo no índice à esquerda para começar sua jornada por <strong>O Coração da Colmeia</strong>.</p>
-                        <p id="welcomeP2">Uma experiência de leitura imersiva pelos mundos de <em>Miraferro</em> e <em>Krawzer</em>, onde duas realidades se encontram através dos olhos de Gael.</p>
+                        <h2 id="welcomeTitle">ðŸ“š Bem-vindo ao Leitor Digital</h2>
+                        <p id="welcomeP1">Selecione um capÃ­tulo no Ã­ndice Ã  esquerda para comeÃ§ar sua jornada por <strong>O CoraÃ§Ã£o da Colmeia</strong>.</p>
+                        <p id="welcomeP2">Uma experiÃªncia de leitura imersiva pelos mundos de <em>Miraferro</em> e <em>Krawzer</em>, onde duas realidades se encontram atravÃ©s dos olhos de Gael.</p>
                     </div>
                 </div>
             </div>
@@ -535,9 +470,9 @@
     </div>
 
     <div class="page-controls">
-        <button class="btn btn-secondary" id="prevPage" disabled>← Página</button>
+        <button class="btn btn-secondary" id="prevPage" disabled>â† PÃ¡gina</button>
         <div class="page-info">
-            <span id="currentChapter">Selecione um capítulo</span>
+            <span id="currentChapter">Selecione um capÃ­tulo</span>
             <span id="pageIndicator"></span>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
@@ -546,10 +481,10 @@
         <div class="page-slider">
             <input type="range" id="pageRange" min="1" max="1" value="1" />
         </div>
-        <button class="btn btn-secondary" id="nextPage" disabled>Página →</button>
-        <button class="btn btn-secondary" id="prevChapter" disabled style="margin-left: 1rem;">⏮ Capítulo</button>
-        <button class="btn btn-secondary" id="nextChapter" disabled>Capítulo ⏭</button>
-        <button class="btn" id="openSettings" title="Ajustes de leitura">⚙️</button>
+        <button class="btn btn-secondary" id="nextPage" disabled>PÃ¡gina â†’</button>
+        <button class="btn btn-secondary" id="prevChapter" disabled style="margin-left: 1rem;">â® CapÃ­tulo</button>
+        <button class="btn btn-secondary" id="nextChapter" disabled>CapÃ­tulo â­</button>
+        <button class="btn" id="openSettings" title="Ajustes de leitura">âš™ï¸</button>
     </div>
 
     <!-- Modal de ajustes de leitura -->
@@ -568,11 +503,11 @@
                 <input type="range" id="lineHeightRange" min="16" max="22" value="18" />
             </div>
             <div class="row">
-                <label for="pageWidthRange">Largura da página</label>
+                <label for="pageWidthRange">Largura da pÃ¡gina</label>
                 <input type="range" id="pageWidthRange" min="640" max="900" value="800" />
             </div>
             <div class="actions">
-                <button class="btn btn-secondary" id="resetSettings">Restaurar padrão</button>
+                <button class="btn btn-secondary" id="resetSettings">Restaurar padrÃ£o</button>
             </div>
         </div>
     </div>
@@ -585,49 +520,49 @@
                 this.pages = [];
                 this.currentPageIndex = 0;
                 this.onResize = null;
-                // Flags de controle de navegação/paginação
-                this.forceFirstPage = false;       // força abrir página 1 após troca de capítulo
+                // Flags de controle de navegaÃ§Ã£o/paginaÃ§Ã£o
+                this.forceFirstPage = false;       // forÃ§a abrir pÃ¡gina 1 apÃ³s troca de capÃ­tulo
                 this.restoreOnPaginate = false;     // controla se deve restaurar progresso do storage
                 this.settings = this.loadSettings();
                 // Idioma: pt (default) ou en via query string ?lang=en
                 const params = new URLSearchParams(window.location.search);
                 this.lang = (params.get('lang') || 'pt').toLowerCase();
                 this.i18n = this.lang === 'en' ? {
-                    backHome: '← Back to Home',
-                    indexHeading: '📖 Chapter Index',
-                    welcomeTitle: '📚 Welcome to the Digital Reader',
-                    welcomeP1: 'Select a chapter on the left to begin your journey through O Coração da Colmeia.',
+                    backHome: 'â† Back to Home',
+                    indexHeading: 'ðŸ“– Chapter Index',
+                    welcomeTitle: 'ðŸ“š Welcome to the Digital Reader',
+                    welcomeP1: 'Select a chapter on the left to begin your journey through O CoraÃ§Ã£o da Colmeia.',
                     welcomeP2: 'An immersive, page-by-page reading experience across the worlds of Miraferro and Krawzer.',
                     selectChapter: 'Select a chapter',
-                    prevPage: '← Page',
-                    nextPage: 'Page →',
-                    prevChapter: '⏮ Chapter',
-                    nextChapter: 'Chapter ⏭',
-                    pageOf: (i, total) => `— Page ${i} of ${total}`,
+                    prevPage: 'â† Page',
+                    nextPage: 'Page â†’',
+                    prevChapter: 'â® Chapter',
+                    nextChapter: 'Chapter â­',
+                    pageOf: (i, total) => `â€” Page ${i} of ${total}`,
                     chapterLabel: (n, title) => `Chapter ${n}: ${title}`,
                     chapterShort: 'Ch.',
-                    themeDark: '🌙 Dark Theme',
-                    themeLight: '🌞 Light Theme',
-                    loading: 'Loading chapter…',
+                    themeDark: 'ðŸŒ™ Dark Theme',
+                    themeLight: 'ðŸŒž Light Theme',
+                    loading: 'Loading chapterâ€¦',
                     failed: (id) => `Could not load chapter ${id}.`
                 } : {
-                    backHome: '← Voltar ao Início',
-                    indexHeading: '📖 Índice dos Capítulos',
-                    welcomeTitle: '📚 Bem-vindo ao Leitor Digital',
-                    welcomeP1: 'Selecione um capítulo no índice à esquerda para começar sua jornada por O Coração da Colmeia.',
-                    welcomeP2: 'Uma experiência de leitura imersiva pelos mundos de Miraferro e Krawzer, onde duas realidades se encontram através dos olhos de Gael.',
-                    selectChapter: 'Selecione um capítulo',
-                    prevPage: '← Página',
-                    nextPage: 'Página →',
-                    prevChapter: '⏮ Capítulo',
-                    nextChapter: 'Capítulo ⏭',
-                    pageOf: (i, total) => `— Página ${i} de ${total}`,
-                    chapterLabel: (n, title) => `Capítulo ${n}: ${title}`,
+                    backHome: 'â† Voltar ao InÃ­cio',
+                    indexHeading: 'ðŸ“– Ãndice dos CapÃ­tulos',
+                    welcomeTitle: 'ðŸ“š Bem-vindo ao Leitor Digital',
+                    welcomeP1: 'Selecione um capÃ­tulo no Ã­ndice Ã  esquerda para comeÃ§ar sua jornada por O CoraÃ§Ã£o da Colmeia.',
+                    welcomeP2: 'Uma experiÃªncia de leitura imersiva pelos mundos de Miraferro e Krawzer, onde duas realidades se encontram atravÃ©s dos olhos de Gael.',
+                    selectChapter: 'Selecione um capÃ­tulo',
+                    prevPage: 'â† PÃ¡gina',
+                    nextPage: 'PÃ¡gina â†’',
+                    prevChapter: 'â® CapÃ­tulo',
+                    nextChapter: 'CapÃ­tulo â­',
+                    pageOf: (i, total) => `â€” PÃ¡gina ${i} de ${total}`,
+                    chapterLabel: (n, title) => `CapÃ­tulo ${n}: ${title}`,
                     chapterShort: 'Cap.',
-                    themeDark: '🌙 Tema Escuro',
-                    themeLight: '🌞 Tema Claro',
-                    loading: 'Carregando capítulo…',
-                    failed: (id) => `Não foi possível carregar o capítulo ${id}.`
+                    themeDark: 'ðŸŒ™ Tema Escuro',
+                    themeLight: 'ðŸŒž Tema Claro',
+                    loading: 'Carregando capÃ­tuloâ€¦',
+                    failed: (id) => `NÃ£o foi possÃ­vel carregar o capÃ­tulo ${id}.`
                 };
                 this.init();
             }
@@ -651,13 +586,13 @@
                         const text = await response.text();
                         const firstLine = text.split('\n')[0].trim();
 
-                        // Extrair título da primeira linha (suporta PT e EN)
+                        // Extrair tÃ­tulo da primeira linha (suporta PT e EN)
                         let title = null;
-                        const mPt = firstLine.match(/Capítulo\s+\d+:\s*(.+)/i);
+                        const mPt = firstLine.match(/CapÃ­tulo\s+\d+:\s*(.+)/i);
                         const mEn = firstLine.match(/Chapter\s+\d+:\s*(.+)/i);
                         if (mPt) title = mPt[1];
                         else if (mEn) title = mEn[1];
-                        else title = (this.lang === 'en' ? `Chapter ${i + 1}` : `Capítulo ${i + 1}`);
+                        else title = (this.lang === 'en' ? `Chapter ${i + 1}` : `CapÃ­tulo ${i + 1}`);
 
                         this.chapters.push({
                             id: i + 1,
@@ -669,9 +604,9 @@
                         console.warn(`Erro ao carregar ${chapterFiles[i]}:`, error);
                         this.chapters.push({
                             id: i + 1,
-                            title: this.lang === 'en' ? `Chapter ${i + 1}` : `Capítulo ${i + 1}`,
+                            title: this.lang === 'en' ? `Chapter ${i + 1}` : `CapÃ­tulo ${i + 1}`,
                             file: chapterFiles[i],
-                            fullTitle: this.lang === 'en' ? `Chapter ${i + 1}` : `Capítulo ${i + 1}`
+                            fullTitle: this.lang === 'en' ? `Chapter ${i + 1}` : `CapÃ­tulo ${i + 1}`
                         });
                     }
                 }
@@ -688,7 +623,7 @@
                     </li>
                 `).join('');
 
-                // Localizar rótulos estáticos
+                // Localizar rÃ³tulos estÃ¡ticos
                 document.getElementById('indexHeading').textContent = this.i18n.indexHeading;
                 document.getElementById('prevPage').textContent = this.i18n.prevPage;
                 document.getElementById('nextPage').textContent = this.i18n.nextPage;
@@ -698,16 +633,16 @@
                 document.getElementById('backHome').textContent = this.i18n.backHome;
                 // Mensagem de boas-vindas
                 document.getElementById('welcomeTitle').textContent = this.i18n.welcomeTitle;
-                document.getElementById('welcomeP1').innerHTML = this.i18n.welcomeP1.replace('O Coração da Colmeia','<strong>O Coração da Colmeia</strong>');
+                document.getElementById('welcomeP1').innerHTML = this.i18n.welcomeP1.replace('O CoraÃ§Ã£o da Colmeia','<strong>O CoraÃ§Ã£o da Colmeia</strong>');
                 document.getElementById('welcomeP2').textContent = this.i18n.welcomeP2;
             }
 
             setupEventListeners() {
-                // Links dos capítulos
+                // Links dos capÃ­tulos
                 document.querySelectorAll('.chapter-link').forEach(link => {
                     link.addEventListener('click', (e) => {
                         e.preventDefault();
-                        // Navegação explícita de capítulo -> começar na página 1
+                        // NavegaÃ§Ã£o explÃ­cita de capÃ­tulo -> comeÃ§ar na pÃ¡gina 1
                         this.forceFirstPage = true;
                         this.restoreOnPaginate = false;
                         const chapterId = parseInt(e.currentTarget.dataset.chapter);
@@ -715,7 +650,7 @@
                     });
                 });
 
-                // Toggle do índice (mobile)
+                // Toggle do Ã­ndice (mobile)
                 const toggleSidebarBtn = document.getElementById('toggleSidebar');
                 const sidebar = document.querySelector('.sidebar');
                 if (toggleSidebarBtn && sidebar) {
@@ -724,7 +659,7 @@
                     });
                 }
 
-                // Navegação entre capítulos
+                // NavegaÃ§Ã£o entre capÃ­tulos
                 document.getElementById('prevChapter').addEventListener('click', () => {
                     if (this.currentChapter && this.currentChapter > 1) {
                         this.forceFirstPage = true;
@@ -741,7 +676,7 @@
                     }
                 });
 
-                // Navegação entre páginas
+                // NavegaÃ§Ã£o entre pÃ¡ginas
                 const prevBtn = document.getElementById('prevPage');
                 const nextBtn = document.getElementById('nextPage');
                 const navPrev = () => this.goToPage(this.currentPageIndex - 1);
@@ -751,10 +686,10 @@
                     nextBtn.addEventListener(evt, (e)=>{ e.preventDefault(); navNext(); }, { passive: true });
                 });
 
-                // Teclas de navegação
+                // Teclas de navegaÃ§Ã£o
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'ArrowLeft') {
-                        // Shift + seta navega capítulos, seta navega páginas
+                        // Shift + seta navega capÃ­tulos, seta navega pÃ¡ginas
                         if (e.shiftKey) {
                             if (this.currentChapter > 1) this.loadChapter(this.currentChapter - 1);
                         } else {
@@ -769,7 +704,7 @@
                     }
                 });
 
-                // Gestos básicos de swipe no mobile
+                // Gestos bÃ¡sicos de swipe no mobile
                 let touchStartX = null;
                 document.addEventListener('touchstart', (e) => {
                     if (e.touches && e.touches.length === 1) {
@@ -806,7 +741,7 @@
                 } catch (error) {
                     content.innerHTML = `
                         <div class="welcome fade-in">
-                            <h2>❌</h2>
+                            <h2>âŒ</h2>
                             <p>${this.i18n.failed(chapterId)}</p>
                         </div>
                     `;
@@ -814,12 +749,12 @@
             }
 
             renderChapter(text, chapter) {
-                // Processar o texto do capítulo
+                // Processar o texto do capÃ­tulo
                 const lines = text.split('\n').filter(line => line.trim());
-                const title = lines[0]; // Primeira linha é o título
-                const content = lines.slice(1).join('\n'); // Resto é o conteúdo
+                const title = lines[0]; // Primeira linha Ã© o tÃ­tulo
+                const content = lines.slice(1).join('\n'); // Resto Ã© o conteÃºdo
 
-                // Dividir em parágrafos e formatar
+                // Dividir em parÃ¡grafos e formatar
                 const paragraphs = content.split('\n')
                     .filter(p => p.trim())
                     .map(p => this.formatParagraph(p.trim()))
@@ -847,13 +782,13 @@
                     </div>
                 `;
 
-                // Paginar conteúdo — sempre começar na página 1 quando trocou de capítulo
+                // Paginar conteÃºdo â€” sempre comeÃ§ar na pÃ¡gina 1 quando trocou de capÃ­tulo
                 this.applySettingsToUI();
-                // Se a troca foi de capítulo, não tentar restaurar progresso nessa primeira paginação
+                // Se a troca foi de capÃ­tulo, nÃ£o tentar restaurar progresso nessa primeira paginaÃ§Ã£o
                 this.restoreOnPaginate = !this.forceFirstPage;
                 this.paginateContent();
                 if (this.forceFirstPage) {
-                    // Garantir página 1
+                    // Garantir pÃ¡gina 1
                     this.goToPage(0, false);
                     this.forceFirstPage = false;
                 }
@@ -867,7 +802,7 @@
                 const contentEl = document.getElementById('chapterContent');
                 if (!book || !contentEl) return;
 
-                // Guardar posição relativa antes de repaginar
+                // Guardar posiÃ§Ã£o relativa antes de repaginar
                 const prevTotal = this.pages?.length || 0;
                 const prevIndex = this.currentPageIndex || 0;
 
@@ -875,7 +810,7 @@
                 this.pages = [];
                 this.currentPageIndex = 0;
 
-                // Altura disponível baseada na posição real do conteúdo dentro da página
+                // Altura disponÃ­vel baseada na posiÃ§Ã£o real do conteÃºdo dentro da pÃ¡gina
                 const bookRect = book.getBoundingClientRect();
                 const contentRect = contentEl.getBoundingClientRect();
                 const headerHeight = Math.max(0, contentRect.top - bookRect.top);
@@ -897,7 +832,7 @@
                 holder.className = 'pages-holder';
                 contentEl.appendChild(holder);
 
-                // Medidor (oculto) com altura fixa – clonando estilos do conteúdo
+                // Medidor (oculto) com altura fixa â€“ clonando estilos do conteÃºdo
                 const contentStyles = window.getComputedStyle(contentEl);
                 const measure = document.createElement('div');
                 measure.style.visibility = 'hidden';
@@ -927,7 +862,7 @@
                 };
 
                 const splitBlockToFit = (html) => {
-                    // Não dividir hr
+                    // NÃ£o dividir hr
                     if (/^<hr\b/i.test(html)) return null;
                     let tag = 'p';
                     let cls = '';
@@ -939,18 +874,18 @@
                     const fullText = (tmp.textContent || '').trim();
                     if (!fullText) return null;
 
-                    // utilitário para ajustar última palavra (evitar conectivos no fim da página)
+                    // utilitÃ¡rio para ajustar Ãºltima palavra (evitar conectivos no fim da pÃ¡gina)
                     const adjustSplit = (ft, rt) => {
                         if (!ft) return [ft, rt];
                         const connectors = new Set(['e','de','da','do','das','dos','em','no','na','nos','nas','ou','a','o','um','uma','por','como','que']);
                         const parts = ft.split(/\s+/);
                         if (!parts.length) return [ft, rt];
                         const lastRaw = parts[parts.length - 1];
-                        const last = lastRaw.toLowerCase().replace(/[.,;:!?…]+$/,'');
+                        const last = lastRaw.toLowerCase().replace(/[.,;:!?â€¦]+$/,'');
                         const restCount = rt ? rt.split(/\s+/).filter(Boolean).length : 0;
                         if ((connectors.has(last) || last.length <= 2) && restCount >= 3) {
                             parts.pop();
-                            const moved = lastRaw.replace(/[.,;:!?…]+$/,'');
+                            const moved = lastRaw.replace(/[.,;:!?â€¦]+$/,'');
                             const newFt = parts.join(' ');
                             const newRt = (moved ? moved + ' ' : '') + (rt || '');
                             return [newFt.trim(), newRt.trim()];
@@ -993,7 +928,7 @@
                         }
                     }
 
-                    // Fallback para divisão por palavras se não conseguir por frases
+                    // Fallback para divisÃ£o por palavras se nÃ£o conseguir por frases
                     const words = fullText.split(/\s+/);
                     let lo = 0, hi = words.length, best = 0;
                     const probe = document.createElement(tag);
@@ -1009,11 +944,11 @@
                     }
                     if (best <= 0) return null;
 
-                    // Garantir um mínimo de palavras no restante
+                    // Garantir um mÃ­nimo de palavras no restante
                     const minRest = 3;
                     let chosen = best;
                     while ((words.length - chosen) < minRest && chosen > 1) {
-                        // re-medida reduzindo uma palavra para deixar resto mínimo
+                        // re-medida reduzindo uma palavra para deixar resto mÃ­nimo
                         const mid2 = chosen - 1;
                         probe.textContent = words.slice(0, mid2).join(' ');
                         measure.appendChild(probe);
@@ -1042,7 +977,7 @@
                 let i = 0;
                 while (i < blocks.length) {
                     const html = blocks[i];
-                    // Tentar adicionar o bloco ao conteúdo já acumulado
+                    // Tentar adicionar o bloco ao conteÃºdo jÃ¡ acumulado
                     const testWrap = document.createElement('div');
                     testWrap.innerHTML = (pageHTML.join('') + html);
                     measure.innerHTML = '';
@@ -1055,10 +990,10 @@
                         continue;
                     }
 
-                    // Se com o acumulado não coube, tentar dividir o bloco atual
+                    // Se com o acumulado nÃ£o coube, tentar dividir o bloco atual
                     const split = splitBlockToFit(html);
                     if (split && split.fittedHTML) {
-                        // Tentar preencher o espaço restante da página atual
+                        // Tentar preencher o espaÃ§o restante da pÃ¡gina atual
                         if (pageHTML.length > 0) {
                             const fillWrap = document.createElement('div');
                             fillWrap.innerHTML = (pageHTML.join('') + split.fittedHTML);
@@ -1066,11 +1001,11 @@
                             measure.appendChild(fillWrap);
                             const fitsWithFitted = measure.scrollHeight <= measure.clientHeight;
                             if (fitsWithFitted) {
-                                // Preenche a página atual com a parte ajustada do bloco
+                                // Preenche a pÃ¡gina atual com a parte ajustada do bloco
                                 pageHTML.push(split.fittedHTML);
-                                // Fecha a página atual agora preenchida
+                                // Fecha a pÃ¡gina atual agora preenchida
                                 commitPage(pageHTML.splice(0, pageHTML.length));
-                                // O restante fica para próxima iteração
+                                // O restante fica para prÃ³xima iteraÃ§Ã£o
                                 if (split.remainderHTML) {
                                     blocks[i] = split.remainderHTML;
                                 } else {
@@ -1078,11 +1013,11 @@
                                 }
                                 continue;
                             } else {
-                                // Mesmo a parte ajustada não cabe no restante; fecha a página atual
+                                // Mesmo a parte ajustada nÃ£o cabe no restante; fecha a pÃ¡gina atual
                                 commitPage(pageHTML.splice(0, pageHTML.length));
                             }
                         }
-                        // Começa nova página com a parte ajustada (não comitar ainda; tentar preencher com próximos blocos)
+                        // ComeÃ§a nova pÃ¡gina com a parte ajustada (nÃ£o comitar ainda; tentar preencher com prÃ³ximos blocos)
                         pageHTML.push(split.fittedHTML);
                         if (split.remainderHTML) {
                             blocks[i] = split.remainderHTML;
@@ -1092,7 +1027,7 @@
                         continue;
                     }
 
-                    // Se não conseguiu dividir, força quebra mínima por palavras
+                    // Se nÃ£o conseguiu dividir, forÃ§a quebra mÃ­nima por palavras
                     const tmp = document.createElement('div'); tmp.innerHTML = html;
                     const text = (tmp.textContent || '').trim();
                     const words = text.split(/\s+/);
@@ -1103,11 +1038,11 @@
                     const isDlg = /^<p\b[^>]*class=\"dialogue\"/i.test(html);
                     const headHTML = tag === 'blockquote' ? `<blockquote>${head}</blockquote>` : (isDlg ? `<p class=\"dialogue\">${head}</p>` : `<p>${head}</p>`);
                     const tailHTML = tag === 'blockquote' ? `<blockquote>${tail}</blockquote>` : (isDlg ? `<p class=\"dialogue\">${tail}</p>` : `<p>${tail}</p>`);
-                    // Se já tinha conteúdo acumulado, fecha como uma página
+                    // Se jÃ¡ tinha conteÃºdo acumulado, fecha como uma pÃ¡gina
                     if (pageHTML.length) {
                         commitPage(pageHTML.splice(0, pageHTML.length));
                     }
-                    // Começa nova página com a cabeça mínima (não comitar ainda; tentar preencher com próximos blocos)
+                    // ComeÃ§a nova pÃ¡gina com a cabeÃ§a mÃ­nima (nÃ£o comitar ainda; tentar preencher com prÃ³ximos blocos)
                     pageHTML.push(headHTML);
                     // Devolve o restante
                     blocks[i] = tail ? tailHTML : null;
@@ -1116,37 +1051,37 @@
                 // Commit final
                 commitPage(pageHTML);
 
-                // Remover medidor e registrar páginas
+                // Remover medidor e registrar pÃ¡ginas
                 if (measure && measure.parentNode) {
                     measure.remove();
                 }
 
                 this.pages = Array.from(holder.querySelectorAll('.page'));
 
-                // Garantir que há pelo menos uma página
+                // Garantir que hÃ¡ pelo menos uma pÃ¡gina
                 if (this.pages.length === 0) {
                     const empty = document.createElement('div');
                     empty.className = 'page';
-                    empty.innerHTML = '<p>Conteúdo não encontrado.</p>';
+                    empty.innerHTML = '<p>ConteÃºdo nÃ£o encontrado.</p>';
                     empty.style.minHeight = '300px';
                     holder.appendChild(empty);
                     this.pages = [empty];
                 }
 
-                // Remover páginas vazias desnecessárias
+                // Remover pÃ¡ginas vazias desnecessÃ¡rias
                 this.pages = this.pages.filter(page => {
                     const content = page.textContent.trim();
                     return content.length > 0;
                 });
 
-                // Preservar posição aproximada apenas se não for forçar página 1
+                // Preservar posiÃ§Ã£o aproximada apenas se nÃ£o for forÃ§ar pÃ¡gina 1
                 let newIndex = 0;
                 if (!this.forceFirstPage && prevTotal > 0) {
                     const ratio = prevIndex / Math.max(prevTotal - 1, 1);
                     newIndex = Math.max(0, Math.min(this.pages.length - 1, Math.round(ratio * (this.pages.length - 1))));
                 }
                 this.goToPage(newIndex, false);
-                // Restaurar progresso salvo (se habilitado e não for troca de capítulo)
+                // Restaurar progresso salvo (se habilitado e nÃ£o for troca de capÃ­tulo)
                 if (this.restoreOnPaginate) {
                     this.restoreProgressIfAny();
                 }
@@ -1178,7 +1113,7 @@
                 prevPageBtn.disabled = this.currentPageIndex <= 0;
                 nextPageBtn.disabled = this.currentPageIndex >= (this.pages.length - 1);
 
-                // Melhorar feedback visual dos botões
+                // Melhorar feedback visual dos botÃµes
                 if (this.currentPageIndex <= 0) {
                     prevPageBtn.style.opacity = '0.5';
                 } else {
@@ -1216,7 +1151,7 @@
                     }
                 }
 
-                // Persistir progresso por capítulo
+                // Persistir progresso por capÃ­tulo
                 if (this.currentChapter) {
                     const key = `progress:${this.lang}:${this.currentChapter}`;
                     localStorage.setItem(key, String(this.currentPageIndex));
@@ -1226,8 +1161,8 @@
             formatParagraph(text) {
                 if (!text) return '';
 
-                // Identificar diálogos (começam com —)
-                if (text.startsWith('—')) {
+                // Identificar diÃ¡logos (comeÃ§am com â€”)
+                if (text.startsWith('â€”')) {
                     return `<p class="dialogue">${this.formatText(text.substring(1).trim())}</p>`;
                 }
 
@@ -1235,18 +1170,18 @@
             }
 
             formatText(text) {
-                // Formatação básica do texto
+                // FormataÃ§Ã£o bÃ¡sica do texto
                 return text
-                    .replace(/—/g, '—') // Travessões para diálogos
-                    .replace(/\.\.\./g, '…') // Reticências
-                    .replace(/"([^"]+)"/g, '"$1"') // Aspas tipográficas
+                    .replace(/â€”/g, 'â€”') // TravessÃµes para diÃ¡logos
+                    .replace(/\.\.\./g, 'â€¦') // ReticÃªncias
+                    .replace(/"([^"]+)"/g, '"$1"') // Aspas tipogrÃ¡ficas
                     .replace(/\b(Miraferro|Krawzer|Gael|Sophya|Sifo|Tio|Lia)\b/g, '<span class="character-name">$1</span>') // Destacar nomes importantes
-                    .replace(/\b(Clube dos Jardineiros Urbanos)\b/g, '<em>$1</em>') // Destacar organizações
-                    .replace(/(\w+):\s/g, '<strong>$1:</strong> '); // Destacar rótulos como "Vovô:", "Gael:", etc.
+                    .replace(/\b(Clube dos Jardineiros Urbanos)\b/g, '<em>$1</em>') // Destacar organizaÃ§Ãµes
+                    .replace(/(\w+):\s/g, '<strong>$1:</strong> '); // Destacar rÃ³tulos como "VovÃ´:", "Gael:", etc.
             }
 
             updateActiveChapter() {
-                // Atualizar visual do capítulo ativo
+                // Atualizar visual do capÃ­tulo ativo
                 document.querySelectorAll('.chapter-link').forEach(link => {
                     link.classList.remove('active');
                 });
@@ -1256,7 +1191,7 @@
                     activeLink.classList.add('active');
                 }
 
-                // Atualizar info do capítulo atual
+                // Atualizar info do capÃ­tulo atual
                 const chapter = this.chapters.find(c => c.id === this.currentChapter);
                 document.getElementById('currentChapter').textContent = this.i18n.chapterLabel(this.currentChapter, chapter.title);
             }
@@ -1278,11 +1213,11 @@
                 toggleBtn.addEventListener('click', () => {
                     this.toggleLightTheme();
                 });
-                // Ajustar rótulo conforme idioma
+                // Ajustar rÃ³tulo conforme idioma
                 toggleBtn.textContent = this.i18n.themeDark;
             }
 
-            // Ajustes de leitura e persistência
+            // Ajustes de leitura e persistÃªncia
             loadSettings() {
                 const raw = localStorage.getItem('readerSettings');
                 return raw ? JSON.parse(raw) : { fontSize: 18, lineHeight: 18, pageWidth: 800 };
@@ -1376,10 +1311,10 @@
             }
         }
 
-        // Inicializar o leitor quando a página carregar
+        // Inicializar o leitor quando a pÃ¡gina carregar
         document.addEventListener('DOMContentLoaded', () => {
             const reader = new BookReader();
-            // Slider de página
+            // Slider de pÃ¡gina
             const range = document.getElementById('pageRange');
             if (range) {
                 range.addEventListener('input', (e) => {
