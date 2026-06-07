@@ -1,1333 +1,1333 @@
-﻿<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O CoraÃ§Ã£o da Colmeia - Leitor Digital</title>
-    <meta name="description" content="Leitor digital de O CoraÃ§Ã£o da Colmeia. Uma experiÃªncia de leitura imersiva pÃ¡gina por pÃ¡gina.">
-    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #7C3AED;
-            --primary-dark: #5b21b6;
-            --primary-glow: rgba(124,58,237,.35);
-            --bg: #13111a;
-            --surface: #1e1b28;
-            --surface-light: #2a2638;
-            --text: #e8e4f0;
-            --text-muted: #9b93ae;
-            --text-accent: #fbbf24;
-            --border: #332e45;
-            --shadow: rgba(0,0,0,.4);
-            --page-bg: #faf8f5;
-            --page-text: #1c1612;
-            --page-shadow: rgba(0,0,0,.12);
-            --gradient: linear-gradient(135deg, #7C3AED 0%, #5b21b6 100%);
-            --gold: #c9a227;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Lora', 'Georgia', serif;
-            background: var(--bg);
-            background-image: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124,58,237,.12), transparent);
-            color: var(--text);
-            overflow-x: hidden;
-            line-height: 1.7;
-        }
-
-        /* â”€â”€ HEADER â”€â”€ */
-        .header {
-            background: var(--surface);
-            padding: .85rem 2rem;
-            box-shadow: 0 2px 16px rgba(0,0,0,.4);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 2px solid var(--primary);
-        }
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: -4px; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: .4;
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-family: 'Cinzel', serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            letter-spacing: .04em;
-            transition: color .2s;
-        }
-        .logo:hover { color: #a78bfa; }
-
-        .nav-controls { display: flex; gap: .75rem; align-items: center; }
-
-        .btn {
-            background: var(--gradient);
-            color: white;
-            border: none;
-            padding: .45rem 1rem;
-            border-radius: 50px;
-            cursor: pointer;
-            font-size: .88rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-family: inherit;
-            letter-spacing: .02em;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px var(--primary-glow);
-        }
-        .btn-secondary {
-            background: var(--surface-light);
-            border: 1px solid var(--border);
-        }
-        .btn-secondary:hover { background: var(--primary-dark); }
-
-        /* Visibilidade condicional */
-        #toggleSidebar { display: none; }
-
-        /* â”€â”€ LAYOUT â”€â”€ */
-        .container {
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            min-height: calc(100vh - 80px);
-        }
-
-        /* â”€â”€ SIDEBAR â”€â”€ */
-        .sidebar {
-            width: 300px;
-            background: var(--surface);
-            padding: 1.75rem;
-            border-right: 1px solid var(--border);
-            overflow-y: auto;
-            position: sticky;
-            top: 62px;
-            height: calc(100vh - 62px);
-            scrollbar-width: thin;
-            scrollbar-color: var(--primary) var(--surface-light);
-        }
-
-        .sidebar-cover {
-            display: block;
-            width: 100%;
-            max-width: 150px;
-            margin: 0 auto 1.5rem;
-            filter: drop-shadow(0 6px 16px var(--primary-glow));
-            transition: filter 0.3s, transform .3s;
-            border-radius: 6px;
-        }
-        .sidebar-cover:hover {
-            filter: drop-shadow(0 8px 22px var(--primary-glow));
-            transform: scale(1.03);
-        }
-
-        .sidebar h2 {
-            color: var(--primary);
-            margin-bottom: 1.25rem;
-            font-family: 'Cinzel', serif;
-            font-size: 1rem;
-            letter-spacing: .08em;
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: .6rem;
-        }
-
-        .chapter-list { list-style: none; }
-        .chapter-item { margin-bottom: .35rem; }
-        .chapter-link {
-            display: block;
-            padding: .65rem .85rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all 0.25s ease;
-            border-left: 3px solid transparent;
-            font-size: .92rem;
-        }
-        .chapter-link:hover, .chapter-link.active {
-            color: var(--text);
-            background: var(--surface-light);
-            border-left-color: var(--primary);
-        }
-        .chapter-link.active { color: #a78bfa; font-weight: 600; }
-        .chapter-number { color: var(--primary); font-weight: bold; }
-
-        /* â”€â”€ READER AREA â”€â”€ */
-        .reader-area {
-            flex: 1;
-            padding: 2rem;
-            display: flex;
-            justify-content: center;
-            padding-bottom: 160px;
-        }
-
-        /* â”€â”€ BOOK PAGE â”€â”€ */
-        .book-page {
-            background: var(--page-bg);
-            color: var(--page-text);
-            max-width: 820px;
-            width: 100%;
-            padding: 3.5rem 3.5rem 3rem;
-            margin-bottom: 180px;
-            border-radius: 16px;
-            box-shadow:
-                0 2px 0 rgba(255,255,255,.08),
-                0 12px 40px var(--page-shadow),
-                0 0 0 1px rgba(0,0,0,.06);
-            font-size: 1.08rem;
-            line-height: 1.9;
-            position: relative;
-            min-height: 600px;
-        }
-        .book-page::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--gold) 50%, var(--primary) 100%);
-            border-radius: 16px 16px 0 0;
-            opacity: .6;
-        }
-
-        .chapter-title {
-            color: var(--primary-dark);
-            font-family: 'Cinzel', serif;
-            font-size: 1.9rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #d4caed;
-            letter-spacing: .04em;
-        }
-
-        .chapter-content {
-            text-align: justify;
-            text-indent: 2rem;
-            min-height: 300px;
-            position: relative;
-            overflow: hidden;
-            hyphens: auto;
-            -webkit-hyphens: auto;
-        }
-        .chapter-content p { margin-bottom: 1.5rem; }
-        .chapter-content p:first-child {
-            text-indent: 0;
-            font-size: 1.12rem;
-            font-weight: 500;
-        }
-
-        .dialogue {
-            margin-left: 1.5rem;
-            font-style: italic;
-            color: #3d2f5f;
-            position: relative;
-        }
-        .dialogue::before {
-            content: 'â€”';
-            position: absolute;
-            left: -1.5rem;
-            color: var(--primary);
-            font-weight: bold;
-            font-style: normal;
-        }
-
-        .character-name { color: var(--primary-dark); font-weight: 600; }
-
-        /* â”€â”€ PAGINATION â”€â”€ */
-        .pages-holder { position: relative; width: 100%; min-height: 350px; }
-        .page { display: none; width: 100%; min-height: 300px; }
-        .page.active {
-            display: block;
-            animation: fadeIn .4s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-
-        /* â”€â”€ NAV ZONES â”€â”€ */
-        .nav-zone {
-            position: absolute;
-            top: 0; bottom: 140px;
-            width: 25%;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .nav-zone.left  { left: 0; }
-        .nav-zone.right { right: 0; }
-
-        /* â”€â”€ PAGE CONTROLS â”€â”€ */
-        .page-controls {
-            position: fixed;
-            bottom: 1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: .75rem;
-            background: var(--surface);
-            padding: .85rem 1.25rem;
-            border-radius: 50px;
-            box-shadow: 0 8px 28px rgba(0,0,0,.5), 0 0 0 1px var(--border);
-            border: 1px solid var(--border);
-            z-index: 1000;
-            backdrop-filter: blur(8px);
-        }
-
-        .page-info {
-            display: flex;
-            align-items: center;
-            gap: .75rem;
-            color: var(--text-muted);
-            font-size: .85rem;
-            flex-direction: column;
-        }
-        .progress-bar {
-            width: 160px;
-            height: 3px;
-            background: var(--border);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--gold));
-            width: 0%;
-            transition: width 0.4s ease;
-            border-radius: 2px;
-        }
-
-        /* â”€â”€ LOADING â”€â”€ */
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 400px;
-            color: var(--text-muted);
-            gap: 1rem;
-        }
-        .loading::after {
-            content: '';
-            width: 36px;
-            height: 36px;
-            border: 3px solid var(--border);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* â”€â”€ SLIDER + MODAL â”€â”€ */
-        .page-slider { display: flex; align-items: center; gap: .5rem; }
-        .page-slider input[type="range"] { width: 160px; accent-color: var(--primary); }
-
-        .modal.hidden { display: none; }
-        .modal {
-            position: fixed; inset: 0;
-            background: rgba(0,0,0,.65);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 200;
-            backdrop-filter: blur(4px);
-        }
-        .modal .card {
-            background: var(--surface);
-            color: var(--text);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 1.25rem 1.5rem;
-            min-width: 300px;
-            max-width: 440px;
-            box-shadow: 0 16px 48px rgba(0,0,0,.5);
-        }
-        .modal header { display:flex; align-items:center; justify-content:space-between; margin-bottom:.75rem; }
-        .modal h3 { margin:0; font-size:1.1rem; color: var(--primary); font-family:'Cinzel',serif; }
-        .modal .row { display:flex; align-items:center; justify-content:space-between; gap:.75rem; margin:.6rem 0; }
-        .modal label { font-size:.9rem; color:var(--text-muted); }
-        .modal input[type="range"] { width: 180px; accent-color: var(--primary); }
-        .modal .actions { display:flex; justify-content:flex-end; gap:.5rem; margin-top:.75rem; }
-
-        .btn[disabled] { opacity:.45; cursor:not-allowed; }
-
-        /* â”€â”€ WELCOME SCREEN â”€â”€ */
-        .welcome {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-muted);
-        }
-        .welcome h2 {
-            color: var(--primary);
-            font-family: 'Cinzel', serif;
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            letter-spacing: .04em;
-        }
-        .welcome-cover {
-            width: clamp(110px, 28%, 170px);
-            margin: 0 auto 1.75rem;
-            display: block;
-            filter: drop-shadow(0 8px 24px var(--primary-glow));
-            border-radius: 6px;
-            transition: transform .3s, filter .3s;
-        }
-        .welcome-cover:hover {
-            transform: scale(1.04) rotate(-1deg);
-            filter: drop-shadow(0 12px 32px var(--primary-glow));
-        }
-        .welcome p {
-            font-size: 1.12rem;
-            margin-bottom: 1.25rem;
-            max-width: 580px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
-        }
-
-        /* â”€â”€ SIDEBAR COVER â”€â”€ */
-        .sidebar-cover-link { display: block; }
-
-        /* â”€â”€ SCROLLBAR â”€â”€ */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--surface); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
-
-        /* â”€â”€ RESPONSIVE â”€â”€ */
-        @media (max-width: 768px) {
-            .container { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); top: auto; }
-            .sidebar.collapsed { display: none; }
-            #toggleSidebar { display: inline-flex; }
-            .book-page { padding: 2rem 1.5rem; margin: 0 .5rem; }
-            .page-controls { position: static; transform: none; border-radius: 12px; margin: 1.5rem auto; width: fit-content; }
-            .page-slider { display: none; }
-            .reader-area { padding: 1rem; }
-            .header { padding: .85rem 1rem; }
-            .nav { flex-wrap: wrap; gap: .5rem; }
-        }
-
-        .fade-in { animation: fadeIn .5s ease-in-out; }
-    </style>
-</head>
-<body>
-    <header class="header">
-        <nav class="nav">
-            <a href="index.html" class="logo" id="logoTitle">ðŸ“š O CoraÃ§Ã£o da Colmeia</a>
-            <div class="nav-controls">
-                <button class="btn btn-secondary" id="toggleSidebar">â˜° Ãndice</button>
-                <a href="index.html" class="btn btn-secondary" id="backHome">â† Voltar ao InÃ­cio</a>
-                <button class="btn" id="toggleTheme">ðŸŒ™ Tema Escuro</button>
-            </div>
-        </nav>
-    </header>
-
-    <div class="container">
-        <aside class="sidebar">
-            <img src="./assets/illustrations/capa.svg" alt="Capa do livro" class="sidebar-cover" loading="lazy"/>
-            <h2 id="indexHeading">ðŸ“– Ãndice dos CapÃ­tulos</h2>
-            <ul class="chapter-list" id="chapterList">
-                <!-- SerÃ¡ preenchido dinamicamente -->
-            </ul>
-        </aside>
-
-        <main class="reader-area">
-            <div class="book-page">
-                <div class="nav-zone left" id="zonePrev" title="PÃ¡gina anterior"></div>
-                <div class="nav-zone right" id="zoneNext" title="PrÃ³xima pÃ¡gina"></div>
-                <div id="content">
-                    <div class="welcome fade-in">
-                        <img src="./assets/illustrations/capa.svg" alt="Capa" class="welcome-cover" loading="lazy"/>
-                        <h2 id="welcomeTitle">ðŸ“š Bem-vindo ao Leitor Digital</h2>
-                        <p id="welcomeP1">Selecione um capÃ­tulo no Ã­ndice Ã  esquerda para comeÃ§ar sua jornada por <strong>O CoraÃ§Ã£o da Colmeia</strong>.</p>
-                        <p id="welcomeP2">Uma experiÃªncia de leitura imersiva pelos mundos de <em>Miraferro</em> e <em>Krawzer</em>, onde duas realidades se encontram atravÃ©s dos olhos de Gael.</p>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <div class="page-controls">
-        <button class="btn btn-secondary" id="prevPage" disabled>â† PÃ¡gina</button>
-        <div class="page-info">
-            <span id="currentChapter">Selecione um capÃ­tulo</span>
-            <span id="pageIndicator"></span>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill"></div>
-            </div>
-        </div>
-        <div class="page-slider">
-            <input type="range" id="pageRange" min="1" max="1" value="1" />
-        </div>
-        <button class="btn btn-secondary" id="nextPage" disabled>PÃ¡gina â†’</button>
-        <button class="btn btn-secondary" id="prevChapter" disabled style="margin-left: 1rem;">â® CapÃ­tulo</button>
-        <button class="btn btn-secondary" id="nextChapter" disabled>CapÃ­tulo â­</button>
-        <button class="btn" id="openSettings" title="Ajustes de leitura">âš™ï¸</button>
-    </div>
-
-    <!-- Modal de ajustes de leitura -->
-    <div class="modal hidden" id="settingsModal" aria-hidden="true" role="dialog">
-        <div class="card">
-            <header>
-                <h3>Ajustes de leitura</h3>
-                <button class="btn btn-secondary" id="closeSettings">Fechar</button>
-            </header>
-            <div class="row">
-                <label for="fontSizeRange">Tamanho da fonte</label>
-                <input type="range" id="fontSizeRange" min="16" max="22" value="18" />
-            </div>
-            <div class="row">
-                <label for="lineHeightRange">Altura da linha</label>
-                <input type="range" id="lineHeightRange" min="16" max="22" value="18" />
-            </div>
-            <div class="row">
-                <label for="pageWidthRange">Largura da pÃ¡gina</label>
-                <input type="range" id="pageWidthRange" min="640" max="900" value="800" />
-            </div>
-            <div class="actions">
-                <button class="btn btn-secondary" id="resetSettings">Restaurar padrÃ£o</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        class BookReader {
-            constructor() {
-                this.chapters = [];
-                this.currentChapter = null;
-                this.pages = [];
-                this.currentPageIndex = 0;
-                this.onResize = null;
-                // Flags de controle de navegaÃ§Ã£o/paginaÃ§Ã£o
-                this.forceFirstPage = false;       // forÃ§a abrir pÃ¡gina 1 apÃ³s troca de capÃ­tulo
-                this.restoreOnPaginate = false;     // controla se deve restaurar progresso do storage
-                this.settings = this.loadSettings();
-                // Idioma: pt (default) ou en via query string ?lang=en
-                const params = new URLSearchParams(window.location.search);
-                this.lang = (params.get('lang') || 'pt').toLowerCase();
-                this.i18n = this.lang === 'en' ? {
-                    backHome: 'â† Back to Home',
-                    indexHeading: 'ðŸ“– Chapter Index',
-                    welcomeTitle: 'ðŸ“š Welcome to the Digital Reader',
-                    welcomeP1: 'Select a chapter on the left to begin your journey through O CoraÃ§Ã£o da Colmeia.',
-                    welcomeP2: 'An immersive, page-by-page reading experience across the worlds of Miraferro and Krawzer.',
-                    selectChapter: 'Select a chapter',
-                    prevPage: 'â† Page',
-                    nextPage: 'Page â†’',
-                    prevChapter: 'â® Chapter',
-                    nextChapter: 'Chapter â­',
-                    pageOf: (i, total) => `â€” Page ${i} of ${total}`,
-                    chapterLabel: (n, title) => `Chapter ${n}: ${title}`,
-                    chapterShort: 'Ch.',
-                    themeDark: 'ðŸŒ™ Dark Theme',
-                    themeLight: 'ðŸŒž Light Theme',
-                    loading: 'Loading chapterâ€¦',
-                    failed: (id) => `Could not load chapter ${id}.`
-                } : {
-                    backHome: 'â† Voltar ao InÃ­cio',
-                    indexHeading: 'ðŸ“– Ãndice dos CapÃ­tulos',
-                    welcomeTitle: 'ðŸ“š Bem-vindo ao Leitor Digital',
-                    welcomeP1: 'Selecione um capÃ­tulo no Ã­ndice Ã  esquerda para comeÃ§ar sua jornada por O CoraÃ§Ã£o da Colmeia.',
-                    welcomeP2: 'Uma experiÃªncia de leitura imersiva pelos mundos de Miraferro e Krawzer, onde duas realidades se encontram atravÃ©s dos olhos de Gael.',
-                    selectChapter: 'Selecione um capÃ­tulo',
-                    prevPage: 'â† PÃ¡gina',
-                    nextPage: 'PÃ¡gina â†’',
-                    prevChapter: 'â® CapÃ­tulo',
-                    nextChapter: 'CapÃ­tulo â­',
-                    pageOf: (i, total) => `â€” PÃ¡gina ${i} de ${total}`,
-                    chapterLabel: (n, title) => `CapÃ­tulo ${n}: ${title}`,
-                    chapterShort: 'Cap.',
-                    themeDark: 'ðŸŒ™ Tema Escuro',
-                    themeLight: 'ðŸŒž Tema Claro',
-                    loading: 'Carregando capÃ­tuloâ€¦',
-                    failed: (id) => `NÃ£o foi possÃ­vel carregar o capÃ­tulo ${id}.`
-                };
-                this.init();
-            }
-
-            async init() {
-                await this.loadChapterTitles();
-                this.renderChapterList();
-                this.setupEventListeners();
-                this.setupThemeToggle();
-                // aviso WIP removido
-            }
-
-            async loadChapterTitles() {
-                const base = this.lang === 'en' ? './chapters-en' : './chapters';
-                const suffix = this.lang === 'en' ? '_en' : '';
-                const chapterFiles = Array.from({ length: 6 }, (_, idx) => `${base}/OSDB${idx + 1}${suffix}.txt`);
-
-                for (let i = 0; i < chapterFiles.length; i++) {
-                    try {
-                        const response = await fetch(chapterFiles[i]);
-                        const text = await response.text();
-                        const firstLine = text.split('\n')[0].trim();
-
-                        // Extrair tÃ­tulo da primeira linha (suporta PT e EN)
-                        let title = null;
-                        const mPt = firstLine.match(/CapÃ­tulo\s+\d+:\s*(.+)/i);
-                        const mEn = firstLine.match(/Chapter\s+\d+:\s*(.+)/i);
-                        if (mPt) title = mPt[1];
-                        else if (mEn) title = mEn[1];
-                        else title = (this.lang === 'en' ? `Chapter ${i + 1}` : `CapÃ­tulo ${i + 1}`);
-
-                        this.chapters.push({
-                            id: i + 1,
-                            title: title,
-                            file: chapterFiles[i],
-                            fullTitle: firstLine
-                        });
-                    } catch (error) {
-                        console.warn(`Erro ao carregar ${chapterFiles[i]}:`, error);
-                        this.chapters.push({
-                            id: i + 1,
-                            title: this.lang === 'en' ? `Chapter ${i + 1}` : `CapÃ­tulo ${i + 1}`,
-                            file: chapterFiles[i],
-                            fullTitle: this.lang === 'en' ? `Chapter ${i + 1}` : `CapÃ­tulo ${i + 1}`
-                        });
-                    }
-                }
-            }
-
-            renderChapterList() {
-                const chapterList = document.getElementById('chapterList');
-                chapterList.innerHTML = this.chapters.map(chapter => `
-                    <li class="chapter-item">
-                        <a href="#" class="chapter-link" data-chapter="${chapter.id}">
-                            <span class="chapter-number">${this.i18n.chapterShort} ${chapter.id}</span><br>
-                            ${chapter.title}
-                        </a>
-                    </li>
-                `).join('');
-
-                // Localizar rÃ³tulos estÃ¡ticos
-                document.getElementById('indexHeading').textContent = this.i18n.indexHeading;
-                document.getElementById('prevPage').textContent = this.i18n.prevPage;
-                document.getElementById('nextPage').textContent = this.i18n.nextPage;
-                document.getElementById('prevChapter').textContent = this.i18n.prevChapter;
-                document.getElementById('nextChapter').textContent = this.i18n.nextChapter;
-                document.getElementById('currentChapter').textContent = this.i18n.selectChapter;
-                document.getElementById('backHome').textContent = this.i18n.backHome;
-                // Mensagem de boas-vindas
-                document.getElementById('welcomeTitle').textContent = this.i18n.welcomeTitle;
-                document.getElementById('welcomeP1').innerHTML = this.i18n.welcomeP1.replace('O CoraÃ§Ã£o da Colmeia','<strong>O CoraÃ§Ã£o da Colmeia</strong>');
-                document.getElementById('welcomeP2').textContent = this.i18n.welcomeP2;
-            }
-
-            setupEventListeners() {
-                // Links dos capÃ­tulos
-                document.querySelectorAll('.chapter-link').forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        // NavegaÃ§Ã£o explÃ­cita de capÃ­tulo -> comeÃ§ar na pÃ¡gina 1
-                        this.forceFirstPage = true;
-                        this.restoreOnPaginate = false;
-                        const chapterId = parseInt(e.currentTarget.dataset.chapter);
-                        this.loadChapter(chapterId);
-                    });
-                });
-
-                // Toggle do Ã­ndice (mobile)
-                const toggleSidebarBtn = document.getElementById('toggleSidebar');
-                const sidebar = document.querySelector('.sidebar');
-                if (toggleSidebarBtn && sidebar) {
-                    toggleSidebarBtn.addEventListener('click', () => {
-                        sidebar.classList.toggle('collapsed');
-                    });
-                }
-
-                // NavegaÃ§Ã£o entre capÃ­tulos
-                document.getElementById('prevChapter').addEventListener('click', () => {
-                    if (this.currentChapter && this.currentChapter > 1) {
-                        this.forceFirstPage = true;
-                        this.restoreOnPaginate = false;
-                        this.loadChapter(this.currentChapter - 1);
-                    }
-                });
-
-                document.getElementById('nextChapter').addEventListener('click', () => {
-                    if (this.currentChapter && this.currentChapter < this.chapters.length) {
-                        this.forceFirstPage = true;
-                        this.restoreOnPaginate = false;
-                        this.loadChapter(this.currentChapter + 1);
-                    }
-                });
-
-                // NavegaÃ§Ã£o entre pÃ¡ginas
-                const prevBtn = document.getElementById('prevPage');
-                const nextBtn = document.getElementById('nextPage');
-                const navPrev = () => this.goToPage(this.currentPageIndex - 1);
-                const navNext = () => this.goToPage(this.currentPageIndex + 1);
-                ['click','pointerup','touchend'].forEach(evt => {
-                    prevBtn.addEventListener(evt, (e)=>{ e.preventDefault(); navPrev(); }, { passive: true });
-                    nextBtn.addEventListener(evt, (e)=>{ e.preventDefault(); navNext(); }, { passive: true });
-                });
-
-                // Teclas de navegaÃ§Ã£o
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowLeft') {
-                        // Shift + seta navega capÃ­tulos, seta navega pÃ¡ginas
-                        if (e.shiftKey) {
-                            if (this.currentChapter > 1) this.loadChapter(this.currentChapter - 1);
-                        } else {
-                            this.goToPage(this.currentPageIndex - 1);
-                        }
-                    } else if (e.key === 'ArrowRight') {
-                        if (e.shiftKey) {
-                            if (this.currentChapter < this.chapters.length) this.loadChapter(this.currentChapter + 1);
-                        } else {
-                            this.goToPage(this.currentPageIndex + 1);
-                        }
-                    }
-                });
-
-                // Gestos bÃ¡sicos de swipe no mobile
-                let touchStartX = null;
-                document.addEventListener('touchstart', (e) => {
-                    if (e.touches && e.touches.length === 1) {
-                        touchStartX = e.touches[0].clientX;
-                    }
-                }, { passive: true });
-                document.addEventListener('touchend', (e) => {
-                    if (touchStartX === null) return;
-                    const dx = (e.changedTouches && e.changedTouches[0].clientX) - touchStartX;
-                    const threshold = 50; // px
-                    if (Math.abs(dx) > threshold) {
-                        if (dx > 0) this.goToPage(this.currentPageIndex - 1);
-                        else this.goToPage(this.currentPageIndex + 1);
-                    }
-                    touchStartX = null;
-                });
-            }
-
-            async loadChapter(chapterId) {
-                const chapter = this.chapters.find(c => c.id === chapterId);
-                if (!chapter) return;
-
-                this.currentChapter = chapterId;
-                this.updateActiveChapter();
-                this.updateNavigationControls();
-
-                const content = document.getElementById('content');
-                content.innerHTML = `<div class="loading">${this.i18n.loading}</div>`;
-
-                try {
-                    const response = await fetch(chapter.file);
-                    const text = await response.text();
-                    this.renderChapter(text, chapter);
-                } catch (error) {
-                    content.innerHTML = `
-                        <div class="welcome fade-in">
-                            <h2>âŒ</h2>
-                            <p>${this.i18n.failed(chapterId)}</p>
-                        </div>
-                    `;
-                }
-            }
-
-            renderChapter(text, chapter) {
-                // Processar o texto do capÃ­tulo
-                const lines = text.split('\n').filter(line => line.trim());
-                const title = lines[0]; // Primeira linha Ã© o tÃ­tulo
-                const content = lines.slice(1).join('\n'); // Resto Ã© o conteÃºdo
-
-                // Dividir em parÃ¡grafos e formatar
-                const paragraphs = content.split('\n')
-                    .filter(p => p.trim())
-                    .map(p => this.formatParagraph(p.trim()))
-                    .join('');
-
-                document.getElementById('content').innerHTML = `
-                    <div class="fade-in">
-                        <h1 class="chapter-title">${this.formatText(title)}</h1>
-                        <div style="text-align:center;margin:0.5rem 0 1.5rem;opacity:0.7;">
-                          <svg width="120" height="28" viewBox="0 0 120 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                            <g fill="#8A2BE2" opacity="0.85">
-                              <polygon points="14,2 20,8 20,16 14,22 8,16 8,8" opacity="0.5"/>
-                              <polygon points="30,2 36,8 36,16 30,22 24,16 24,8" opacity="0.7"/>
-                              <polygon points="46,2 52,8 52,16 46,22 40,16 40,8" opacity="1"/>
-                              <polygon points="62,2 68,8 68,16 62,22 56,16 56,8"/>
-                              <polygon points="78,2 84,8 84,16 78,22 72,16 72,8" opacity="1"/>
-                              <polygon points="94,2 100,8 100,16 94,22 88,16 88,8" opacity="0.7"/>
-                              <polygon points="110,2 116,8 116,16 110,22 104,16 104,8" opacity="0.5"/>
-                            </g>
-                          </svg>
-                        </div>
-                        <div class="chapter-content" id="chapterContent">
-                            ${paragraphs}
-                        </div>
-                    </div>
-                `;
-
-                // Paginar conteÃºdo â€” sempre comeÃ§ar na pÃ¡gina 1 quando trocou de capÃ­tulo
-                this.applySettingsToUI();
-                // Se a troca foi de capÃ­tulo, nÃ£o tentar restaurar progresso nessa primeira paginaÃ§Ã£o
-                this.restoreOnPaginate = !this.forceFirstPage;
-                this.paginateContent();
-                if (this.forceFirstPage) {
-                    // Garantir pÃ¡gina 1
-                    this.goToPage(0, false);
-                    this.forceFirstPage = false;
-                }
-
-                // Scroll para o topo
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-
-            paginateContent() {
-                const book = document.querySelector('.book-page');
-                const contentEl = document.getElementById('chapterContent');
-                if (!book || !contentEl) return;
-
-                // Guardar posiÃ§Ã£o relativa antes de repaginar
-                const prevTotal = this.pages?.length || 0;
-                const prevIndex = this.currentPageIndex || 0;
-
-                // Reset
-                this.pages = [];
-                this.currentPageIndex = 0;
-
-                // Altura disponÃ­vel baseada na posiÃ§Ã£o real do conteÃºdo dentro da pÃ¡gina
-                const bookRect = book.getBoundingClientRect();
-                const contentRect = contentEl.getBoundingClientRect();
-                const headerHeight = Math.max(0, contentRect.top - bookRect.top);
-                const safety = 16;
-                let baseHeight = Math.max(520, book.clientHeight - headerHeight - safety);
-                // Mobile: use viewport para evitar overscrolls
-                if (window.innerWidth <= 768) {
-                    baseHeight = Math.floor(window.innerHeight * 0.7);
-                }
-                const available = Math.max(420, Math.min(baseHeight, 820));
-
-                // Capturar blocos atuais (p, blockquote, hr)
-                const blocks = Array.from(contentEl.querySelectorAll('p, blockquote, hr'))
-                    .map(node => node.outerHTML);
-
-                // Limpar e criar holder
-                contentEl.innerHTML = '';
-                const holder = document.createElement('div');
-                holder.className = 'pages-holder';
-                contentEl.appendChild(holder);
-
-                // Medidor (oculto) com altura fixa â€“ clonando estilos do conteÃºdo
-                const contentStyles = window.getComputedStyle(contentEl);
-                const measure = document.createElement('div');
-                measure.style.visibility = 'hidden';
-                measure.style.position = 'absolute';
-                measure.style.left = '-9999px';
-                measure.style.top = '0';
-                measure.style.height = available + 'px';
-                measure.style.overflow = 'hidden';
-                measure.style.width = contentEl.clientWidth + 'px';
-                measure.style.padding = contentStyles.padding;
-                measure.style.margin = '0';
-                measure.style.boxSizing = 'border-box';
-                measure.style.fontFamily = contentStyles.fontFamily;
-                measure.style.fontSize = contentStyles.fontSize;
-                measure.style.lineHeight = contentStyles.lineHeight;
-                measure.style.letterSpacing = contentStyles.letterSpacing;
-                measure.style.wordSpacing = contentStyles.wordSpacing;
-                document.body.appendChild(measure);
-
-                const commitPage = (pageHTML) => {
-                    if (!pageHTML || pageHTML.length === 0) return;
-                    const page = document.createElement('div');
-                    page.className = 'page';
-                    page.innerHTML = pageHTML.join('');
-                    page.style.minHeight = Math.max(300, available - 8) + 'px';
-                    holder.appendChild(page);
-                };
-
-                const splitBlockToFit = (html) => {
-                    // NÃ£o dividir hr
-                    if (/^<hr\b/i.test(html)) return null;
-                    let tag = 'p';
-                    let cls = '';
-                    if (/^<blockquote\b/i.test(html)) tag = 'blockquote';
-                    if (/^<p\b[^>]*class=\"dialogue\"/i.test(html)) { tag = 'p'; cls = 'dialogue'; }
-
-                    const tmp = document.createElement('div');
-                    tmp.innerHTML = html;
-                    const fullText = (tmp.textContent || '').trim();
-                    if (!fullText) return null;
-
-                    // utilitÃ¡rio para ajustar Ãºltima palavra (evitar conectivos no fim da pÃ¡gina)
-                    const adjustSplit = (ft, rt) => {
-                        if (!ft) return [ft, rt];
-                        const connectors = new Set(['e','de','da','do','das','dos','em','no','na','nos','nas','ou','a','o','um','uma','por','como','que']);
-                        const parts = ft.split(/\s+/);
-                        if (!parts.length) return [ft, rt];
-                        const lastRaw = parts[parts.length - 1];
-                        const last = lastRaw.toLowerCase().replace(/[.,;:!?â€¦]+$/,'');
-                        const restCount = rt ? rt.split(/\s+/).filter(Boolean).length : 0;
-                        if ((connectors.has(last) || last.length <= 2) && restCount >= 3) {
-                            parts.pop();
-                            const moved = lastRaw.replace(/[.,;:!?â€¦]+$/,'');
-                            const newFt = parts.join(' ');
-                            const newRt = (moved ? moved + ' ' : '') + (rt || '');
-                            return [newFt.trim(), newRt.trim()];
-                        }
-                        return [ft, rt];
-                    };
-
-                    // Dividir em frases primeiro para melhor quebra
-                    const sentences = fullText.split(/(?<=[.!?])\s+/);
-                    if (sentences.length > 1) {
-                        // Tentar dividir por frases primeiro
-                        let bestSentences = 0;
-                        const probe = document.createElement(tag);
-                        if (cls) probe.className = cls;
-
-                        for (let i = 1; i <= sentences.length; i++) {
-                            const testText = sentences.slice(0, i).join(' ');
-                            probe.textContent = testText;
-                            measure.appendChild(probe);
-                            const fits = measure.scrollHeight <= measure.clientHeight;
-                            measure.removeChild(probe);
-                            if (fits) bestSentences = i;
-                            else break;
-                        }
-
-                        if (bestSentences > 0 && bestSentences < sentences.length) {
-                            let fittedText = sentences.slice(0, bestSentences).join(' ');
-                            let remainderText = sentences.slice(bestSentences).join(' ');
-                            [fittedText, remainderText] = adjustSplit(fittedText, remainderText);
-
-                            const fittedNode = document.createElement(tag);
-                            if (cls) fittedNode.className = cls;
-                            fittedNode.textContent = fittedText;
-                            const fittedHTML = fittedNode.outerHTML;
-
-                            const remainderHTML = remainderText ? (tag === 'blockquote'
-                                ? `<blockquote>${remainderText}</blockquote>`
-                                : (cls ? `<p class=\"dialogue\">${remainderText}</p>` : `<p>${remainderText}</p>`)) : '';
-                            return { fittedHTML, remainderHTML };
-                        }
-                    }
-
-                    // Fallback para divisÃ£o por palavras se nÃ£o conseguir por frases
-                    const words = fullText.split(/\s+/);
-                    let lo = 0, hi = words.length, best = 0;
-                    const probe = document.createElement(tag);
-                    if (cls) probe.className = cls;
-
-                    while (lo <= hi) {
-                        const mid = Math.floor((lo + hi) / 2);
-                        probe.textContent = words.slice(0, mid).join(' ');
-                        measure.appendChild(probe);
-                        const fits = measure.scrollHeight <= measure.clientHeight;
-                        measure.removeChild(probe);
-                        if (fits) { best = mid; lo = mid + 1; } else { hi = mid - 1; }
-                    }
-                    if (best <= 0) return null;
-
-                    // Garantir um mÃ­nimo de palavras no restante
-                    const minRest = 3;
-                    let chosen = best;
-                    while ((words.length - chosen) < minRest && chosen > 1) {
-                        // re-medida reduzindo uma palavra para deixar resto mÃ­nimo
-                        const mid2 = chosen - 1;
-                        probe.textContent = words.slice(0, mid2).join(' ');
-                        measure.appendChild(probe);
-                        const fits2 = measure.scrollHeight <= measure.clientHeight;
-                        measure.removeChild(probe);
-                        if (!fits2) break;
-                        chosen = mid2;
-                    }
-
-                    const fittedNode = document.createElement(tag);
-                    if (cls) fittedNode.className = cls;
-                    let fittedText = words.slice(0, chosen).join(' ');
-                    let remainderText = words.slice(chosen).join(' ');
-                    [fittedText, remainderText] = adjustSplit(fittedText, remainderText);
-                    fittedNode.textContent = fittedText;
-                    const fittedHTML = fittedNode.outerHTML;
-
-                    const remainderWords = remainderText ? remainderText.split(/\s+/) : [];
-                    const remainderHTML = remainderText ? (tag === 'blockquote'
-                        ? `<blockquote>${remainderText}</blockquote>`
-                        : (cls ? `<p class=\"dialogue\">${remainderText}</p>` : `<p>${remainderText}</p>`)) : '';
-                    return { fittedHTML, remainderHTML };
-                };
-
-                const pageHTML = [];
-                let i = 0;
-                while (i < blocks.length) {
-                    const html = blocks[i];
-                    // Tentar adicionar o bloco ao conteÃºdo jÃ¡ acumulado
-                    const testWrap = document.createElement('div');
-                    testWrap.innerHTML = (pageHTML.join('') + html);
-                    measure.innerHTML = '';
-                    measure.appendChild(testWrap);
-                    const fitsAccumulated = measure.scrollHeight <= measure.clientHeight;
-
-                    if (fitsAccumulated) {
-                        pageHTML.push(html);
-                        i++;
-                        continue;
-                    }
-
-                    // Se com o acumulado nÃ£o coube, tentar dividir o bloco atual
-                    const split = splitBlockToFit(html);
-                    if (split && split.fittedHTML) {
-                        // Tentar preencher o espaÃ§o restante da pÃ¡gina atual
-                        if (pageHTML.length > 0) {
-                            const fillWrap = document.createElement('div');
-                            fillWrap.innerHTML = (pageHTML.join('') + split.fittedHTML);
-                            measure.innerHTML = '';
-                            measure.appendChild(fillWrap);
-                            const fitsWithFitted = measure.scrollHeight <= measure.clientHeight;
-                            if (fitsWithFitted) {
-                                // Preenche a pÃ¡gina atual com a parte ajustada do bloco
-                                pageHTML.push(split.fittedHTML);
-                                // Fecha a pÃ¡gina atual agora preenchida
-                                commitPage(pageHTML.splice(0, pageHTML.length));
-                                // O restante fica para prÃ³xima iteraÃ§Ã£o
-                                if (split.remainderHTML) {
-                                    blocks[i] = split.remainderHTML;
-                                } else {
-                                    i++;
-                                }
-                                continue;
-                            } else {
-                                // Mesmo a parte ajustada nÃ£o cabe no restante; fecha a pÃ¡gina atual
-                                commitPage(pageHTML.splice(0, pageHTML.length));
-                            }
-                        }
-                        // ComeÃ§a nova pÃ¡gina com a parte ajustada (nÃ£o comitar ainda; tentar preencher com prÃ³ximos blocos)
-                        pageHTML.push(split.fittedHTML);
-                        if (split.remainderHTML) {
-                            blocks[i] = split.remainderHTML;
-                        } else {
-                            i++;
-                        }
-                        continue;
-                    }
-
-                    // Se nÃ£o conseguiu dividir, forÃ§a quebra mÃ­nima por palavras
-                    const tmp = document.createElement('div'); tmp.innerHTML = html;
-                    const text = (tmp.textContent || '').trim();
-                    const words = text.split(/\s+/);
-                    const minChunk = Math.max(5, Math.floor(words.length * 0.2));
-                    const head = words.slice(0, minChunk).join(' ');
-                    const tail = words.slice(minChunk).join(' ');
-                    const tag = /^<blockquote\b/i.test(html) ? 'blockquote' : 'p';
-                    const isDlg = /^<p\b[^>]*class=\"dialogue\"/i.test(html);
-                    const headHTML = tag === 'blockquote' ? `<blockquote>${head}</blockquote>` : (isDlg ? `<p class=\"dialogue\">${head}</p>` : `<p>${head}</p>`);
-                    const tailHTML = tag === 'blockquote' ? `<blockquote>${tail}</blockquote>` : (isDlg ? `<p class=\"dialogue\">${tail}</p>` : `<p>${tail}</p>`);
-                    // Se jÃ¡ tinha conteÃºdo acumulado, fecha como uma pÃ¡gina
-                    if (pageHTML.length) {
-                        commitPage(pageHTML.splice(0, pageHTML.length));
-                    }
-                    // ComeÃ§a nova pÃ¡gina com a cabeÃ§a mÃ­nima (nÃ£o comitar ainda; tentar preencher com prÃ³ximos blocos)
-                    pageHTML.push(headHTML);
-                    // Devolve o restante
-                    blocks[i] = tail ? tailHTML : null;
-                    if (!tail) i++;
-                }
-                // Commit final
-                commitPage(pageHTML);
-
-                // Remover medidor e registrar pÃ¡ginas
-                if (measure && measure.parentNode) {
-                    measure.remove();
-                }
-
-                this.pages = Array.from(holder.querySelectorAll('.page'));
-
-                // Garantir que hÃ¡ pelo menos uma pÃ¡gina
-                if (this.pages.length === 0) {
-                    const empty = document.createElement('div');
-                    empty.className = 'page';
-                    empty.innerHTML = '<p>ConteÃºdo nÃ£o encontrado.</p>';
-                    empty.style.minHeight = '300px';
-                    holder.appendChild(empty);
-                    this.pages = [empty];
-                }
-
-                // Remover pÃ¡ginas vazias desnecessÃ¡rias
-                this.pages = this.pages.filter(page => {
-                    const content = page.textContent.trim();
-                    return content.length > 0;
-                });
-
-                // Preservar posiÃ§Ã£o aproximada apenas se nÃ£o for forÃ§ar pÃ¡gina 1
-                let newIndex = 0;
-                if (!this.forceFirstPage && prevTotal > 0) {
-                    const ratio = prevIndex / Math.max(prevTotal - 1, 1);
-                    newIndex = Math.max(0, Math.min(this.pages.length - 1, Math.round(ratio * (this.pages.length - 1))));
-                }
-                this.goToPage(newIndex, false);
-                // Restaurar progresso salvo (se habilitado e nÃ£o for troca de capÃ­tulo)
-                if (this.restoreOnPaginate) {
-                    this.restoreProgressIfAny();
-                }
-
-                // Atualizar ao redimensionar (debounce)
-                if (this.onResize) window.removeEventListener('resize', this.onResize);
-                this.onResize = this.debounce(() => {
-                    this.paginateContent();
-                }, 200);
-                window.addEventListener('resize', this.onResize);
-            }
-
-            goToPage(index, smooth = true) {
-                if (!this.pages || this.pages.length === 0) return;
-                if (index < 0 || index >= this.pages.length) return;
-                this.pages.forEach((pg, i) => pg.classList.toggle('active', i === index));
-                this.currentPageIndex = index;
-                this.updatePageControls();
-                if (smooth) window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-
-            updatePageControls() {
-                const prevPageBtn = document.getElementById('prevPage');
-                const nextPageBtn = document.getElementById('nextPage');
-                const indicator = document.getElementById('pageIndicator');
-                const prevChapterBtn = document.getElementById('prevChapter');
-                const nextChapterBtn = document.getElementById('nextChapter');
-
-                prevPageBtn.disabled = this.currentPageIndex <= 0;
-                nextPageBtn.disabled = this.currentPageIndex >= (this.pages.length - 1);
-
-                // Melhorar feedback visual dos botÃµes
-                if (this.currentPageIndex <= 0) {
-                    prevPageBtn.style.opacity = '0.5';
-                } else {
-                    prevPageBtn.style.opacity = '1';
-                }
-
-                if (this.currentPageIndex >= (this.pages.length - 1)) {
-                    nextPageBtn.style.opacity = '0.5';
-                } else {
-                    nextPageBtn.style.opacity = '1';
-                }
-
-                if (indicator && this.pages.length > 0) {
-                    const current = this.currentPageIndex + 1;
-                    const total = this.pages.length;
-                    const percentage = Math.round((current / total) * 100);
-                    indicator.textContent = `${this.i18n.pageOf(current, total)} (${percentage}%)`;
-
-                    // Atualizar barra de progresso
-                    const progressFill = document.getElementById('progressFill');
-                    if (progressFill) {
-                        progressFill.style.width = `${percentage}%`;
-                    }
-                    // Atualizar slider
-                    const range = document.getElementById('pageRange');
-                    if (range) {
-                        if (range.max !== String(total)) range.max = String(total);
-                        if (range.value !== String(current)) range.value = String(current);
-                    }
-                } else if (indicator) {
-                    indicator.textContent = '';
-                    const progressFill = document.getElementById('progressFill');
-                    if (progressFill) {
-                        progressFill.style.width = '0%';
-                    }
-                }
-
-                // Persistir progresso por capÃ­tulo
-                if (this.currentChapter) {
-                    const key = `progress:${this.lang}:${this.currentChapter}`;
-                    localStorage.setItem(key, String(this.currentPageIndex));
-                }
-            }
-
-            formatParagraph(text) {
-                if (!text) return '';
-
-                // Identificar diÃ¡logos (comeÃ§am com â€”)
-                if (text.startsWith('â€”')) {
-                    return `<p class="dialogue">${this.formatText(text.substring(1).trim())}</p>`;
-                }
-
-                return `<p>${this.formatText(text)}</p>`;
-            }
-
-            formatText(text) {
-                // FormataÃ§Ã£o bÃ¡sica do texto
-                return text
-                    .replace(/â€”/g, 'â€”') // TravessÃµes para diÃ¡logos
-                    .replace(/\.\.\./g, 'â€¦') // ReticÃªncias
-                    .replace(/"([^"]+)"/g, '"$1"') // Aspas tipogrÃ¡ficas
-                    .replace(/\b(Miraferro|Krawzer|Gael|Sophya|Sifo|Tio|Lia)\b/g, '$1');
-            }
-
-            updateActiveChapter() {
-                // Atualizar visual do capÃ­tulo ativo
-                document.querySelectorAll('.chapter-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-
-                const activeLink = document.querySelector(`[data-chapter="${this.currentChapter}"]`);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
-
-                // Atualizar info do capÃ­tulo atual
-                const chapter = this.chapters.find(c => c.id === this.currentChapter);
-                document.getElementById('currentChapter').textContent = this.i18n.chapterLabel(this.currentChapter, chapter.title);
-            }
-
-            updateNavigationControls() {
-                const prevBtn = document.getElementById('prevChapter');
-                const nextBtn = document.getElementById('nextChapter');
-
-                prevBtn.disabled = this.currentChapter <= 1;
-                nextBtn.disabled = this.currentChapter >= this.chapters.length;
-            }
-
-            setupThemeToggle() {
-                const toggleBtn = document.getElementById('toggleTheme');
-                const savedTheme = localStorage.getItem('theme') || 'dark';
-                if (savedTheme === 'light') {
-                    this.toggleLightTheme();
-                }
-                toggleBtn.addEventListener('click', () => {
-                    this.toggleLightTheme();
-                });
-                // Ajustar rÃ³tulo conforme idioma
-                toggleBtn.textContent = this.i18n.themeDark;
-            }
-
-            // Ajustes de leitura e persistÃªncia
-            loadSettings() {
-                const raw = localStorage.getItem('readerSettings');
-                return raw ? JSON.parse(raw) : { fontSize: 18, lineHeight: 18, pageWidth: 800 };
-            }
-            saveSettings() {
-                localStorage.setItem('readerSettings', JSON.stringify(this.settings));
-            }
-            applySettingsToUI() {
-                const rootPage = document.querySelector('.book-page');
-                if (rootPage) rootPage.style.maxWidth = `${this.settings.pageWidth}px`;
-                const content = document.getElementById('chapterContent');
-                if (content) {
-                    content.style.fontSize = `${this.settings.fontSize}px`;
-                    // converter faixa 16..22 para 1.4..2.0
-                    const lh = Math.max(1.2, Math.min(2.0, (this.settings.lineHeight - 10) / 10));
-                    content.style.lineHeight = String(lh);
-                }
-                // Controles do modal
-                const fs = document.getElementById('fontSizeRange');
-                const lhRange = document.getElementById('lineHeightRange');
-                const pw = document.getElementById('pageWidthRange');
-                if (fs) fs.value = String(this.settings.fontSize);
-                if (lhRange) lhRange.value = String(this.settings.lineHeight);
-                if (pw) pw.value = String(this.settings.pageWidth);
-            }
-
-            bindSettingsUI() {
-                const modal = document.getElementById('settingsModal');
-                const open = document.getElementById('openSettings');
-                const close = document.getElementById('closeSettings');
-                const reset = document.getElementById('resetSettings');
-                const fs = document.getElementById('fontSizeRange');
-                const lh = document.getElementById('lineHeightRange');
-                const pw = document.getElementById('pageWidthRange');
-                if (open && modal) open.addEventListener('click', ()=>{ modal.classList.remove('hidden'); modal.setAttribute('aria-hidden','false'); });
-                if (close && modal) close.addEventListener('click', ()=>{ modal.classList.add('hidden'); modal.setAttribute('aria-hidden','true'); });
-                if (modal) modal.addEventListener('click', (e)=>{ if (e.target === modal) { modal.classList.add('hidden'); modal.setAttribute('aria-hidden','true'); }});
-                const onChange = this.debounce(()=>{ this.saveSettings(); this.applySettingsToUI(); this.paginateContent(); }, 150);
-                if (fs) fs.addEventListener('input', (e)=>{ this.settings.fontSize = Number(e.target.value); onChange(); });
-                if (lh) lh.addEventListener('input', (e)=>{ this.settings.lineHeight = Number(e.target.value); onChange(); });
-                if (pw) pw.addEventListener('input', (e)=>{ this.settings.pageWidth = Number(e.target.value); onChange(); });
-                if (reset) reset.addEventListener('click', ()=>{ this.settings = { fontSize: 18, lineHeight: 18, pageWidth: 800 }; this.saveSettings(); this.applySettingsToUI(); this.paginateContent(); });
-            }
-
-            restoreProgressIfAny() {
-                if (!this.currentChapter) return;
-                const key = `progress:${this.lang}:${this.currentChapter}`;
-                const saved = localStorage.getItem(key);
-                if (saved) {
-                    const idx = Math.min(this.pages.length - 1, Math.max(0, parseInt(saved, 10)));
-                    this.goToPage(idx, false);
-                }
-            }
-
-            toggleLightTheme() {
-                const root = document.documentElement;
-                const toggleBtn = document.getElementById('toggleTheme');
-                const isLight = document.body.classList.contains('light-theme');
-
-                if (!isLight) {
-                    // Ativar tema claro
-                    document.body.classList.add('light-theme');
-                    root.style.setProperty('--bg', '#f5f5f5');
-                    root.style.setProperty('--surface', '#ffffff');
-                    root.style.setProperty('--surface-light', '#f0f0f0');
-                    root.style.setProperty('--text', '#2c2c2c');
-                    root.style.setProperty('--text-muted', '#666666');
-                    root.style.setProperty('--border', '#e0e0e0');
-                    toggleBtn.textContent = this.i18n.themeLight;
-                    localStorage.setItem('theme', 'light');
-                } else {
-                    // Voltar ao tema escuro
-                    document.body.classList.remove('light-theme');
-                    root.style.setProperty('--bg', '#1a1a1a');
-                    root.style.setProperty('--surface', '#2d2d2d');
-                    root.style.setProperty('--surface-light', '#3d3d3d');
-                    root.style.setProperty('--text', '#e8e8e8');
-                    root.style.setProperty('--text-muted', '#b8b8b8');
-                    root.style.setProperty('--border', '#444');
-                    toggleBtn.textContent = this.i18n.themeDark;
-                    localStorage.setItem('theme', 'dark');
-                }
-            }
-
-            debounce(fn, delay) {
-                let t;
-                return (...args) => {
-                    clearTimeout(t);
-                    t = setTimeout(() => fn.apply(this, args), delay);
-                };
-            }
-        }
-
-        // Inicializar o leitor quando a pÃ¡gina carregar
-        document.addEventListener('DOMContentLoaded', () => {
-            const reader = new BookReader();
-            // Slider de pÃ¡gina
-            const range = document.getElementById('pageRange');
-            if (range) {
-                range.addEventListener('input', (e) => {
-                    const val = parseInt(e.target.value, 10);
-                    reader.goToPage(val - 1, false);
-                });
-            }
-            // Zonas de clique
-            const zonePrev = document.getElementById('zonePrev');
-            const zoneNext = document.getElementById('zoneNext');
-            if (zonePrev) zonePrev.addEventListener('click', ()=> reader.goToPage(reader.currentPageIndex - 1));
-            if (zoneNext) zoneNext.addEventListener('click', ()=> reader.goToPage(reader.currentPageIndex + 1));
-            // Modal ajustes
-            reader.bindSettingsUI();
-        });
-    </script>
-</body>
-</html>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Coração da Colmeia - Leitor Digital</title>
+    <meta name="description" content="Leitor digital de O Coração da Colmeia. Uma experiência de leitura imersiva página por página.">
+    <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7C3AED;
+            --primary-dark: #5b21b6;
+            --primary-glow: rgba(124,58,237,.35);
+            --bg: #13111a;
+            --surface: #1e1b28;
+            --surface-light: #2a2638;
+            --text: #e8e4f0;
+            --text-muted: #9b93ae;
+            --text-accent: #fbbf24;
+            --border: #332e45;
+            --shadow: rgba(0,0,0,.4);
+            --page-bg: #faf8f5;
+            --page-text: #1c1612;
+            --page-shadow: rgba(0,0,0,.12);
+            --gradient: linear-gradient(135deg, #7C3AED 0%, #5b21b6 100%);
+            --gold: #c9a227;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Lora', 'Georgia', serif;
+            background: var(--bg);
+            background-image: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(124,58,237,.12), transparent);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* â”€â”€ HEADER â”€â”€ */
+        .header {
+            background: var(--surface);
+            padding: .85rem 2rem;
+            box-shadow: 0 2px 16px rgba(0,0,0,.4);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary);
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0; right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: .4;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: .04em;
+            transition: color .2s;
+        }
+        .logo:hover { color: #a78bfa; }
+
+        .nav-controls { display: flex; gap: .75rem; align-items: center; }
+
+        .btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: .45rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: .88rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-family: inherit;
+            letter-spacing: .02em;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px var(--primary-glow);
+        }
+        .btn-secondary {
+            background: var(--surface-light);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover { background: var(--primary-dark); }
+
+        /* Visibilidade condicional */
+        #toggleSidebar { display: none; }
+
+        /* â”€â”€ LAYOUT â”€â”€ */
+        .container {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            min-height: calc(100vh - 80px);
+        }
+
+        /* â”€â”€ SIDEBAR â”€â”€ */
+        .sidebar {
+            width: 300px;
+            background: var(--surface);
+            padding: 1.75rem;
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            position: sticky;
+            top: 62px;
+            height: calc(100vh - 62px);
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--surface-light);
+        }
+
+        .sidebar-cover {
+            display: block;
+            width: 100%;
+            max-width: 150px;
+            margin: 0 auto 1.5rem;
+            filter: drop-shadow(0 6px 16px var(--primary-glow));
+            transition: filter 0.3s, transform .3s;
+            border-radius: 6px;
+        }
+        .sidebar-cover:hover {
+            filter: drop-shadow(0 8px 22px var(--primary-glow));
+            transform: scale(1.03);
+        }
+
+        .sidebar h2 {
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: .6rem;
+        }
+
+        .chapter-list { list-style: none; }
+        .chapter-item { margin-bottom: .35rem; }
+        .chapter-link {
+            display: block;
+            padding: .65rem .85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.25s ease;
+            border-left: 3px solid transparent;
+            font-size: .92rem;
+        }
+        .chapter-link:hover, .chapter-link.active {
+            color: var(--text);
+            background: var(--surface-light);
+            border-left-color: var(--primary);
+        }
+        .chapter-link.active { color: #a78bfa; font-weight: 600; }
+        .chapter-number { color: var(--primary); font-weight: bold; }
+
+        /* â”€â”€ READER AREA â”€â”€ */
+        .reader-area {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 160px;
+        }
+
+        /* â”€â”€ BOOK PAGE â”€â”€ */
+        .book-page {
+            background: var(--page-bg);
+            color: var(--page-text);
+            max-width: 820px;
+            width: 100%;
+            padding: 3.5rem 3.5rem 3rem;
+            margin-bottom: 180px;
+            border-radius: 16px;
+            box-shadow:
+                0 2px 0 rgba(255,255,255,.08),
+                0 12px 40px var(--page-shadow),
+                0 0 0 1px rgba(0,0,0,.06);
+            font-size: 1.08rem;
+            line-height: 1.9;
+            position: relative;
+            min-height: 600px;
+        }
+        .book-page::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--gold) 50%, var(--primary) 100%);
+            border-radius: 16px 16px 0 0;
+            opacity: .6;
+        }
+
+        .chapter-title {
+            color: var(--primary-dark);
+            font-family: 'Cinzel', serif;
+            font-size: 1.9rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #d4caed;
+            letter-spacing: .04em;
+        }
+
+        .chapter-content {
+            text-align: justify;
+            text-indent: 2rem;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+            hyphens: auto;
+            -webkit-hyphens: auto;
+        }
+        .chapter-content p { margin-bottom: 1.5rem; }
+        .chapter-content p:first-child {
+            text-indent: 0;
+            font-size: 1.12rem;
+            font-weight: 500;
+        }
+
+        .dialogue {
+            margin-left: 1.5rem;
+            font-style: italic;
+            color: #3d2f5f;
+            position: relative;
+        }
+        .dialogue::before {
+            content: 'â€”';
+            position: absolute;
+            left: -1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        .character-name { color: var(--primary-dark); font-weight: 600; }
+
+        /* â”€â”€ PAGINATION â”€â”€ */
+        .pages-holder { position: relative; width: 100%; min-height: 350px; }
+        .page { display: none; width: 100%; min-height: 300px; }
+        .page.active {
+            display: block;
+            animation: fadeIn .4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* â”€â”€ NAV ZONES â”€â”€ */
+        .nav-zone {
+            position: absolute;
+            top: 0; bottom: 140px;
+            width: 25%;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .nav-zone.left  { left: 0; }
+        .nav-zone.right { right: 0; }
+
+        /* â”€â”€ PAGE CONTROLS â”€â”€ */
+        .page-controls {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: .75rem;
+            background: var(--surface);
+            padding: .85rem 1.25rem;
+            border-radius: 50px;
+            box-shadow: 0 8px 28px rgba(0,0,0,.5), 0 0 0 1px var(--border);
+            border: 1px solid var(--border);
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+        }
+
+        .page-info {
+            display: flex;
+            align-items: center;
+            gap: .75rem;
+            color: var(--text-muted);
+            font-size: .85rem;
+            flex-direction: column;
+        }
+        .progress-bar {
+            width: 160px;
+            height: 3px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            width: 0%;
+            transition: width 0.4s ease;
+            border-radius: 2px;
+        }
+
+        /* â”€â”€ LOADING â”€â”€ */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            color: var(--text-muted);
+            gap: 1rem;
+        }
+        .loading::after {
+            content: '';
+            width: 36px;
+            height: 36px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* â”€â”€ SLIDER + MODAL â”€â”€ */
+        .page-slider { display: flex; align-items: center; gap: .5rem; }
+        .page-slider input[type="range"] { width: 160px; accent-color: var(--primary); }
+
+        .modal.hidden { display: none; }
+        .modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,.65);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 200;
+            backdrop-filter: blur(4px);
+        }
+        .modal .card {
+            background: var(--surface);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            min-width: 300px;
+            max-width: 440px;
+            box-shadow: 0 16px 48px rgba(0,0,0,.5);
+        }
+        .modal header { display:flex; align-items:center; justify-content:space-between; margin-bottom:.75rem; }
+        .modal h3 { margin:0; font-size:1.1rem; color: var(--primary); font-family:'Cinzel',serif; }
+        .modal .row { display:flex; align-items:center; justify-content:space-between; gap:.75rem; margin:.6rem 0; }
+        .modal label { font-size:.9rem; color:var(--text-muted); }
+        .modal input[type="range"] { width: 180px; accent-color: var(--primary); }
+        .modal .actions { display:flex; justify-content:flex-end; gap:.5rem; margin-top:.75rem; }
+
+        .btn[disabled] { opacity:.45; cursor:not-allowed; }
+
+        /* â”€â”€ WELCOME SCREEN â”€â”€ */
+        .welcome {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+        }
+        .welcome h2 {
+            color: var(--primary);
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            letter-spacing: .04em;
+        }
+        .welcome-cover {
+            width: clamp(110px, 28%, 170px);
+            margin: 0 auto 1.75rem;
+            display: block;
+            filter: drop-shadow(0 8px 24px var(--primary-glow));
+            border-radius: 6px;
+            transition: transform .3s, filter .3s;
+        }
+        .welcome-cover:hover {
+            transform: scale(1.04) rotate(-1deg);
+            filter: drop-shadow(0 12px 32px var(--primary-glow));
+        }
+        .welcome p {
+            font-size: 1.12rem;
+            margin-bottom: 1.25rem;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        /* â”€â”€ SIDEBAR COVER â”€â”€ */
+        .sidebar-cover-link { display: block; }
+
+        /* â”€â”€ SCROLLBAR â”€â”€ */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--surface); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+        /* â”€â”€ RESPONSIVE â”€â”€ */
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); top: auto; }
+            .sidebar.collapsed { display: none; }
+            #toggleSidebar { display: inline-flex; }
+            .book-page { padding: 2rem 1.5rem; margin: 0 .5rem; }
+            .page-controls { position: static; transform: none; border-radius: 12px; margin: 1.5rem auto; width: fit-content; }
+            .page-slider { display: none; }
+            .reader-area { padding: 1rem; }
+            .header { padding: .85rem 1rem; }
+            .nav { flex-wrap: wrap; gap: .5rem; }
+        }
+
+        .fade-in { animation: fadeIn .5s ease-in-out; }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <a href="index.html" class="logo" id="logoTitle">ðŸ“š O Coração da Colmeia</a>
+            <div class="nav-controls">
+                <button class="btn btn-secondary" id="toggleSidebar">â˜° Índice</button>
+                <a href="index.html" class="btn btn-secondary" id="backHome">â† Voltar ao Início</a>
+                <button class="btn" id="toggleTheme">ðŸŒ™ Tema Escuro</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <img src="./assets/illustrations/capa.svg" alt="Capa do livro" class="sidebar-cover" loading="lazy"/>
+            <h2 id="indexHeading">ðŸ“– Índice dos Capítulos</h2>
+            <ul class="chapter-list" id="chapterList">
+                <!-- Será preenchido dinamicamente -->
+            </ul>
+        </aside>
+
+        <main class="reader-area">
+            <div class="book-page">
+                <div class="nav-zone left" id="zonePrev" title="Página anterior"></div>
+                <div class="nav-zone right" id="zoneNext" title="Próxima página"></div>
+                <div id="content">
+                    <div class="welcome fade-in">
+                        <img src="./assets/illustrations/capa.svg" alt="Capa" class="welcome-cover" loading="lazy"/>
+                        <h2 id="welcomeTitle">ðŸ“š Bem-vindo ao Leitor Digital</h2>
+                        <p id="welcomeP1">Selecione um capítulo no índice Ã  esquerda para começar sua jornada por <strong>O Coração da Colmeia</strong>.</p>
+                        <p id="welcomeP2">Uma experiência de leitura imersiva pelos mundos de <em>Miraferro</em> e <em>Krawzer</em>, onde duas realidades se encontram através dos olhos de Gael.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="page-controls">
+        <button class="btn btn-secondary" id="prevPage" disabled>â† Página</button>
+        <div class="page-info">
+            <span id="currentChapter">Selecione um capítulo</span>
+            <span id="pageIndicator"></span>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+        <div class="page-slider">
+            <input type="range" id="pageRange" min="1" max="1" value="1" />
+        </div>
+        <button class="btn btn-secondary" id="nextPage" disabled>Página â†’</button>
+        <button class="btn btn-secondary" id="prevChapter" disabled style="margin-left: 1rem;">â® Capítulo</button>
+        <button class="btn btn-secondary" id="nextChapter" disabled>Capítulo â­</button>
+        <button class="btn" id="openSettings" title="Ajustes de leitura">âš™ï¸</button>
+    </div>
+
+    <!-- Modal de ajustes de leitura -->
+    <div class="modal hidden" id="settingsModal" aria-hidden="true" role="dialog">
+        <div class="card">
+            <header>
+                <h3>Ajustes de leitura</h3>
+                <button class="btn btn-secondary" id="closeSettings">Fechar</button>
+            </header>
+            <div class="row">
+                <label for="fontSizeRange">Tamanho da fonte</label>
+                <input type="range" id="fontSizeRange" min="16" max="22" value="18" />
+            </div>
+            <div class="row">
+                <label for="lineHeightRange">Altura da linha</label>
+                <input type="range" id="lineHeightRange" min="16" max="22" value="18" />
+            </div>
+            <div class="row">
+                <label for="pageWidthRange">Largura da página</label>
+                <input type="range" id="pageWidthRange" min="640" max="900" value="800" />
+            </div>
+            <div class="actions">
+                <button class="btn btn-secondary" id="resetSettings">Restaurar padrão</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class BookReader {
+            constructor() {
+                this.chapters = [];
+                this.currentChapter = null;
+                this.pages = [];
+                this.currentPageIndex = 0;
+                this.onResize = null;
+                // Flags de controle de navegação/paginação
+                this.forceFirstPage = false;       // força abrir página 1 após troca de capítulo
+                this.restoreOnPaginate = false;     // controla se deve restaurar progresso do storage
+                this.settings = this.loadSettings();
+                // Idioma: pt (default) ou en via query string ?lang=en
+                const params = new URLSearchParams(window.location.search);
+                this.lang = (params.get('lang') || 'pt').toLowerCase();
+                this.i18n = this.lang === 'en' ? {
+                    backHome: 'â† Back to Home',
+                    indexHeading: 'ðŸ“– Chapter Index',
+                    welcomeTitle: 'ðŸ“š Welcome to the Digital Reader',
+                    welcomeP1: 'Select a chapter on the left to begin your journey through O Coração da Colmeia.',
+                    welcomeP2: 'An immersive, page-by-page reading experience across the worlds of Miraferro and Krawzer.',
+                    selectChapter: 'Select a chapter',
+                    prevPage: 'â† Page',
+                    nextPage: 'Page â†’',
+                    prevChapter: 'â® Chapter',
+                    nextChapter: 'Chapter â­',
+                    pageOf: (i, total) => `â€” Page ${i} of ${total}`,
+                    chapterLabel: (n, title) => `Chapter ${n}: ${title}`,
+                    chapterShort: 'Ch.',
+                    themeDark: 'ðŸŒ™ Dark Theme',
+                    themeLight: 'ðŸŒž Light Theme',
+                    loading: 'Loading chapter…',
+                    failed: (id) => `Could not load chapter ${id}.`
+                } : {
+                    backHome: 'â† Voltar ao Início',
+                    indexHeading: 'ðŸ“– Índice dos Capítulos',
+                    welcomeTitle: 'ðŸ“š Bem-vindo ao Leitor Digital',
+                    welcomeP1: 'Selecione um capítulo no índice Ã  esquerda para começar sua jornada por O Coração da Colmeia.',
+                    welcomeP2: 'Uma experiência de leitura imersiva pelos mundos de Miraferro e Krawzer, onde duas realidades se encontram através dos olhos de Gael.',
+                    selectChapter: 'Selecione um capítulo',
+                    prevPage: 'â† Página',
+                    nextPage: 'Página â†’',
+                    prevChapter: 'â® Capítulo',
+                    nextChapter: 'Capítulo â­',
+                    pageOf: (i, total) => `â€” Página ${i} de ${total}`,
+                    chapterLabel: (n, title) => `Capítulo ${n}: ${title}`,
+                    chapterShort: 'Cap.',
+                    themeDark: 'ðŸŒ™ Tema Escuro',
+                    themeLight: 'ðŸŒž Tema Claro',
+                    loading: 'Carregando capítulo…',
+                    failed: (id) => `Não foi possível carregar o capítulo ${id}.`
+                };
+                this.init();
+            }
+
+            async init() {
+                await this.loadChapterTitles();
+                this.renderChapterList();
+                this.setupEventListeners();
+                this.setupThemeToggle();
+                // aviso WIP removido
+            }
+
+            async loadChapterTitles() {
+                const base = this.lang === 'en' ? './chapters-en' : './chapters';
+                const suffix = this.lang === 'en' ? '_en' : '';
+                const chapterFiles = Array.from({ length: 6 }, (_, idx) => `${base}/OSDB${idx + 1}${suffix}.txt`);
+
+                for (let i = 0; i < chapterFiles.length; i++) {
+                    try {
+                        const response = await fetch(chapterFiles[i]);
+                        const text = await response.text();
+                        const firstLine = text.split('\n')[0].trim();
+
+                        // Extrair título da primeira linha (suporta PT e EN)
+                        let title = null;
+                        const mPt = firstLine.match(/Capítulo\s+\d+:\s*(.+)/i);
+                        const mEn = firstLine.match(/Chapter\s+\d+:\s*(.+)/i);
+                        if (mPt) title = mPt[1];
+                        else if (mEn) title = mEn[1];
+                        else title = (this.lang === 'en' ? `Chapter ${i + 1}` : `Capítulo ${i + 1}`);
+
+                        this.chapters.push({
+                            id: i + 1,
+                            title: title,
+                            file: chapterFiles[i],
+                            fullTitle: firstLine
+                        });
+                    } catch (error) {
+                        console.warn(`Erro ao carregar ${chapterFiles[i]}:`, error);
+                        this.chapters.push({
+                            id: i + 1,
+                            title: this.lang === 'en' ? `Chapter ${i + 1}` : `Capítulo ${i + 1}`,
+                            file: chapterFiles[i],
+                            fullTitle: this.lang === 'en' ? `Chapter ${i + 1}` : `Capítulo ${i + 1}`
+                        });
+                    }
+                }
+            }
+
+            renderChapterList() {
+                const chapterList = document.getElementById('chapterList');
+                chapterList.innerHTML = this.chapters.map(chapter => `
+                    <li class="chapter-item">
+                        <a href="#" class="chapter-link" data-chapter="${chapter.id}">
+                            <span class="chapter-number">${this.i18n.chapterShort} ${chapter.id}</span><br>
+                            ${chapter.title}
+                        </a>
+                    </li>
+                `).join('');
+
+                // Localizar rótulos estáticos
+                document.getElementById('indexHeading').textContent = this.i18n.indexHeading;
+                document.getElementById('prevPage').textContent = this.i18n.prevPage;
+                document.getElementById('nextPage').textContent = this.i18n.nextPage;
+                document.getElementById('prevChapter').textContent = this.i18n.prevChapter;
+                document.getElementById('nextChapter').textContent = this.i18n.nextChapter;
+                document.getElementById('currentChapter').textContent = this.i18n.selectChapter;
+                document.getElementById('backHome').textContent = this.i18n.backHome;
+                // Mensagem de boas-vindas
+                document.getElementById('welcomeTitle').textContent = this.i18n.welcomeTitle;
+                document.getElementById('welcomeP1').innerHTML = this.i18n.welcomeP1.replace('O Coração da Colmeia','<strong>O Coração da Colmeia</strong>');
+                document.getElementById('welcomeP2').textContent = this.i18n.welcomeP2;
+            }
+
+            setupEventListeners() {
+                // Links dos capítulos
+                document.querySelectorAll('.chapter-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        // Navegação explícita de capítulo -> começar na página 1
+                        this.forceFirstPage = true;
+                        this.restoreOnPaginate = false;
+                        const chapterId = parseInt(e.currentTarget.dataset.chapter);
+                        this.loadChapter(chapterId);
+                    });
+                });
+
+                // Toggle do índice (mobile)
+                const toggleSidebarBtn = document.getElementById('toggleSidebar');
+                const sidebar = document.querySelector('.sidebar');
+                if (toggleSidebarBtn && sidebar) {
+                    toggleSidebarBtn.addEventListener('click', () => {
+                        sidebar.classList.toggle('collapsed');
+                    });
+                }
+
+                // Navegação entre capítulos
+                document.getElementById('prevChapter').addEventListener('click', () => {
+                    if (this.currentChapter && this.currentChapter > 1) {
+                        this.forceFirstPage = true;
+                        this.restoreOnPaginate = false;
+                        this.loadChapter(this.currentChapter - 1);
+                    }
+                });
+
+                document.getElementById('nextChapter').addEventListener('click', () => {
+                    if (this.currentChapter && this.currentChapter < this.chapters.length) {
+                        this.forceFirstPage = true;
+                        this.restoreOnPaginate = false;
+                        this.loadChapter(this.currentChapter + 1);
+                    }
+                });
+
+                // Navegação entre páginas
+                const prevBtn = document.getElementById('prevPage');
+                const nextBtn = document.getElementById('nextPage');
+                const navPrev = () => this.goToPage(this.currentPageIndex - 1);
+                const navNext = () => this.goToPage(this.currentPageIndex + 1);
+                ['click','pointerup','touchend'].forEach(evt => {
+                    prevBtn.addEventListener(evt, (e)=>{ e.preventDefault(); navPrev(); }, { passive: true });
+                    nextBtn.addEventListener(evt, (e)=>{ e.preventDefault(); navNext(); }, { passive: true });
+                });
+
+                // Teclas de navegação
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') {
+                        // Shift + seta navega capítulos, seta navega páginas
+                        if (e.shiftKey) {
+                            if (this.currentChapter > 1) this.loadChapter(this.currentChapter - 1);
+                        } else {
+                            this.goToPage(this.currentPageIndex - 1);
+                        }
+                    } else if (e.key === 'ArrowRight') {
+                        if (e.shiftKey) {
+                            if (this.currentChapter < this.chapters.length) this.loadChapter(this.currentChapter + 1);
+                        } else {
+                            this.goToPage(this.currentPageIndex + 1);
+                        }
+                    }
+                });
+
+                // Gestos básicos de swipe no mobile
+                let touchStartX = null;
+                document.addEventListener('touchstart', (e) => {
+                    if (e.touches && e.touches.length === 1) {
+                        touchStartX = e.touches[0].clientX;
+                    }
+                }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    if (touchStartX === null) return;
+                    const dx = (e.changedTouches && e.changedTouches[0].clientX) - touchStartX;
+                    const threshold = 50; // px
+                    if (Math.abs(dx) > threshold) {
+                        if (dx > 0) this.goToPage(this.currentPageIndex - 1);
+                        else this.goToPage(this.currentPageIndex + 1);
+                    }
+                    touchStartX = null;
+                });
+            }
+
+            async loadChapter(chapterId) {
+                const chapter = this.chapters.find(c => c.id === chapterId);
+                if (!chapter) return;
+
+                this.currentChapter = chapterId;
+                this.updateActiveChapter();
+                this.updateNavigationControls();
+
+                const content = document.getElementById('content');
+                content.innerHTML = `<div class="loading">${this.i18n.loading}</div>`;
+
+                try {
+                    const response = await fetch(chapter.file);
+                    const text = await response.text();
+                    this.renderChapter(text, chapter);
+                } catch (error) {
+                    content.innerHTML = `
+                        <div class="welcome fade-in">
+                            <h2>âŒ</h2>
+                            <p>${this.i18n.failed(chapterId)}</p>
+                        </div>
+                    `;
+                }
+            }
+
+            renderChapter(text, chapter) {
+                // Processar o texto do capítulo
+                const lines = text.split('\n').filter(line => line.trim());
+                const title = lines[0]; // Primeira linha é o título
+                const content = lines.slice(1).join('\n'); // Resto é o conteúdo
+
+                // Dividir em parágrafos e formatar
+                const paragraphs = content.split('\n')
+                    .filter(p => p.trim())
+                    .map(p => this.formatParagraph(p.trim()))
+                    .join('');
+
+                document.getElementById('content').innerHTML = `
+                    <div class="fade-in">
+                        <h1 class="chapter-title">${this.formatText(title)}</h1>
+                        <div style="text-align:center;margin:0.5rem 0 1.5rem;opacity:0.7;">
+                          <svg width="120" height="28" viewBox="0 0 120 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <g fill="#8A2BE2" opacity="0.85">
+                              <polygon points="14,2 20,8 20,16 14,22 8,16 8,8" opacity="0.5"/>
+                              <polygon points="30,2 36,8 36,16 30,22 24,16 24,8" opacity="0.7"/>
+                              <polygon points="46,2 52,8 52,16 46,22 40,16 40,8" opacity="1"/>
+                              <polygon points="62,2 68,8 68,16 62,22 56,16 56,8"/>
+                              <polygon points="78,2 84,8 84,16 78,22 72,16 72,8" opacity="1"/>
+                              <polygon points="94,2 100,8 100,16 94,22 88,16 88,8" opacity="0.7"/>
+                              <polygon points="110,2 116,8 116,16 110,22 104,16 104,8" opacity="0.5"/>
+                            </g>
+                          </svg>
+                        </div>
+                        <div class="chapter-content" id="chapterContent">
+                            ${paragraphs}
+                        </div>
+                    </div>
+                `;
+
+                // Paginar conteúdo â€” sempre começar na página 1 quando trocou de capítulo
+                this.applySettingsToUI();
+                // Se a troca foi de capítulo, não tentar restaurar progresso nessa primeira paginação
+                this.restoreOnPaginate = !this.forceFirstPage;
+                this.paginateContent();
+                if (this.forceFirstPage) {
+                    // Garantir página 1
+                    this.goToPage(0, false);
+                    this.forceFirstPage = false;
+                }
+
+                // Scroll para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            paginateContent() {
+                const book = document.querySelector('.book-page');
+                const contentEl = document.getElementById('chapterContent');
+                if (!book || !contentEl) return;
+
+                // Guardar posição relativa antes de repaginar
+                const prevTotal = this.pages?.length || 0;
+                const prevIndex = this.currentPageIndex || 0;
+
+                // Reset
+                this.pages = [];
+                this.currentPageIndex = 0;
+
+                // Altura disponível baseada na posição real do conteúdo dentro da página
+                const bookRect = book.getBoundingClientRect();
+                const contentRect = contentEl.getBoundingClientRect();
+                const headerHeight = Math.max(0, contentRect.top - bookRect.top);
+                const safety = 16;
+                let baseHeight = Math.max(520, book.clientHeight - headerHeight - safety);
+                // Mobile: use viewport para evitar overscrolls
+                if (window.innerWidth <= 768) {
+                    baseHeight = Math.floor(window.innerHeight * 0.7);
+                }
+                const available = Math.max(420, Math.min(baseHeight, 820));
+
+                // Capturar blocos atuais (p, blockquote, hr)
+                const blocks = Array.from(contentEl.querySelectorAll('p, blockquote, hr'))
+                    .map(node => node.outerHTML);
+
+                // Limpar e criar holder
+                contentEl.innerHTML = '';
+                const holder = document.createElement('div');
+                holder.className = 'pages-holder';
+                contentEl.appendChild(holder);
+
+                // Medidor (oculto) com altura fixa â€“ clonando estilos do conteúdo
+                const contentStyles = window.getComputedStyle(contentEl);
+                const measure = document.createElement('div');
+                measure.style.visibility = 'hidden';
+                measure.style.position = 'absolute';
+                measure.style.left = '-9999px';
+                measure.style.top = '0';
+                measure.style.height = available + 'px';
+                measure.style.overflow = 'hidden';
+                measure.style.width = contentEl.clientWidth + 'px';
+                measure.style.padding = contentStyles.padding;
+                measure.style.margin = '0';
+                measure.style.boxSizing = 'border-box';
+                measure.style.fontFamily = contentStyles.fontFamily;
+                measure.style.fontSize = contentStyles.fontSize;
+                measure.style.lineHeight = contentStyles.lineHeight;
+                measure.style.letterSpacing = contentStyles.letterSpacing;
+                measure.style.wordSpacing = contentStyles.wordSpacing;
+                document.body.appendChild(measure);
+
+                const commitPage = (pageHTML) => {
+                    if (!pageHTML || pageHTML.length === 0) return;
+                    const page = document.createElement('div');
+                    page.className = 'page';
+                    page.innerHTML = pageHTML.join('');
+                    page.style.minHeight = Math.max(300, available - 8) + 'px';
+                    holder.appendChild(page);
+                };
+
+                const splitBlockToFit = (html) => {
+                    // Não dividir hr
+                    if (/^<hr\b/i.test(html)) return null;
+                    let tag = 'p';
+                    let cls = '';
+                    if (/^<blockquote\b/i.test(html)) tag = 'blockquote';
+                    if (/^<p\b[^>]*class=\"dialogue\"/i.test(html)) { tag = 'p'; cls = 'dialogue'; }
+
+                    const tmp = document.createElement('div');
+                    tmp.innerHTML = html;
+                    const fullText = (tmp.textContent || '').trim();
+                    if (!fullText) return null;
+
+                    // utilitário para ajustar última palavra (evitar conectivos no fim da página)
+                    const adjustSplit = (ft, rt) => {
+                        if (!ft) return [ft, rt];
+                        const connectors = new Set(['e','de','da','do','das','dos','em','no','na','nos','nas','ou','a','o','um','uma','por','como','que']);
+                        const parts = ft.split(/\s+/);
+                        if (!parts.length) return [ft, rt];
+                        const lastRaw = parts[parts.length - 1];
+                        const last = lastRaw.toLowerCase().replace(/[.,;:!?…]+$/,'');
+                        const restCount = rt ? rt.split(/\s+/).filter(Boolean).length : 0;
+                        if ((connectors.has(last) || last.length <= 2) && restCount >= 3) {
+                            parts.pop();
+                            const moved = lastRaw.replace(/[.,;:!?…]+$/,'');
+                            const newFt = parts.join(' ');
+                            const newRt = (moved ? moved + ' ' : '') + (rt || '');
+                            return [newFt.trim(), newRt.trim()];
+                        }
+                        return [ft, rt];
+                    };
+
+                    // Dividir em frases primeiro para melhor quebra
+                    const sentences = fullText.split(/(?<=[.!?])\s+/);
+                    if (sentences.length > 1) {
+                        // Tentar dividir por frases primeiro
+                        let bestSentences = 0;
+                        const probe = document.createElement(tag);
+                        if (cls) probe.className = cls;
+
+                        for (let i = 1; i <= sentences.length; i++) {
+                            const testText = sentences.slice(0, i).join(' ');
+                            probe.textContent = testText;
+                            measure.appendChild(probe);
+                            const fits = measure.scrollHeight <= measure.clientHeight;
+                            measure.removeChild(probe);
+                            if (fits) bestSentences = i;
+                            else break;
+                        }
+
+                        if (bestSentences > 0 && bestSentences < sentences.length) {
+                            let fittedText = sentences.slice(0, bestSentences).join(' ');
+                            let remainderText = sentences.slice(bestSentences).join(' ');
+                            [fittedText, remainderText] = adjustSplit(fittedText, remainderText);
+
+                            const fittedNode = document.createElement(tag);
+                            if (cls) fittedNode.className = cls;
+                            fittedNode.textContent = fittedText;
+                            const fittedHTML = fittedNode.outerHTML;
+
+                            const remainderHTML = remainderText ? (tag === 'blockquote'
+                                ? `<blockquote>${remainderText}</blockquote>`
+                                : (cls ? `<p class=\"dialogue\">${remainderText}</p>` : `<p>${remainderText}</p>`)) : '';
+                            return { fittedHTML, remainderHTML };
+                        }
+                    }
+
+                    // Fallback para divisão por palavras se não conseguir por frases
+                    const words = fullText.split(/\s+/);
+                    let lo = 0, hi = words.length, best = 0;
+                    const probe = document.createElement(tag);
+                    if (cls) probe.className = cls;
+
+                    while (lo <= hi) {
+                        const mid = Math.floor((lo + hi) / 2);
+                        probe.textContent = words.slice(0, mid).join(' ');
+                        measure.appendChild(probe);
+                        const fits = measure.scrollHeight <= measure.clientHeight;
+                        measure.removeChild(probe);
+                        if (fits) { best = mid; lo = mid + 1; } else { hi = mid - 1; }
+                    }
+                    if (best <= 0) return null;
+
+                    // Garantir um mínimo de palavras no restante
+                    const minRest = 3;
+                    let chosen = best;
+                    while ((words.length - chosen) < minRest && chosen > 1) {
+                        // re-medida reduzindo uma palavra para deixar resto mínimo
+                        const mid2 = chosen - 1;
+                        probe.textContent = words.slice(0, mid2).join(' ');
+                        measure.appendChild(probe);
+                        const fits2 = measure.scrollHeight <= measure.clientHeight;
+                        measure.removeChild(probe);
+                        if (!fits2) break;
+                        chosen = mid2;
+                    }
+
+                    const fittedNode = document.createElement(tag);
+                    if (cls) fittedNode.className = cls;
+                    let fittedText = words.slice(0, chosen).join(' ');
+                    let remainderText = words.slice(chosen).join(' ');
+                    [fittedText, remainderText] = adjustSplit(fittedText, remainderText);
+                    fittedNode.textContent = fittedText;
+                    const fittedHTML = fittedNode.outerHTML;
+
+                    const remainderWords = remainderText ? remainderText.split(/\s+/) : [];
+                    const remainderHTML = remainderText ? (tag === 'blockquote'
+                        ? `<blockquote>${remainderText}</blockquote>`
+                        : (cls ? `<p class=\"dialogue\">${remainderText}</p>` : `<p>${remainderText}</p>`)) : '';
+                    return { fittedHTML, remainderHTML };
+                };
+
+                const pageHTML = [];
+                let i = 0;
+                while (i < blocks.length) {
+                    const html = blocks[i];
+                    // Tentar adicionar o bloco ao conteúdo já acumulado
+                    const testWrap = document.createElement('div');
+                    testWrap.innerHTML = (pageHTML.join('') + html);
+                    measure.innerHTML = '';
+                    measure.appendChild(testWrap);
+                    const fitsAccumulated = measure.scrollHeight <= measure.clientHeight;
+
+                    if (fitsAccumulated) {
+                        pageHTML.push(html);
+                        i++;
+                        continue;
+                    }
+
+                    // Se com o acumulado não coube, tentar dividir o bloco atual
+                    const split = splitBlockToFit(html);
+                    if (split && split.fittedHTML) {
+                        // Tentar preencher o espaço restante da página atual
+                        if (pageHTML.length > 0) {
+                            const fillWrap = document.createElement('div');
+                            fillWrap.innerHTML = (pageHTML.join('') + split.fittedHTML);
+                            measure.innerHTML = '';
+                            measure.appendChild(fillWrap);
+                            const fitsWithFitted = measure.scrollHeight <= measure.clientHeight;
+                            if (fitsWithFitted) {
+                                // Preenche a página atual com a parte ajustada do bloco
+                                pageHTML.push(split.fittedHTML);
+                                // Fecha a página atual agora preenchida
+                                commitPage(pageHTML.splice(0, pageHTML.length));
+                                // O restante fica para próxima iteração
+                                if (split.remainderHTML) {
+                                    blocks[i] = split.remainderHTML;
+                                } else {
+                                    i++;
+                                }
+                                continue;
+                            } else {
+                                // Mesmo a parte ajustada não cabe no restante; fecha a página atual
+                                commitPage(pageHTML.splice(0, pageHTML.length));
+                            }
+                        }
+                        // Começa nova página com a parte ajustada (não comitar ainda; tentar preencher com próximos blocos)
+                        pageHTML.push(split.fittedHTML);
+                        if (split.remainderHTML) {
+                            blocks[i] = split.remainderHTML;
+                        } else {
+                            i++;
+                        }
+                        continue;
+                    }
+
+                    // Se não conseguiu dividir, força quebra mínima por palavras
+                    const tmp = document.createElement('div'); tmp.innerHTML = html;
+                    const text = (tmp.textContent || '').trim();
+                    const words = text.split(/\s+/);
+                    const minChunk = Math.max(5, Math.floor(words.length * 0.2));
+                    const head = words.slice(0, minChunk).join(' ');
+                    const tail = words.slice(minChunk).join(' ');
+                    const tag = /^<blockquote\b/i.test(html) ? 'blockquote' : 'p';
+                    const isDlg = /^<p\b[^>]*class=\"dialogue\"/i.test(html);
+                    const headHTML = tag === 'blockquote' ? `<blockquote>${head}</blockquote>` : (isDlg ? `<p class=\"dialogue\">${head}</p>` : `<p>${head}</p>`);
+                    const tailHTML = tag === 'blockquote' ? `<blockquote>${tail}</blockquote>` : (isDlg ? `<p class=\"dialogue\">${tail}</p>` : `<p>${tail}</p>`);
+                    // Se já tinha conteúdo acumulado, fecha como uma página
+                    if (pageHTML.length) {
+                        commitPage(pageHTML.splice(0, pageHTML.length));
+                    }
+                    // Começa nova página com a cabeça mínima (não comitar ainda; tentar preencher com próximos blocos)
+                    pageHTML.push(headHTML);
+                    // Devolve o restante
+                    blocks[i] = tail ? tailHTML : null;
+                    if (!tail) i++;
+                }
+                // Commit final
+                commitPage(pageHTML);
+
+                // Remover medidor e registrar páginas
+                if (measure && measure.parentNode) {
+                    measure.remove();
+                }
+
+                this.pages = Array.from(holder.querySelectorAll('.page'));
+
+                // Garantir que há pelo menos uma página
+                if (this.pages.length === 0) {
+                    const empty = document.createElement('div');
+                    empty.className = 'page';
+                    empty.innerHTML = '<p>Conteúdo não encontrado.</p>';
+                    empty.style.minHeight = '300px';
+                    holder.appendChild(empty);
+                    this.pages = [empty];
+                }
+
+                // Remover páginas vazias desnecessárias
+                this.pages = this.pages.filter(page => {
+                    const content = page.textContent.trim();
+                    return content.length > 0;
+                });
+
+                // Preservar posição aproximada apenas se não for forçar página 1
+                let newIndex = 0;
+                if (!this.forceFirstPage && prevTotal > 0) {
+                    const ratio = prevIndex / Math.max(prevTotal - 1, 1);
+                    newIndex = Math.max(0, Math.min(this.pages.length - 1, Math.round(ratio * (this.pages.length - 1))));
+                }
+                this.goToPage(newIndex, false);
+                // Restaurar progresso salvo (se habilitado e não for troca de capítulo)
+                if (this.restoreOnPaginate) {
+                    this.restoreProgressIfAny();
+                }
+
+                // Atualizar ao redimensionar (debounce)
+                if (this.onResize) window.removeEventListener('resize', this.onResize);
+                this.onResize = this.debounce(() => {
+                    this.paginateContent();
+                }, 200);
+                window.addEventListener('resize', this.onResize);
+            }
+
+            goToPage(index, smooth = true) {
+                if (!this.pages || this.pages.length === 0) return;
+                if (index < 0 || index >= this.pages.length) return;
+                this.pages.forEach((pg, i) => pg.classList.toggle('active', i === index));
+                this.currentPageIndex = index;
+                this.updatePageControls();
+                if (smooth) window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            updatePageControls() {
+                const prevPageBtn = document.getElementById('prevPage');
+                const nextPageBtn = document.getElementById('nextPage');
+                const indicator = document.getElementById('pageIndicator');
+                const prevChapterBtn = document.getElementById('prevChapter');
+                const nextChapterBtn = document.getElementById('nextChapter');
+
+                prevPageBtn.disabled = this.currentPageIndex <= 0;
+                nextPageBtn.disabled = this.currentPageIndex >= (this.pages.length - 1);
+
+                // Melhorar feedback visual dos botões
+                if (this.currentPageIndex <= 0) {
+                    prevPageBtn.style.opacity = '0.5';
+                } else {
+                    prevPageBtn.style.opacity = '1';
+                }
+
+                if (this.currentPageIndex >= (this.pages.length - 1)) {
+                    nextPageBtn.style.opacity = '0.5';
+                } else {
+                    nextPageBtn.style.opacity = '1';
+                }
+
+                if (indicator && this.pages.length > 0) {
+                    const current = this.currentPageIndex + 1;
+                    const total = this.pages.length;
+                    const percentage = Math.round((current / total) * 100);
+                    indicator.textContent = `${this.i18n.pageOf(current, total)} (${percentage}%)`;
+
+                    // Atualizar barra de progresso
+                    const progressFill = document.getElementById('progressFill');
+                    if (progressFill) {
+                        progressFill.style.width = `${percentage}%`;
+                    }
+                    // Atualizar slider
+                    const range = document.getElementById('pageRange');
+                    if (range) {
+                        if (range.max !== String(total)) range.max = String(total);
+                        if (range.value !== String(current)) range.value = String(current);
+                    }
+                } else if (indicator) {
+                    indicator.textContent = '';
+                    const progressFill = document.getElementById('progressFill');
+                    if (progressFill) {
+                        progressFill.style.width = '0%';
+                    }
+                }
+
+                // Persistir progresso por capítulo
+                if (this.currentChapter) {
+                    const key = `progress:${this.lang}:${this.currentChapter}`;
+                    localStorage.setItem(key, String(this.currentPageIndex));
+                }
+            }
+
+            formatParagraph(text) {
+                if (!text) return '';
+
+                // Identificar diálogos (começam com â€”)
+                if (text.startsWith('â€”')) {
+                    return `<p class="dialogue">${this.formatText(text.substring(1).trim())}</p>`;
+                }
+
+                return `<p>${this.formatText(text)}</p>`;
+            }
+
+            formatText(text) {
+                // Formatação básica do texto
+                return text
+                    .replace(/â€”/g, 'â€”') // Travessões para diálogos
+                    .replace(/\.\.\./g, '…') // Reticências
+                    .replace(/"([^"]+)"/g, '"$1"') // Aspas tipográficas
+                    .replace(/\b(Miraferro|Krawzer|Gael|Sophya|Sifo|Tio|Lia)\b/g, '$1');
+            }
+
+            updateActiveChapter() {
+                // Atualizar visual do capítulo ativo
+                document.querySelectorAll('.chapter-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                const activeLink = document.querySelector(`[data-chapter="${this.currentChapter}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+
+                // Atualizar info do capítulo atual
+                const chapter = this.chapters.find(c => c.id === this.currentChapter);
+                document.getElementById('currentChapter').textContent = this.i18n.chapterLabel(this.currentChapter, chapter.title);
+            }
+
+            updateNavigationControls() {
+                const prevBtn = document.getElementById('prevChapter');
+                const nextBtn = document.getElementById('nextChapter');
+
+                prevBtn.disabled = this.currentChapter <= 1;
+                nextBtn.disabled = this.currentChapter >= this.chapters.length;
+            }
+
+            setupThemeToggle() {
+                const toggleBtn = document.getElementById('toggleTheme');
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                if (savedTheme === 'light') {
+                    this.toggleLightTheme();
+                }
+                toggleBtn.addEventListener('click', () => {
+                    this.toggleLightTheme();
+                });
+                // Ajustar rótulo conforme idioma
+                toggleBtn.textContent = this.i18n.themeDark;
+            }
+
+            // Ajustes de leitura e persistência
+            loadSettings() {
+                const raw = localStorage.getItem('readerSettings');
+                return raw ? JSON.parse(raw) : { fontSize: 18, lineHeight: 18, pageWidth: 800 };
+            }
+            saveSettings() {
+                localStorage.setItem('readerSettings', JSON.stringify(this.settings));
+            }
+            applySettingsToUI() {
+                const rootPage = document.querySelector('.book-page');
+                if (rootPage) rootPage.style.maxWidth = `${this.settings.pageWidth}px`;
+                const content = document.getElementById('chapterContent');
+                if (content) {
+                    content.style.fontSize = `${this.settings.fontSize}px`;
+                    // converter faixa 16..22 para 1.4..2.0
+                    const lh = Math.max(1.2, Math.min(2.0, (this.settings.lineHeight - 10) / 10));
+                    content.style.lineHeight = String(lh);
+                }
+                // Controles do modal
+                const fs = document.getElementById('fontSizeRange');
+                const lhRange = document.getElementById('lineHeightRange');
+                const pw = document.getElementById('pageWidthRange');
+                if (fs) fs.value = String(this.settings.fontSize);
+                if (lhRange) lhRange.value = String(this.settings.lineHeight);
+                if (pw) pw.value = String(this.settings.pageWidth);
+            }
+
+            bindSettingsUI() {
+                const modal = document.getElementById('settingsModal');
+                const open = document.getElementById('openSettings');
+                const close = document.getElementById('closeSettings');
+                const reset = document.getElementById('resetSettings');
+                const fs = document.getElementById('fontSizeRange');
+                const lh = document.getElementById('lineHeightRange');
+                const pw = document.getElementById('pageWidthRange');
+                if (open && modal) open.addEventListener('click', ()=>{ modal.classList.remove('hidden'); modal.setAttribute('aria-hidden','false'); });
+                if (close && modal) close.addEventListener('click', ()=>{ modal.classList.add('hidden'); modal.setAttribute('aria-hidden','true'); });
+                if (modal) modal.addEventListener('click', (e)=>{ if (e.target === modal) { modal.classList.add('hidden'); modal.setAttribute('aria-hidden','true'); }});
+                const onChange = this.debounce(()=>{ this.saveSettings(); this.applySettingsToUI(); this.paginateContent(); }, 150);
+                if (fs) fs.addEventListener('input', (e)=>{ this.settings.fontSize = Number(e.target.value); onChange(); });
+                if (lh) lh.addEventListener('input', (e)=>{ this.settings.lineHeight = Number(e.target.value); onChange(); });
+                if (pw) pw.addEventListener('input', (e)=>{ this.settings.pageWidth = Number(e.target.value); onChange(); });
+                if (reset) reset.addEventListener('click', ()=>{ this.settings = { fontSize: 18, lineHeight: 18, pageWidth: 800 }; this.saveSettings(); this.applySettingsToUI(); this.paginateContent(); });
+            }
+
+            restoreProgressIfAny() {
+                if (!this.currentChapter) return;
+                const key = `progress:${this.lang}:${this.currentChapter}`;
+                const saved = localStorage.getItem(key);
+                if (saved) {
+                    const idx = Math.min(this.pages.length - 1, Math.max(0, parseInt(saved, 10)));
+                    this.goToPage(idx, false);
+                }
+            }
+
+            toggleLightTheme() {
+                const root = document.documentElement;
+                const toggleBtn = document.getElementById('toggleTheme');
+                const isLight = document.body.classList.contains('light-theme');
+
+                if (!isLight) {
+                    // Ativar tema claro
+                    document.body.classList.add('light-theme');
+                    root.style.setProperty('--bg', '#f5f5f5');
+                    root.style.setProperty('--surface', '#ffffff');
+                    root.style.setProperty('--surface-light', '#f0f0f0');
+                    root.style.setProperty('--text', '#2c2c2c');
+                    root.style.setProperty('--text-muted', '#666666');
+                    root.style.setProperty('--border', '#e0e0e0');
+                    toggleBtn.textContent = this.i18n.themeLight;
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    // Voltar ao tema escuro
+                    document.body.classList.remove('light-theme');
+                    root.style.setProperty('--bg', '#1a1a1a');
+                    root.style.setProperty('--surface', '#2d2d2d');
+                    root.style.setProperty('--surface-light', '#3d3d3d');
+                    root.style.setProperty('--text', '#e8e8e8');
+                    root.style.setProperty('--text-muted', '#b8b8b8');
+                    root.style.setProperty('--border', '#444');
+                    toggleBtn.textContent = this.i18n.themeDark;
+                    localStorage.setItem('theme', 'dark');
+                }
+            }
+
+            debounce(fn, delay) {
+                let t;
+                return (...args) => {
+                    clearTimeout(t);
+                    t = setTimeout(() => fn.apply(this, args), delay);
+                };
+            }
+        }
+
+        // Inicializar o leitor quando a página carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            const reader = new BookReader();
+            // Slider de página
+            const range = document.getElementById('pageRange');
+            if (range) {
+                range.addEventListener('input', (e) => {
+                    const val = parseInt(e.target.value, 10);
+                    reader.goToPage(val - 1, false);
+                });
+            }
+            // Zonas de clique
+            const zonePrev = document.getElementById('zonePrev');
+            const zoneNext = document.getElementById('zoneNext');
+            if (zonePrev) zonePrev.addEventListener('click', ()=> reader.goToPage(reader.currentPageIndex - 1));
+            if (zoneNext) zoneNext.addEventListener('click', ()=> reader.goToPage(reader.currentPageIndex + 1));
+            // Modal ajustes
+            reader.bindSettingsUI();
+        });
+    </script>
+</body>
+</html>
