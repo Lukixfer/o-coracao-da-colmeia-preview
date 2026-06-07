@@ -101,6 +101,41 @@
         margin: 0 auto;
       }
 
+      /* ── BUY SECTION ── */
+      .buy-panel { border: 2px solid var(--gold); background: linear-gradient(160deg, #fffef8 0%, #fff 100%); }
+      .buy-panel h2 { color: #7a4b00; border-bottom-color: #f0c060; }
+      .buy-grid { display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: start; }
+      .buy-headline { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--brand-dark); font-weight: 600; margin: 0 0 12px; }
+      .buy-info p { margin: 0 0 16px; }
+      .buy-includes { list-style: none; padding: 0; margin: 0 0 20px; }
+      .buy-includes li { padding: 6px 0; border-bottom: 1px solid var(--border); font-size: .95rem; }
+      .buy-includes li:last-child { border-bottom: none; }
+      .buy-price { margin: 20px 0; padding: 16px; background: var(--brand-light); border-radius: 12px; text-align: center; }
+      .price-value { font-family: 'Cinzel', serif; font-size: 2rem; font-weight: 700; color: var(--brand-dark); display: block; }
+      .price-note { font-size: .85rem; color: var(--muted); margin-top: 4px; display: block; }
+      .buy-actions { text-align: center; }
+      .buy-btn {
+        display: inline-flex; align-items: center; gap: 10px;
+        background: var(--gradient); color: white; text-decoration: none;
+        padding: 16px 36px; border-radius: 50px; font-size: 1.1rem;
+        font-weight: 700; font-family: 'Cinzel', serif;
+        transition: all .3s ease; border: none; letter-spacing: .02em;
+        box-shadow: 0 4px 16px rgba(124,58,237,.3);
+      }
+      .buy-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(124,58,237,.4); }
+      .buy-note { font-size: .82rem; color: var(--muted); margin-top: 12px; }
+      .buy-preview { text-align: center; }
+      .buy-cover { width: 180px; filter: drop-shadow(0 8px 24px rgba(0,0,0,.3)); border-radius: 6px; margin-bottom: 16px; }
+      .buy-stats { display: flex; gap: 16px; justify-content: center; }
+      .stat { text-align: center; }
+      .stat-num { display: block; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: 700; color: var(--brand-dark); }
+      .stat-label { font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+      @media (max-width: 768px) {
+        .buy-grid { grid-template-columns: 1fr; }
+        .buy-preview { order: -1; }
+        .buy-cover { width: 140px; }
+      }
+
       /* ── PANELS ── */
       .panel {
         background: var(--card-bg);
@@ -395,6 +430,39 @@
             <div style="display:inline-flex; gap:12px; flex-wrap:wrap;">
               <a href="reader.html" class="reader-btn">📄 Ler em PT‑BR</a>
               <a href="reader.html?lang=en" class="reader-btn" style="background:rgba(255,255,255,0.15);border-color:rgba(255,255,255,0.25);">🌍 Read in EN</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMPRAR LIVRO COMPLETO -->
+      <section class="panel buy-panel" id="comprar">
+        <h2>🐝 Adquira o Livro Completo</h2>
+        <div class="buy-grid">
+          <div class="buy-info">
+            <p class="buy-headline">33 capítulos · 93.000+ palavras · Livro 1 completo</p>
+            <p>Você leu os 6 primeiros capítulos e quer saber o destino de Gael? O livro completo inclui toda a jornada — da descoberta das abelhas em Miraferro ao Particionamento Total entre dois mundos.</p>
+            <ul class="buy-includes">
+              <li>📖 EPUB (todos os leitores digitais)</li>
+              <li>📄 PDF (leitura no computador e impressão)</li>
+              <li>🔄 Atualizações gratuitas do Livro 1</li>
+              <li>💌 Acesso antecipado ao Livro 2</li>
+            </ul>
+            <div class="buy-price">
+              <span class="price-value">R$ 19,90</span>
+              <span class="price-note">Pagamento único · Entrega instantânea</span>
+            </div>
+            <div class="buy-actions">
+              <a href="#" class="buy-btn" id="buyBtn">🛒 Comprar Agora</a>
+              <p class="buy-note">Pagamento seguro via Stripe/PIX. Receba os arquivos por e‑mail imediatamente.</p>
+            </div>
+          </div>
+          <div class="buy-preview">
+            <img src="./assets/illustrations/capa.svg" alt="Capa do Livro" class="buy-cover"/>
+            <div class="buy-stats">
+              <div class="stat"><span class="stat-num">33</span><span class="stat-label">Capítulos</span></div>
+              <div class="stat"><span class="stat-num">93k+</span><span class="stat-label">Palavras</span></div>
+              <div class="stat"><span class="stat-num">2</span><span class="stat-label">Mundos</span></div>
             </div>
           </div>
         </div>

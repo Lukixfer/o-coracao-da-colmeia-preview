@@ -1,0 +1,78 @@
+<!-- Bromyr — Mestre Cozinheiro do Castelo de Pedra -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" width="200" height="260">
+  <defs>
+    <radialGradient id="bg_brom" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1008"/>
+      <stop offset="100%" stop-color="#0d0804"/>
+    </radialGradient>
+    <radialGradient id="aura_fogo" cx="50%" cy="42%" r="45%">
+      <stop offset="0%" stop-color="#f08030" stop-opacity="0.2"/>
+      <stop offset="60%" stop-color="#c04010" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#c04010" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="circle_brom">
+      <circle cx="100" cy="105" r="78"/>
+    </clipPath>
+  </defs>
+
+  <!-- Fundo -->
+  <rect width="200" height="260" fill="url(#bg_brom)" rx="8"/>
+  <!-- Moldura circular -->
+  <circle cx="100" cy="105" r="80" fill="#14100a" stroke="#e08040" stroke-width="2"/>
+  <!-- Aura quente (fogo de cozinha) -->
+  <circle cx="100" cy="105" r="78" fill="url(#aura_fogo)"/>
+
+  <!-- Silhueta: torso (grande, corpulento) -->
+  <ellipse cx="100" cy="168" rx="52" ry="34" fill="#120e08" clip-path="url(#circle_brom)"/>
+  <!-- Pescoço (grosso) -->
+  <rect x="88" y="135" width="24" height="22" rx="6" fill="#a08060"/>
+  <!-- Rosto (largo, redondo, afável) -->
+  <ellipse cx="100" cy="102" rx="32" ry="35" fill="#a08060"/>
+  <!-- Bochechas avermelhadas (calor da cozinha) -->
+  <circle cx="80" cy="112" r="6" fill="#c07050" fill-opacity="0.3"/>
+  <circle cx="120" cy="112" r="6" fill="#c07050" fill-opacity="0.3"/>
+  <!-- Cabelo (castanho, curto, bagunçado pelo vapor) -->
+  <path d="M 70,96 Q 68,68 100,62 Q 132,68 130,96 Q 126,74 100,70 Q 74,74 70,96Z"
+        fill="#4a2a10"/>
+  <!-- Toque/chapéu de cozinheiro (simples, de tecido) -->
+  <ellipse cx="100" cy="60" rx="22" ry="8" fill="#e8e0d0"/>
+  <path d="M 78,60 Q 78,44 100,42 Q 122,44 122,60" fill="#f0e8d8"/>
+  <!-- Olhos (pequenos, bondosos, riso constante) -->
+  <path d="M 84,102 Q 88,99 92,102" stroke="#2a1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 108,102 Q 112,99 116,102" stroke="#2a1a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Sobrancelhas -->
+  <path d="M 83,95 Q 88,93.5 93,95.5" stroke="#4a2a10" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <path d="M 107,95.5 Q 112,93.5 117,95" stroke="#4a2a10" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- Nariz (largo, simpático) -->
+  <ellipse cx="100" cy="110" rx="5" ry="4" fill="#8a6840" fill-opacity="0.5"/>
+  <!-- Boca (sorriso largo e aberto) -->
+  <path d="M 88,120 Q 100,128 112,120" stroke="#6a4020" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Bigode -->
+  <path d="M 86,117 Q 93,120 100,118 Q 107,120 114,117" stroke="#4a2a10" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- Orelhas -->
+  <ellipse cx="68" cy="104" rx="5.5" ry="9" fill="#8a6840"/>
+  <ellipse cx="132" cy="104" rx="5.5" ry="9" fill="#8a6840"/>
+  <!-- Roupas (avental de cozinheiro sobre túnica) -->
+  <path d="M 48,164 Q 64,150 100,146 Q 136,150 152,164 L 155,183 Q 100,190 45,183Z"
+        fill="#3a3020" clip-path="url(#circle_brom)"/>
+  <!-- Avental branco -->
+  <path d="M 78,155 L 78,183 Q 100,186 122,183 L 122,155 Q 100,152 78,155Z"
+        fill="#e8e0d0" fill-opacity="0.8" clip-path="url(#circle_brom)"/>
+  <!-- Faíscas/partículas de fogo -->
+  <circle cx="52" cy="68" r="2" fill="#f08030" fill-opacity="0.6"/>
+  <circle cx="150" cy="72" r="1.5" fill="#f0a040" fill-opacity="0.5"/>
+  <circle cx="55" cy="135" r="1.5" fill="#e07020" fill-opacity="0.5"/>
+  <circle cx="146" cy="130" r="2" fill="#f08030" fill-opacity="0.4"/>
+
+  <!-- Nome e papel -->
+  <text x="100" y="207" font-family="Georgia, serif" font-size="16" font-weight="bold"
+        fill="#e08040" text-anchor="middle" letter-spacing="1.5">BROMYR</text>
+  <text x="100" y="225" font-family="Georgia, serif" font-size="9.5"
+        fill="#d0d0d0" text-anchor="middle" letter-spacing="2" font-style="italic">Mestre Cozinheiro</text>
+  <!-- Divisor decorativo -->
+  <line x1="60" y1="232" x2="88" y2="232" stroke="#e08040" stroke-width="0.7" stroke-opacity="0.6"/>
+  <circle cx="100" cy="232" r="3" fill="#e08040" fill-opacity="0.5"/>
+  <line x1="112" y1="232" x2="140" y2="232" stroke="#e08040" stroke-width="0.7" stroke-opacity="0.6"/>
+  <!-- Moldura externa -->
+  <rect x="3" y="3" width="194" height="254" rx="8" fill="none" stroke="#e08040" stroke-width="0.8" stroke-opacity="0.3"/>
+</svg>

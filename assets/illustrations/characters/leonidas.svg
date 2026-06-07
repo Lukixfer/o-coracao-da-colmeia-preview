@@ -1,0 +1,76 @@
+<!-- Leônidas — Capitão da Guarda Real, Castelo de Pedra -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" width="200" height="260">
+  <defs>
+    <radialGradient id="bg_leon" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a1410"/>
+      <stop offset="100%" stop-color="#0d0a08"/>
+    </radialGradient>
+    <radialGradient id="aura_pedra" cx="50%" cy="42%" r="45%">
+      <stop offset="0%" stop-color="#c0a070" stop-opacity="0.2"/>
+      <stop offset="60%" stop-color="#8a6830" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#8a6830" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="circle_leon">
+      <circle cx="100" cy="105" r="78"/>
+    </clipPath>
+  </defs>
+
+  <!-- Fundo -->
+  <rect width="200" height="260" fill="url(#bg_leon)" rx="8"/>
+  <!-- Moldura circular -->
+  <circle cx="100" cy="105" r="80" fill="#16120e" stroke="#c0a060" stroke-width="2"/>
+  <!-- Aura sutil -->
+  <circle cx="100" cy="105" r="78" fill="url(#aura_pedra)"/>
+
+  <!-- Silhueta: torso (largo, militar) -->
+  <ellipse cx="100" cy="170" rx="48" ry="30" fill="#10100c" clip-path="url(#circle_leon)"/>
+  <!-- Pescoço (grosso) -->
+  <rect x="90" y="138" width="20" height="24" rx="5" fill="#a07850"/>
+  <!-- Rosto (angular, mandíbula forte) -->
+  <path d="M 72,95 Q 72,70 100,66 Q 128,70 128,95 L 126,120 Q 120,134 100,136 Q 80,134 74,120Z"
+        fill="#a07850"/>
+  <!-- Cabelo (curto, militar, grisalho) -->
+  <path d="M 74,95 Q 72,72 100,68 Q 128,72 126,95 Q 122,76 100,74 Q 78,76 74,95Z"
+        fill="#3a3a3a"/>
+  <path d="M 76,92 Q 78,80 88,76" stroke="#5a5a5a" stroke-width="2" fill="none" stroke-linecap="round" stroke-opacity="0.5"/>
+  <path d="M 124,92 Q 122,80 112,76" stroke="#5a5a5a" stroke-width="2" fill="none" stroke-linecap="round" stroke-opacity="0.5"/>
+  <!-- Cicatriz (bochecha esquerda) -->
+  <path d="M 78,112 L 85,118" stroke="#7a5530" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-opacity="0.7"/>
+  <!-- Olhos (escuros, penetrantes) -->
+  <ellipse cx="88" cy="100" rx="6" ry="4.5" fill="#0a0806"/>
+  <ellipse cx="112" cy="100" rx="6" ry="4.5" fill="#0a0806"/>
+  <circle cx="88" cy="100" r="2.8" fill="#6a4a20"/>
+  <circle cx="112" cy="100" r="2.8" fill="#6a4a20"/>
+  <circle cx="89" cy="99" r="1" fill="white" fill-opacity="0.8"/>
+  <circle cx="113" cy="99" r="1" fill="white" fill-opacity="0.8"/>
+  <!-- Sobrancelhas (espessas, sérias) -->
+  <path d="M 82,93 Q 88,91 94,93" stroke="#2a2a2a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <path d="M 106,93 Q 112,91 118,93" stroke="#2a2a2a" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  <!-- Boca (firme, linha reta) -->
+  <path d="M 91,124 L 109,124" stroke="#7a5530" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <!-- Barba (curta, aparada) -->
+  <path d="M 80,120 Q 82,130 100,134 Q 118,130 120,120" stroke="#3a3a3a" stroke-width="1.5" fill="none" stroke-opacity="0.4"/>
+  <!-- Orelhas -->
+  <ellipse cx="72" cy="104" rx="5" ry="8" fill="#8a6840"/>
+  <ellipse cx="128" cy="104" rx="5" ry="8" fill="#8a6840"/>
+  <!-- Armadura (ombros visíveis) -->
+  <path d="M 52,165 Q 68,152 100,148 Q 132,152 148,165 L 150,183 Q 100,186 50,183Z"
+        fill="#4a4035" clip-path="url(#circle_leon)"/>
+  <!-- Detalhe: insígnia no peito -->
+  <polygon points="100,158 104,165 100,172 96,165" fill="#c0a060" fill-opacity="0.7"/>
+  <!-- Ombreiras metálicas -->
+  <ellipse cx="62" cy="162" rx="10" ry="6" fill="#6a5a48" clip-path="url(#circle_leon)"/>
+  <ellipse cx="138" cy="162" rx="10" ry="6" fill="#6a5a48" clip-path="url(#circle_leon)"/>
+
+  <!-- Nome e título -->
+  <text x="100" y="207" font-family="Georgia, serif" font-size="16" font-weight="bold"
+        fill="#c0a060" text-anchor="middle" letter-spacing="1.5">LEÔNIDAS</text>
+  <text x="100" y="225" font-family="Georgia, serif" font-size="9.5"
+        fill="#d0d0d0" text-anchor="middle" letter-spacing="2.5" font-style="italic">Capitão da Guarda Real</text>
+  <!-- Divisor decorativo (espadas cruzadas) -->
+  <line x1="60" y1="232" x2="88" y2="232" stroke="#c0a060" stroke-width="0.7" stroke-opacity="0.6"/>
+  <polygon points="100,229 103,235 97,235" fill="#c0a060" fill-opacity="0.7"/>
+  <line x1="112" y1="232" x2="140" y2="232" stroke="#c0a060" stroke-width="0.7" stroke-opacity="0.6"/>
+  <!-- Moldura externa -->
+  <rect x="3" y="3" width="194" height="254" rx="8" fill="none" stroke="#c0a060" stroke-width="0.8" stroke-opacity="0.3"/>
+</svg>

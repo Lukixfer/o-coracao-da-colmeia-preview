@@ -1,0 +1,87 @@
+<!-- Salix — Guardiã do Jardim, Miraferro -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" width="200" height="260">
+  <defs>
+    <radialGradient id="bg_salix" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#12200a"/>
+      <stop offset="100%" stop-color="#081408"/>
+    </radialGradient>
+    <radialGradient id="aura_verde" cx="50%" cy="42%" r="45%">
+      <stop offset="0%" stop-color="#80c060" stop-opacity="0.25"/>
+      <stop offset="60%" stop-color="#4a8030" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#4a8030" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="circle_salix">
+      <circle cx="100" cy="105" r="78"/>
+    </clipPath>
+    <filter id="glow_leaf">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Fundo -->
+  <rect width="200" height="260" fill="url(#bg_salix)" rx="8"/>
+  <!-- Moldura circular -->
+  <circle cx="100" cy="105" r="80" fill="#0e1a0a" stroke="#6aaa40" stroke-width="2"/>
+  <!-- Aura verde -->
+  <circle cx="100" cy="105" r="78" fill="url(#aura_verde)"/>
+
+  <!-- Silhueta: torso (curvado, idosa gentil) -->
+  <ellipse cx="100" cy="172" rx="38" ry="25" fill="#0c160a" clip-path="url(#circle_salix)"/>
+  <!-- Pescoço -->
+  <rect x="94" y="142" width="12" height="18" rx="4" fill="#b89070"/>
+  <!-- Rosto (oval, linhas de expressão) -->
+  <ellipse cx="100" cy="107" rx="27" ry="33" fill="#b89070"/>
+  <!-- Rugas gentis -->
+  <path d="M 84,115 Q 86,117 88,115" stroke="#9a7050" stroke-width="0.8" fill="none" stroke-opacity="0.5"/>
+  <path d="M 112,115 Q 114,117 116,115" stroke="#9a7050" stroke-width="0.8" fill="none" stroke-opacity="0.5"/>
+  <!-- Cabelo (branco-prateado, preso em coque com mechas soltas) -->
+  <path d="M 74,100 Q 72,74 100,70 Q 128,74 126,100 Q 122,80 100,77 Q 78,80 74,100Z"
+        fill="#d8d8d8"/>
+  <!-- Coque -->
+  <circle cx="100" cy="68" r="10" fill="#c8c8c8"/>
+  <circle cx="100" cy="68" r="7" fill="#e0e0e0" fill-opacity="0.5"/>
+  <!-- Mechas soltas -->
+  <path d="M 74,100 Q 70,112 72,125" stroke="#d0d0d0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <path d="M 126,100 Q 130,112 128,125" stroke="#d0d0d0" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Olhos (verdes, brilhantes, sábios) -->
+  <ellipse cx="89" cy="106" rx="5" ry="4.5" fill="#0a1208"/>
+  <ellipse cx="111" cy="106" rx="5" ry="4.5" fill="#0a1208"/>
+  <circle cx="89" cy="106" r="3" fill="#6aaa40" fill-opacity="0.9"/>
+  <circle cx="111" cy="106" r="3" fill="#6aaa40" fill-opacity="0.9"/>
+  <circle cx="90" cy="105" r="1" fill="white" fill-opacity="0.8"/>
+  <circle cx="112" cy="105" r="1" fill="white" fill-opacity="0.8"/>
+  <!-- Sobrancelhas (finas, arqueadas) -->
+  <path d="M 84,99 Q 89,97.5 94,99" stroke="#a0a0a0" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <path d="M 106,99 Q 111,97.5 116,99" stroke="#a0a0a0" stroke-width="1" fill="none" stroke-linecap="round"/>
+  <!-- Boca (sorriso gentil e sábio) -->
+  <path d="M 92,121 Q 100,125 108,121" stroke="#8a6040" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+  <!-- Orelhas -->
+  <ellipse cx="73" cy="108" rx="4" ry="7" fill="#a88060"/>
+  <ellipse cx="127" cy="108" rx="4" ry="7" fill="#a88060"/>
+  <!-- Roupas (avental de jardineira, terroso) -->
+  <path d="M 62,168 Q 74,156 100,153 Q 126,156 138,168 L 140,183 Q 100,188 60,183Z"
+        fill="#3a5a2a" clip-path="url(#circle_salix)"/>
+  <!-- Avental -->
+  <path d="M 85,160 L 85,178 Q 100,180 115,178 L 115,160"
+        fill="#5a4a30" fill-opacity="0.6" clip-path="url(#circle_salix)"/>
+  <!-- Folhas flutuando ao redor -->
+  <ellipse cx="50" cy="65" rx="3" ry="1.5" fill="#6aaa40" fill-opacity="0.7" transform="rotate(-30 50 65)" filter="url(#glow_leaf)"/>
+  <ellipse cx="152" cy="72" rx="2.5" ry="1.2" fill="#80c060" fill-opacity="0.6" transform="rotate(20 152 72)"/>
+  <ellipse cx="55" cy="138" rx="2.5" ry="1.2" fill="#6aaa40" fill-opacity="0.6" transform="rotate(-15 55 138)"/>
+  <ellipse cx="148" cy="130" rx="3" ry="1.5" fill="#80c060" fill-opacity="0.5" transform="rotate(35 148 130)"/>
+  <ellipse cx="70" cy="48" rx="2" ry="1" fill="#6aaa40" fill-opacity="0.5" transform="rotate(-45 70 48)"/>
+  <ellipse cx="135" cy="44" rx="2.5" ry="1.2" fill="#6aaa40" fill-opacity="0.4" transform="rotate(15 135 44)"/>
+
+  <!-- Nome e papel -->
+  <text x="100" y="207" font-family="Georgia, serif" font-size="18" font-weight="bold"
+        fill="#6aaa40" text-anchor="middle" letter-spacing="2">SALIX</text>
+  <text x="100" y="225" font-family="Georgia, serif" font-size="10"
+        fill="#d0d0d0" text-anchor="middle" letter-spacing="2.5" font-style="italic">Guardiã do Jardim</text>
+  <!-- Divisor decorativo (folha) -->
+  <line x1="60" y1="232" x2="88" y2="232" stroke="#6aaa40" stroke-width="0.7" stroke-opacity="0.6"/>
+  <ellipse cx="100" cy="232" rx="4" ry="2" fill="#6aaa40" fill-opacity="0.6" transform="rotate(10 100 232)"/>
+  <line x1="112" y1="232" x2="140" y2="232" stroke="#6aaa40" stroke-width="0.7" stroke-opacity="0.6"/>
+  <!-- Moldura externa -->
+  <rect x="3" y="3" width="194" height="254" rx="8" fill="none" stroke="#6aaa40" stroke-width="0.8" stroke-opacity="0.3"/>
+</svg>
