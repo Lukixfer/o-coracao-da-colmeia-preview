@@ -1175,9 +1175,7 @@
                     .replace(/â€”/g, 'â€”') // TravessÃµes para diÃ¡logos
                     .replace(/\.\.\./g, 'â€¦') // ReticÃªncias
                     .replace(/"([^"]+)"/g, '"$1"') // Aspas tipogrÃ¡ficas
-                    .replace(/\b(Miraferro|Krawzer|Gael|Sophya|Sifo|Tio|Lia)\b/g, '<span class="character-name">$1</span>') // Destacar nomes importantes
-                    .replace(/\b(Clube dos Jardineiros Urbanos)\b/g, '<em>$1</em>') // Destacar organizaÃ§Ãµes
-                    .replace(/(\w+):\s/g, '<strong>$1:</strong> '); // Destacar rÃ³tulos como "VovÃ´:", "Gael:", etc.
+                    .replace(/\b(Miraferro|Krawzer|Gael|Sophya|Sifo|Tio|Lia)\b/g, '$1');
             }
 
             updateActiveChapter() {
