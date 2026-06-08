@@ -379,6 +379,72 @@
         opacity: .4;
       }
 
+      /* ═══ QUOTES ═══ */
+      .quotes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+      .book-quote {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--gold-dim);
+        padding: 24px 28px;
+        position: relative;
+        font-style: italic;
+      }
+      .book-quote::before {
+        content: '\201C';
+        position: absolute;
+        top: 8px; left: 12px;
+        font-size: 2.5rem;
+        color: var(--gold-dim);
+        opacity: .3;
+        font-style: normal;
+        line-height: 1;
+      }
+      .book-quote p { font-size: 1.05rem; margin-bottom: 12px; padding-left: 8px; }
+      .book-quote cite { font-size: .8rem; color: var(--gold-dim); font-style: normal; display: block; text-align: right; }
+
+      /* ═══ THEMES ═══ */
+      .themes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+      .theme-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        padding: 28px 24px;
+        text-align: center;
+        transition: all .3s ease;
+      }
+      .theme-card:hover { border-color: var(--border-ornate); box-shadow: var(--shadow-gold); }
+      .theme-icon { font-size: 2rem; display: block; margin-bottom: 12px; }
+      .theme-card h3 { font-family: 'Cinzel', serif; color: var(--gold); font-size: .95rem; margin-bottom: 10px; letter-spacing: .04em; }
+      .theme-card p { font-size: .9rem; color: var(--fg-muted); line-height: 1.6; }
+
+      /* ═══ AUTHOR ═══ */
+      .author-section { text-align: center; }
+      .author-content h3 { font-family: 'Cinzel Decorative', serif; font-size: 1.3rem; color: var(--gold); margin-bottom: 16px; }
+      .author-content p { font-size: 1.05rem; color: var(--fg-muted); max-width: 600px; margin: 0 auto 16px; }
+      .author-links { margin-top: 24px; }
+
+      /* ═══ FAQ ═══ */
+      .faq-list { max-width: 700px; margin: 0 auto; }
+      .faq-item {
+        border: 1px solid var(--border);
+        margin-bottom: 8px;
+        background: var(--bg-card);
+      }
+      .faq-item summary {
+        padding: 16px 24px;
+        cursor: pointer;
+        font-family: 'Cinzel', serif;
+        font-size: .95rem;
+        color: var(--gold);
+        letter-spacing: .03em;
+        transition: color .2s;
+        list-style: none;
+      }
+      .faq-item summary::-webkit-details-marker { display: none; }
+      .faq-item summary::before { content: '◆ '; color: var(--gold-dim); font-size: .7rem; }
+      .faq-item[open] summary { border-bottom: 1px solid var(--border); }
+      .faq-item[open] summary::before { content: '◇ '; }
+      .faq-item p { padding: 16px 24px; font-size: .95rem; color: var(--fg-muted); line-height: 1.7; }
+
       /* ═══ RESPONSIVE ═══ */
       @media (max-width: 768px) {
         .hero { min-height: 90vh; padding: 60px 20px; }
@@ -530,6 +596,126 @@
             <a href="reader.html" class="btn btn-gold">📖 Ler em Português</a>
             <a href="reader.html?lang=en" class="btn btn-vine">🌍 Read in English</a>
           </div>
+        </div>
+      </section>
+
+      <span class="ornament-sm">◇ ◆ ◇ ◆ ◇</span>
+
+      <!-- ═══ CITAÇÕES DO LIVRO ═══ -->
+      <section>
+        <div class="sec-header">
+          <h2>Fragmentos</h2>
+          <p>Ecos dos mundos de Gael</p>
+        </div>
+        <div class="quotes-grid">
+          <blockquote class="book-quote">
+            <p>"Ajude-nos... o tempo está se esgotando... você é nossa única esperança... guardião das colmeias... desperte..."</p>
+            <cite>— As Abelhas, Capítulo 1</cite>
+          </blockquote>
+          <blockquote class="book-quote">
+            <p>"Algumas raízes são mais profundas do que parecem. E algumas pessoas precisam de tempo para enxergar o que sempre esteve diante de seus olhos."</p>
+            <cite>— Salix, Capítulo 21</cite>
+          </blockquote>
+          <blockquote class="book-quote">
+            <p>"Você não é apenas uma ponte entre dois mundos, Gael. Você é o sistema inteiro tentando se curar através de um único ponto de consciência."</p>
+            <cite>— Sophya, Capítulo 32</cite>
+          </blockquote>
+          <blockquote class="book-quote">
+            <p>"Negar-se ao mundo foi o preço de deixá-lo respirar mais um dia."</p>
+            <cite>— Narrador, Capítulo 33</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <span class="ornament">⟡ ◆ ⟡</span>
+
+      <!-- ═══ TEMAS ═══ -->
+      <section>
+        <div class="sec-header">
+          <h2>Os Temas</h2>
+          <p>Camadas que se entrelaçam entre magia e realidade</p>
+        </div>
+        <div class="themes-grid">
+          <div class="theme-card">
+            <span class="theme-icon">🔄</span>
+            <h3>Dualidade</h3>
+            <p>Luz e trevas. Magia e tecnologia. Dois mundos que são reflexos imperfeitos um do outro.</p>
+          </div>
+          <div class="theme-card">
+            <span class="theme-icon">🐝</span>
+            <h3>Consciência Ecológica</h3>
+            <p>A extinção das abelhas como metáfora e como realidade. O colapso que conecta mundos.</p>
+          </div>
+          <div class="theme-card">
+            <span class="theme-icon">🤝</span>
+            <h3>Amizade e Lealdade</h3>
+            <p>Vínculos testados pelo poder, pela distância e pela fragmentação da própria identidade.</p>
+          </div>
+          <div class="theme-card">
+            <span class="theme-icon">⚡</span>
+            <h3>Poder e Sacrifício</h3>
+            <p>O custo de ser a ponte. A escolha entre eficiência e humanidade.</p>
+          </div>
+          <div class="theme-card">
+            <span class="theme-icon">🏛️</span>
+            <h3>Política e Intriga</h3>
+            <p>Cortes reais, facções em guerra silenciosa, e o peso de ser uma peça no tabuleiro.</p>
+          </div>
+          <div class="theme-card">
+            <span class="theme-icon">🌌</span>
+            <h3>Identidade</h3>
+            <p>Quem é Gael quando metade de sua existência pertence a uma máquina?</p>
+          </div>
+        </div>
+      </section>
+
+      <span class="ornament-sm">◇ ◆ ◇ ◆ ◇</span>
+
+      <!-- ═══ SOBRE O AUTOR ═══ -->
+      <section>
+        <div class="sec-header">
+          <h2>O Autor</h2>
+        </div>
+        <div class="parchment author-section">
+          <div class="author-content">
+            <h3>Klaus E Khaus</h3>
+            <p>Escritor brasileiro de fantasia e ficção especulativa. "O Coração da Colmeia" é sua primeira saga publicada — um projeto que nasceu da obsessão com mundos paralelos, sistemas mágicos coerentes e a pergunta: o que acontece quando a tecnologia não substitui a magia, mas a complementa?</p>
+            <p>O livro foi escrito, revisado e publicado como projeto open source, com toda a infraestrutura de criação disponível publicamente — dos scripts de análise às ilustrações vetoriais.</p>
+            <div class="author-links">
+              <a href="https://github.com/Lukixfer/o-coracao-da-colmeia" class="btn btn-vine">GitHub do Projeto</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <span class="ornament">⟡ ◆ ⟡</span>
+
+      <!-- ═══ FAQ ═══ -->
+      <section>
+        <div class="sec-header">
+          <h2>Perguntas</h2>
+        </div>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary>Em que formatos recebo o livro?</summary>
+            <p>EPUB (compatível com Kobo, Apple Books, Google Play Livros e qualquer leitor digital) e PDF (para computador ou impressão). Ambos incluídos no mesmo pagamento.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Posso ler no Kindle?</summary>
+            <p>Sim. O Kindle aceita EPUB desde 2022. Basta enviar o arquivo para seu dispositivo via app Send to Kindle ou por e-mail.</p>
+          </details>
+          <details class="faq-item">
+            <summary>O Livro 2 está incluso?</summary>
+            <p>Não — esta compra é do Livro 1 (33 capítulos, história completa com conclusão satisfatória). Compradores do Livro 1 terão acesso antecipado ao Livro 2 quando for lançado.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Tem versão física/impressa?</summary>
+            <p>Ainda não, mas está nos planos. Se houver demanda suficiente, uma edição impressa será produzida.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Qual a faixa etária recomendada?</summary>
+            <p>Jovem adulto em diante (14+). A obra contém temas de sacrifício, violência moderada e dilemas morais complexos, sem conteúdo explícito.</p>
+          </details>
         </div>
       </section>
 
