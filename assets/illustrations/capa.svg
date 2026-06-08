@@ -1,256 +1,200 @@
+<!-- KRAWZ — O Coração da Colmeia · Livro 1 · Capa -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="600" height="900">
   <defs>
-    <!-- Miraferro: industrial dark -->
-    <linearGradient id="bg_miraferro" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#0d0d1a"/>
-      <stop offset="60%" stop-color="#1a1a2e"/>
-      <stop offset="100%" stop-color="#16213e"/>
+    <linearGradient id="bg_main" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#040804"/>
+      <stop offset="30%" stop-color="#0a1a0a"/>
+      <stop offset="60%" stop-color="#081408"/>
+      <stop offset="100%" stop-color="#040604"/>
     </linearGradient>
-    <!-- Krawzer: magical nature -->
-    <linearGradient id="bg_krawzer" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#0d1f0d"/>
-      <stop offset="60%" stop-color="#1a3a1a"/>
-      <stop offset="100%" stop-color="#122a12"/>
-    </linearGradient>
-    <!-- Vertical split gradient -->
-    <linearGradient id="bg_split" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#0d0d1a"/>
-      <stop offset="48%" stop-color="#1a1a2e"/>
-      <stop offset="52%" stop-color="#1a3a1a"/>
-      <stop offset="100%" stop-color="#0d1f0d"/>
-    </linearGradient>
-    <!-- Central glow -->
-    <radialGradient id="central_glow" cx="50%" cy="50%" r="30%">
-      <stop offset="0%" stop-color="#f0c040" stop-opacity="0.6"/>
-      <stop offset="50%" stop-color="#d4a017" stop-opacity="0.2"/>
-      <stop offset="100%" stop-color="#d4a017" stop-opacity="0"/>
+    <radialGradient id="glow_center" cx="50%" cy="45%" r="35%">
+      <stop offset="0%" stop-color="#c9a030" stop-opacity=".15"/>
+      <stop offset="60%" stop-color="#c9a030" stop-opacity=".04"/>
+      <stop offset="100%" stop-color="#c9a030" stop-opacity="0"/>
     </radialGradient>
-    <!-- Hex glow -->
+    <radialGradient id="glow_tree" cx="50%" cy="55%" r="40%">
+      <stop offset="0%" stop-color="#3a7a2a" stop-opacity=".08"/>
+      <stop offset="100%" stop-color="#3a7a2a" stop-opacity="0"/>
+    </radialGradient>
     <radialGradient id="hex_glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#f0c040" stop-opacity="0.9"/>
-      <stop offset="60%" stop-color="#d4a017" stop-opacity="0.6"/>
-      <stop offset="100%" stop-color="#a07810" stop-opacity="0"/>
+      <stop offset="0%" stop-color="#f0c040" stop-opacity=".6"/>
+      <stop offset="100%" stop-color="#c9a030" stop-opacity="0"/>
     </radialGradient>
-    <!-- Industrial smoke filter -->
-    <filter id="smoke" x="-20%" y="-20%" width="140%" height="140%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="4" result="noise"/>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    <filter id="blur_soft">
+      <feGaussianBlur stdDeviation="4"/>
     </filter>
-    <!-- Magic glow filter -->
-    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+    <filter id="glow_filter">
       <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-    </filter>
-    <filter id="softglow" x="-20%" y="-20%" width="140%" height="140%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
   </defs>
 
-  <!-- === FUNDO BASE === -->
-  <rect width="600" height="900" fill="url(#bg_split)"/>
-  <rect width="600" height="900" fill="url(#central_glow)"/>
+  <!-- ═══ FUNDO ═══ -->
+  <rect width="600" height="900" fill="url(#bg_main)"/>
+  <rect width="600" height="900" fill="url(#glow_center)"/>
+  <rect width="600" height="900" fill="url(#glow_tree)"/>
 
-  <!-- === LINHA DIVISÓRIA (Fluxo Existencial) === -->
-  <!-- Raio vertical dourado que separa/une os mundos -->
-  <line x1="300" y1="0" x2="300" y2="900" stroke="#f0c040" stroke-width="1" stroke-opacity="0.3"/>
-  <line x1="298" y1="0" x2="298" y2="900" stroke="#d4a017" stroke-width="0.5" stroke-opacity="0.15"/>
-  <line x1="302" y1="0" x2="302" y2="900" stroke="#d4a017" stroke-width="0.5" stroke-opacity="0.15"/>
+  <!-- ═══ ÁRVORE-MUNDO (invertida — raízes para cima) ═══ -->
+  <!-- Raízes superiores -->
+  <g stroke="#2a4a1a" fill="none" stroke-linecap="round" opacity=".5">
+    <path d="M300,320 C280,260 240,200 180,140" stroke-width="6"/>
+    <path d="M180,140 C160,120 130,100 90,80" stroke-width="3"/>
+    <path d="M180,140 C170,125 175,105 190,90" stroke-width="2.5"/>
+    <path d="M300,320 C320,260 360,200 420,140" stroke-width="6"/>
+    <path d="M420,140 C440,120 470,100 510,80" stroke-width="3"/>
+    <path d="M420,140 C430,125 425,105 410,90" stroke-width="2.5"/>
+    <path d="M290,310 C260,250 220,200 170,170" stroke-width="4"/>
+    <path d="M310,310 C340,250 380,200 430,170" stroke-width="4"/>
+    <path d="M280,300 C250,240 210,190 160,160" stroke-width="2.5" opacity=".3"/>
+    <path d="M320,300 C350,240 390,190 440,160" stroke-width="2.5" opacity=".3"/>
+    <!-- Raízes finas -->
+    <path d="M270,280 C240,230 200,180 150,150" stroke-width="1.5" opacity=".25"/>
+    <path d="M330,280 C360,230 400,180 450,150" stroke-width="1.5" opacity=".25"/>
+    <path d="M260,260 C230,210 190,160 140,130" stroke-width="1" opacity=".2"/>
+    <path d="M340,260 C370,210 410,160 460,130" stroke-width="1" opacity=".2"/>
+  </g>
 
-  <!-- === LADO ESQUERDO: MIRAFERRO === -->
-  <!-- Skyline industrial: prédios -->
-  <rect x="10" y="560" width="30" height="280" fill="#0a0a18" stroke="#2a2a3e" stroke-width="0.5"/>
-  <rect x="15" y="540" width="20" height="30" fill="#0d0d20" stroke="#2a2a3e" stroke-width="0.5"/>
-  <rect x="45" y="500" width="45" height="340" fill="#0c0c1c" stroke="#2a2a3e" stroke-width="0.5"/>
-  <rect x="55" y="480" width="25" height="30" fill="#0d0d20"/>
-  <rect x="95" y="540" width="35" height="300" fill="#0a0a18" stroke="#2a2a3e" stroke-width="0.5"/>
-  <rect x="100" y="515" width="15" height="35" fill="#0d0d20"/>
-  <rect x="135" y="560" width="50" height="280" fill="#0c0c1e" stroke="#2a2a3e" stroke-width="0.5"/>
-  <rect x="145" y="535" width="30" height="35" fill="#0a0a1a"/>
-  <rect x="190" y="545" width="40" height="295" fill="#0b0b1d" stroke="#2a2a3e" stroke-width="0.5"/>
-  <rect x="235" y="570" width="30" height="270" fill="#0a0a18" stroke="#2a2a3e" stroke-width="0.5"/>
-  <rect x="270" y="555" width="25" height="285" fill="#0c0c1e" stroke="#2a2a3e" stroke-width="0.5"/>
-  <!-- Chaminés fumegantes -->
-  <rect x="60" y="460" width="8" height="40" fill="#1a1a30"/>
-  <rect x="72" y="450" width="8" height="50" fill="#1a1a30"/>
-  <!-- Fumaça (elipses difusas) -->
-  <ellipse cx="64" cy="450" rx="12" ry="18" fill="#2a2a40" fill-opacity="0.4"/>
-  <ellipse cx="58" cy="432" rx="9" ry="14" fill="#222238" fill-opacity="0.3"/>
-  <ellipse cx="76" cy="438" rx="10" ry="16" fill="#2a2a40" fill-opacity="0.35"/>
-  <ellipse cx="70" cy="418" rx="8" ry="12" fill="#1e1e34" fill-opacity="0.25"/>
-  <!-- Janelas iluminadas (vermelho industrial) -->
-  <rect x="50" y="505" width="5" height="4" fill="#e94560" fill-opacity="0.7"/>
-  <rect x="60" y="505" width="5" height="4" fill="#e94560" fill-opacity="0.5"/>
-  <rect x="50" y="515" width="5" height="4" fill="#e94560" fill-opacity="0.4"/>
-  <rect x="65" y="525" width="5" height="4" fill="#e94560" fill-opacity="0.6"/>
-  <rect x="100" y="520" width="5" height="4" fill="#cc3350" fill-opacity="0.5"/>
-  <rect x="110" y="528" width="5" height="4" fill="#cc3350" fill-opacity="0.4"/>
-  <rect x="140" y="540" width="5" height="4" fill="#e94560" fill-opacity="0.5"/>
-  <rect x="150" y="548" width="5" height="4" fill="#e94560" fill-opacity="0.4"/>
-  <rect x="195" y="550" width="5" height="4" fill="#cc3350" fill-opacity="0.6"/>
-  <rect x="205" y="560" width="5" height="4" fill="#cc3350" fill-opacity="0.4"/>
-  <!-- Grade / rede técnica (fundo) -->
-  <line x1="0" y1="700" x2="295" y2="700" stroke="#1e2040" stroke-width="0.4" stroke-opacity="0.5"/>
-  <line x1="0" y1="750" x2="295" y2="750" stroke="#1e2040" stroke-width="0.4" stroke-opacity="0.5"/>
-  <line x1="0" y1="800" x2="295" y2="800" stroke="#1e2040" stroke-width="0.4" stroke-opacity="0.5"/>
-  <line x1="50" y1="550" x2="50" y2="900" stroke="#1e2040" stroke-width="0.4" stroke-opacity="0.4"/>
-  <line x1="150" y1="600" x2="150" y2="900" stroke="#1e2040" stroke-width="0.4" stroke-opacity="0.4"/>
-  <line x1="250" y1="650" x2="250" y2="900" stroke="#1e2040" stroke-width="0.4" stroke-opacity="0.4"/>
-  <!-- Solo Miraferro: concreto -->
-  <rect x="0" y="840" width="300" height="60" fill="#111120"/>
-  <line x1="0" y1="840" x2="300" y2="840" stroke="#2a2a3e" stroke-width="1"/>
+  <!-- Tronco principal -->
+  <path d="M280,320 C278,380 275,440 278,500 C280,540 285,580 295,620
+           C305,580 310,540 312,500 C315,440 312,380 310,320 Z"
+        fill="#1a2e12" stroke="#2a4a1a" stroke-width="1" opacity=".6"/>
+  <!-- Textura tronco -->
+  <g stroke="#0a1a08" stroke-width=".5" opacity=".3">
+    <path d="M285,330 C284,400 283,470 286,550 C288,580 292,610 295,620"/>
+    <path d="M295,325 C294,400 294,470 295,550 C296,580 298,610 300,620"/>
+    <path d="M305,330 C306,400 307,470 304,550 C303,580 301,610 300,620"/>
+  </g>
 
-  <!-- === LADO DIREITO: KRAWZER === -->
-  <!-- Raízes da cidade-árvore vindo do chão -->
-  <path d="M 310 900 Q 320 800 340 720 Q 350 680 360 640" stroke="#2d5a1b" stroke-width="8" fill="none" stroke-linecap="round"/>
-  <path d="M 330 900 Q 345 820 370 750 Q 390 700 400 660" stroke="#3a6b22" stroke-width="6" fill="none" stroke-linecap="round"/>
-  <path d="M 350 900 Q 360 840 380 780 Q 395 730 410 700 Q 430 670 450 640" stroke="#2d5a1b" stroke-width="5" fill="none" stroke-linecap="round"/>
-  <path d="M 370 900 Q 395 850 420 800 Q 445 750 460 720" stroke="#3a6b22" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M 390 900 Q 420 870 450 840 Q 470 815 490 790" stroke="#2d5a1b" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M 440 900 Q 460 870 480 840 Q 500 815 520 790 Q 540 768 560 750" stroke="#3a6b22" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M 480 900 Q 500 860 530 820 Q 555 785 580 760" stroke="#2d5a1b" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <path d="M 550 900 Q 565 860 575 820 Q 588 775 595 750" stroke="#3a6b22" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <!-- Galhos superiores (Copa da cidade-árvore) -->
-  <path d="M 360 640 Q 340 600 310 570 Q 320 580 340 610 Q 330 590 315 560" stroke="#3a6b22" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M 400 660 Q 390 620 370 590 Q 380 610 400 640" stroke="#2d5a1b" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M 450 640 Q 460 600 490 570 Q 480 590 470 620" stroke="#3a6b22" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <path d="M 450 640 Q 430 610 420 580 Q 435 600 440 590" stroke="#3a6b22" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M 450 640 Q 470 580 500 550 Q 490 570 480 600" stroke="#2d5a1b" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-  <path d="M 460 720 Q 480 680 510 650 Q 490 660 475 690" stroke="#3a6b22" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <path d="M 540 720 Q 555 680 570 640 Q 560 660 548 700" stroke="#2d5a1b" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <!-- Folhas / vegetação (formas orgânicas) -->
-  <ellipse cx="320" cy="555" rx="18" ry="12" fill="#2d6a1f" fill-opacity="0.8" transform="rotate(-20, 320, 555)"/>
-  <ellipse cx="340" cy="545" rx="14" ry="9" fill="#3a7a28" fill-opacity="0.7" transform="rotate(10, 340, 545)"/>
-  <ellipse cx="370" cy="575" rx="16" ry="10" fill="#2d6a1f" fill-opacity="0.75" transform="rotate(-15, 370, 575)"/>
-  <ellipse cx="490" cy="555" rx="20" ry="13" fill="#3a7a28" fill-opacity="0.8" transform="rotate(25, 490, 555)"/>
-  <ellipse cx="510" cy="540" rx="16" ry="10" fill="#2d6a1f" fill-opacity="0.7" transform="rotate(-10, 510, 540)"/>
-  <ellipse cx="480" cy="595" rx="14" ry="9" fill="#3a7a28" fill-opacity="0.7" transform="rotate(15, 480, 595)"/>
-  <ellipse cx="415" cy="570" rx="22" ry="14" fill="#2d6a1f" fill-opacity="0.85" transform="rotate(-5, 415, 570)"/>
-  <ellipse cx="435" cy="555" rx="16" ry="11" fill="#40916c" fill-opacity="0.6" transform="rotate(20, 435, 555)"/>
-  <ellipse cx="560" cy="635" rx="18" ry="11" fill="#2d6a1f" fill-opacity="0.8" transform="rotate(30, 560, 635)"/>
-  <ellipse cx="545" cy="648" rx="14" ry="9" fill="#3a7a28" fill-opacity="0.7" transform="rotate(-20, 545, 648)"/>
-  <!-- Partículas mágicas (Krawzer) -->
-  <circle cx="330" cy="620" r="2" fill="#b7e4c7" fill-opacity="0.8"/>
-  <circle cx="355" cy="600" r="1.5" fill="#95d5b2" fill-opacity="0.7"/>
-  <circle cx="380" cy="635" r="2.5" fill="#74c69d" fill-opacity="0.6"/>
-  <circle cx="410" cy="615" r="1.5" fill="#b7e4c7" fill-opacity="0.9"/>
-  <circle cx="430" cy="640" r="2" fill="#52b788" fill-opacity="0.7"/>
-  <circle cx="460" cy="610" r="3" fill="#b7e4c7" fill-opacity="0.5"/>
-  <circle cx="480" cy="640" r="1.5" fill="#95d5b2" fill-opacity="0.8"/>
-  <circle cx="500" cy="620" r="2" fill="#74c69d" fill-opacity="0.7"/>
-  <circle cx="530" cy="660" r="2.5" fill="#b7e4c7" fill-opacity="0.6"/>
-  <circle cx="555" cy="615" r="1.5" fill="#52b788" fill-opacity="0.8"/>
-  <circle cx="315" cy="680" r="1.5" fill="#b7e4c7" fill-opacity="0.6"/>
-  <circle cx="575" cy="700" r="2" fill="#95d5b2" fill-opacity="0.6"/>
-  <!-- Solo Krawzer: terra viva -->
-  <rect x="300" y="840" width="300" height="60" fill="#1a2e12"/>
-  <line x1="300" y1="840" x2="600" y2="840" stroke="#2d5a1b" stroke-width="1"/>
+  <!-- Copa (embaixo — árvore invertida) -->
+  <ellipse cx="300" cy="660" rx="140" ry="50" fill="#1a3a12" fill-opacity=".3"/>
+  <ellipse cx="300" cy="650" rx="110" ry="35" fill="#2a4a1a" fill-opacity=".2"/>
+  <ellipse cx="300" cy="645" rx="80" ry="25" fill="#1a3a12" fill-opacity=".15"/>
 
-  <!-- === CORAÇÃO DE FAVO (elemento central) === -->
-  <!-- Grupo de hexágonos formando favo de mel no centro, área 270-330 x, 370-480 y -->
-  <!-- Linha 1: 2 hexs -->
-  <polygon points="285,395 295,389 305,395 305,407 295,413 285,407" fill="#1a1610" stroke="#f0c040" stroke-width="1.2" fill-opacity="0.7"/>
-  <polygon points="305,395 315,389 325,395 325,407 315,413 305,407" fill="#1a1610" stroke="#d4a017" stroke-width="1.2" fill-opacity="0.7"/>
-  <!-- Linha 2: 3 hexs -->
-  <polygon points="275,413 285,407 295,413 295,425 285,431 275,425" fill="#1f1c0d" stroke="#f0c040" stroke-width="1.5" fill-opacity="0.8"/>
-  <polygon points="295,413 305,407 315,413 315,425 305,431 295,425" fill="#2a2208" stroke="#f0c040" stroke-width="2" fill-opacity="0.9"/>
-  <polygon points="315,413 325,407 335,413 335,425 325,431 315,425" fill="#1f1c0d" stroke="#f0c040" stroke-width="1.5" fill-opacity="0.8"/>
-  <!-- Linha 3: 4 hexs (centro do favo) -->
-  <polygon points="265,431 275,425 285,431 285,443 275,449 265,443" fill="#1a1610" stroke="#d4a017" stroke-width="1.2" fill-opacity="0.7"/>
-  <polygon points="285,431 295,425 305,431 305,443 295,449 285,443" fill="#2a2208" stroke="#f5d030" stroke-width="2.5" fill-opacity="0.95"/>
-  <polygon points="305,431 315,425 325,431 325,443 315,449 305,443" fill="#2a2208" stroke="#f5d030" stroke-width="2.5" fill-opacity="0.95"/>
-  <polygon points="325,431 335,425 345,431 345,443 335,449 325,443" fill="#1a1610" stroke="#d4a017" stroke-width="1.2" fill-opacity="0.7"/>
-  <!-- Linha 4: 3 hexs -->
-  <polygon points="275,449 285,443 295,449 295,461 285,467 275,461" fill="#1f1c0d" stroke="#f0c040" stroke-width="1.5" fill-opacity="0.8"/>
-  <polygon points="295,449 305,443 315,449 315,461 305,467 295,461" fill="#2a2208" stroke="#f0c040" stroke-width="2" fill-opacity="0.9"/>
-  <polygon points="315,449 325,443 335,449 335,461 325,467 315,461" fill="#1f1c0d" stroke="#f0c040" stroke-width="1.5" fill-opacity="0.8"/>
-  <!-- Linha 5: 2 hexs -->
-  <polygon points="285,467 295,461 305,467 305,479 295,485 285,479" fill="#1a1610" stroke="#d4a017" stroke-width="1.2" fill-opacity="0.7"/>
-  <polygon points="305,467 315,461 325,467 325,479 315,485 305,479" fill="#1a1610" stroke="#d4a017" stroke-width="1.2" fill-opacity="0.7"/>
-  <!-- Abelha central (pequena, simbólica) -->
-  <!-- Corpo -->
-  <ellipse cx="305" cy="437" rx="7" ry="4.5" fill="#f0c040"/>
-  <ellipse cx="299" cy="437" rx="4" ry="3.5" fill="#f5d030"/>
-  <!-- Listras -->
-  <line x1="300" y1="433.5" x2="300" y2="440.5" stroke="#1a1000" stroke-width="1.2"/>
-  <line x1="303" y1="433" x2="303" y2="441" stroke="#1a1000" stroke-width="1.2"/>
-  <line x1="306" y1="433.5" x2="306" y2="440.5" stroke="#1a1000" stroke-width="1"/>
-  <line x1="309" y1="434" x2="309" y2="440" stroke="#1a1000" stroke-width="0.8"/>
-  <!-- Asas -->
-  <ellipse cx="302" cy="432" rx="6" ry="3" fill="white" fill-opacity="0.5" transform="rotate(-25, 302, 432)"/>
-  <ellipse cx="308" cy="432" rx="6" ry="3" fill="white" fill-opacity="0.5" transform="rotate(25, 308, 432)"/>
-  <ellipse cx="301" cy="441" rx="5" ry="2.5" fill="white" fill-opacity="0.35" transform="rotate(20, 301, 441)"/>
-  <ellipse cx="309" cy="441" rx="5" ry="2.5" fill="white" fill-opacity="0.35" transform="rotate(-20, 309, 441)"/>
-  <!-- Antenas -->
-  <line x1="299" y1="434" x2="295" y2="429" stroke="#1a1000" stroke-width="0.8"/>
-  <circle cx="295" cy="429" r="1" fill="#1a1000"/>
-  <line x1="301" y1="433.5" x2="298" y2="428" stroke="#1a1000" stroke-width="0.8"/>
-  <circle cx="298" cy="428" r="1" fill="#1a1000"/>
-  <!-- Glow dourado sobre o favo -->
-  <ellipse cx="305" cy="437" rx="45" ry="55" fill="url(#hex_glow)" fill-opacity="0.25"/>
+  <!-- ═══ COLMEIA CENTRAL (hexágonos dourados) ═══ -->
+  <g filter="url(#glow_filter)" opacity=".8">
+    <!-- Hexágono central grande -->
+    <polygon points="300,395 320,408 320,432 300,445 280,432 280,408"
+             fill="none" stroke="#c9a030" stroke-width="1.5"/>
+    <!-- Anel de hexágonos -->
+    <polygon points="300,365 315,374 315,392 300,401 285,392 285,374"
+             fill="none" stroke="#c9a030" stroke-width="1" opacity=".7"/>
+    <polygon points="330,380 345,389 345,407 330,416 315,407 315,389"
+             fill="none" stroke="#c9a030" stroke-width="1" opacity=".6"/>
+    <polygon points="330,410 345,419 345,437 330,446 315,437 315,419"
+             fill="none" stroke="#c9a030" stroke-width="1" opacity=".6"/>
+    <polygon points="300,425 315,434 315,452 300,461 285,452 285,434"
+             fill="none" stroke="#c9a030" stroke-width="1" opacity=".7"/>
+    <polygon points="270,410 285,419 285,437 270,446 255,437 255,419"
+             fill="none" stroke="#c9a030" stroke-width="1" opacity=".6"/>
+    <polygon points="270,380 285,389 285,407 270,416 255,407 255,389"
+             fill="none" stroke="#c9a030" stroke-width="1" opacity=".6"/>
+    <!-- Hexágonos exteriores (mais transparentes) -->
+    <polygon points="300,340 312,347 312,361 300,368 288,361 288,347"
+             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".35"/>
+    <polygon points="350,370 362,377 362,391 350,398 338,391 338,377"
+             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".3"/>
+    <polygon points="350,430 362,437 362,451 350,458 338,451 338,437"
+             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".3"/>
+    <polygon points="300,460 312,467 312,481 300,488 288,481 288,467"
+             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".35"/>
+    <polygon points="250,430 262,437 262,451 250,458 238,451 238,437"
+             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".3"/>
+    <polygon points="250,370 262,377 262,391 250,398 238,391 238,377"
+             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".3"/>
+  </g>
+  <!-- Glow central -->
+  <ellipse cx="300" cy="420" rx="30" ry="35" fill="url(#hex_glow)" fill-opacity=".2"/>
 
-  <!-- === TÍTULO === -->
-  <!-- Faixa escura por trás do título -->
-  <rect x="0" y="50" width="600" height="110" fill="#000000" fill-opacity="0.55"/>
-  <line x1="30" y1="52" x2="570" y2="52" stroke="#f0c040" stroke-width="1.5" stroke-opacity="0.7"/>
-  <line x1="30" y1="158" x2="570" y2="158" stroke="#f0c040" stroke-width="1.5" stroke-opacity="0.7"/>
+  <!-- ═══ ABELHAS (silhuetas pequenas) ═══ -->
+  <g fill="#c9a030" opacity=".5">
+    <!-- Abelha 1 -->
+    <ellipse cx="230" cy="360" rx="4" ry="2.5" transform="rotate(-20 230 360)"/>
+    <ellipse cx="228" cy="358" rx="2.5" ry="1.5" fill="#e8c040" fill-opacity=".6" transform="rotate(-40 228 358)"/>
+    <!-- Abelha 2 -->
+    <ellipse cx="370" cy="380" rx="3.5" ry="2" transform="rotate(15 370 380)"/>
+    <ellipse cx="372" cy="378" rx="2" ry="1.2" fill="#e8c040" fill-opacity=".6" transform="rotate(30 372 378)"/>
+    <!-- Abelha 3 -->
+    <ellipse cx="255" cy="460" rx="3" ry="2" transform="rotate(10 255 460)"/>
+    <!-- Abelha 4 -->
+    <ellipse cx="348" cy="350" rx="3" ry="1.8" transform="rotate(-10 348 350)"/>
+    <!-- Abelha 5 -->
+    <ellipse cx="330" cy="470" rx="3.5" ry="2" transform="rotate(25 330 470)"/>
+  </g>
 
-  <text x="300" y="98" font-family="Georgia, 'Times New Roman', serif" font-size="32" font-weight="bold"
-        fill="#f0c040" text-anchor="middle" letter-spacing="3">O CORAÇÃO</text>
-  <text x="300" y="138" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="bold"
-        fill="#f0c040" text-anchor="middle" letter-spacing="5">DA COLMEIA</text>
-  <!-- Sombra do título (offset) -->
-  <text x="302" y="100" font-family="Georgia, 'Times New Roman', serif" font-size="32" font-weight="bold"
-        fill="#a07810" text-anchor="middle" letter-spacing="3" fill-opacity="0.4">O CORAÇÃO</text>
-  <text x="302" y="140" font-family="Georgia, 'Times New Roman', serif" font-size="26" font-weight="bold"
-        fill="#a07810" text-anchor="middle" letter-spacing="5" fill-opacity="0.4">DA COLMEIA</text>
+  <!-- ═══ PARTÍCULAS / VAGALUMES ═══ -->
+  <g fill="#c9a030">
+    <circle cx="150" cy="200" r="2" fill-opacity=".4"/>
+    <circle cx="450" cy="180" r="1.5" fill-opacity=".3"/>
+    <circle cx="120" cy="400" r="1.5" fill-opacity=".3"/>
+    <circle cx="480" cy="420" r="2" fill-opacity=".35"/>
+    <circle cx="180" cy="550" r="1.5" fill-opacity=".25"/>
+    <circle cx="420" cy="570" r="1.5" fill-opacity=".3"/>
+    <circle cx="100" cy="300" r="1" fill-opacity=".2"/>
+    <circle cx="500" cy="310" r="1.2" fill-opacity=".2"/>
+    <circle cx="200" cy="680" r="1.5" fill-opacity=".2"/>
+    <circle cx="400" cy="700" r="1.2" fill-opacity=".2"/>
+  </g>
+  <!-- Partículas verdes (vida) -->
+  <g fill="#5aaa40">
+    <circle cx="220" cy="600" r="1.5" fill-opacity=".25"/>
+    <circle cx="380" cy="620" r="1.2" fill-opacity=".2"/>
+    <circle cx="250" cy="650" r="1" fill-opacity=".2"/>
+    <circle cx="350" cy="660" r="1.5" fill-opacity=".2"/>
+  </g>
 
-  <!-- === SUBTÍTULO / ÉPICA === -->
-  <text x="300" y="195" font-family="Georgia, 'Times New Roman', serif" font-size="12"
-        fill="#c8c8c8" text-anchor="middle" letter-spacing="4" font-style="italic">Uma saga de dois mundos</text>
-  <line x1="140" y1="200" x2="230" y2="200" stroke="#c8c8c8" stroke-width="0.5" stroke-opacity="0.5"/>
-  <polygon points="300,196 305,204 295,204" fill="#f0c040" fill-opacity="0.6"/>
-  <line x1="370" y1="200" x2="460" y2="200" stroke="#c8c8c8" stroke-width="0.5" stroke-opacity="0.5"/>
+  <!-- ═══ TÍTULO: KRAWZ ═══ -->
+  <rect x="0" y="60" width="600" height="130" fill="#000000" fill-opacity=".5"/>
+  <line x1="40" y1="62" x2="560" y2="62" stroke="#c9a030" stroke-width="1" stroke-opacity=".5"/>
+  <line x1="40" y1="188" x2="560" y2="188" stroke="#c9a030" stroke-width="1" stroke-opacity=".5"/>
 
-  <!-- === LABELS DOS MUNDOS === -->
-  <!-- Miraferro -->
-  <text x="100" y="360" font-family="Georgia, 'Times New Roman', serif" font-size="11"
-        fill="#e94560" text-anchor="middle" letter-spacing="3" font-style="italic" fill-opacity="0.85">MIRAFERRO</text>
-  <line x1="40" y1="364" x2="80" y2="364" stroke="#e94560" stroke-width="0.7" stroke-opacity="0.5"/>
-  <line x1="120" y1="364" x2="160" y2="364" stroke="#e94560" stroke-width="0.7" stroke-opacity="0.5"/>
-  <!-- Krawzer -->
-  <text x="500" y="360" font-family="Georgia, 'Times New Roman', serif" font-size="11"
-        fill="#74c69d" text-anchor="middle" letter-spacing="3" font-style="italic" fill-opacity="0.85">KRAWZER</text>
-  <line x1="440" y1="364" x2="475" y2="364" stroke="#74c69d" stroke-width="0.7" stroke-opacity="0.5"/>
-  <line x1="525" y1="364" x2="560" y2="364" stroke="#74c69d" stroke-width="0.7" stroke-opacity="0.5"/>
+  <!-- Sombra -->
+  <text x="302" y="130" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="bold"
+        fill="#5a4010" text-anchor="middle" letter-spacing="12" fill-opacity=".5">KRAWZ</text>
+  <!-- Título principal -->
+  <text x="300" y="128" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="bold"
+        fill="#c9a030" text-anchor="middle" letter-spacing="12">KRAWZ</text>
 
-  <!-- === ESTRELAS / PARTÍCULAS (Krawzer, topo) === -->
-  <circle cx="340" cy="230" r="1" fill="#b7e4c7" fill-opacity="0.7"/>
-  <circle cx="360" cy="260" r="1.5" fill="#95d5b2" fill-opacity="0.6"/>
-  <circle cx="390" cy="240" r="1" fill="#74c69d" fill-opacity="0.8"/>
-  <circle cx="420" cy="270" r="1.5" fill="#b7e4c7" fill-opacity="0.5"/>
-  <circle cx="450" cy="225" r="1" fill="#52b788" fill-opacity="0.7"/>
-  <circle cx="480" cy="255" r="2" fill="#b7e4c7" fill-opacity="0.6"/>
-  <circle cx="510" cy="235" r="1" fill="#95d5b2" fill-opacity="0.8"/>
-  <circle cx="540" cy="265" r="1.5" fill="#74c69d" fill-opacity="0.6"/>
-  <circle cx="570" cy="245" r="1" fill="#b7e4c7" fill-opacity="0.7"/>
+  <!-- Subtítulo -->
+  <text x="300" y="165" font-family="Georgia, 'Times New Roman', serif" font-size="15"
+        fill="#a89060" text-anchor="middle" letter-spacing="3">O CORAÇÃO DA COLMEIA</text>
 
-  <!-- Luz de Gael (Mago de Luz) — mancha luminosa branca/dourada no centro -->
-  <ellipse cx="300" cy="437" rx="60" ry="70" fill="#f0c040" fill-opacity="0.04"/>
-  <ellipse cx="300" cy="437" rx="30" ry="38" fill="#ffffff" fill-opacity="0.03"/>
+  <!-- Ornamento separador -->
+  <line x1="200" y1="178" x2="270" y2="178" stroke="#c9a030" stroke-width=".5" stroke-opacity=".4"/>
+  <text x="300" y="182" font-family="Georgia, serif" font-size="8" fill="#c9a030" fill-opacity=".5" text-anchor="middle">◆</text>
+  <line x1="330" y1="178" x2="400" y2="178" stroke="#c9a030" stroke-width=".5" stroke-opacity=".4"/>
 
-  <!-- === RODAPÉ / AUTOR === -->
-  <rect x="0" y="855" width="600" height="45" fill="#000000" fill-opacity="0.6"/>
-  <line x1="30" y1="857" x2="570" y2="857" stroke="#f0c040" stroke-width="0.8" stroke-opacity="0.5"/>
-  <text x="300" y="880" font-family="Georgia, 'Times New Roman', serif" font-size="13"
-        fill="#d4a017" text-anchor="middle" letter-spacing="4">LUX VESPER</text>
+  <!-- ═══ INDICADOR LIVRO 1 ═══ -->
+  <text x="300" y="205" font-family="Georgia, 'Times New Roman', serif" font-size="11"
+        fill="#8a8470" text-anchor="middle" letter-spacing="5" font-style="italic">LIVRO 1</text>
 
-  <!-- === MOLDURA DECORATIVA === -->
-  <!-- Cantos dourados -->
-  <path d="M 20,20 L 20,55 M 20,20 L 55,20" stroke="#f0c040" stroke-width="1.5" fill="none" stroke-opacity="0.7"/>
-  <path d="M 580,20 L 580,55 M 580,20 L 545,20" stroke="#f0c040" stroke-width="1.5" fill="none" stroke-opacity="0.7"/>
-  <path d="M 20,880 L 20,845 M 20,880 L 55,880" stroke="#f0c040" stroke-width="1.5" fill="none" stroke-opacity="0.7"/>
-  <path d="M 580,880 L 580,845 M 580,880 L 545,880" stroke="#f0c040" stroke-width="1.5" fill="none" stroke-opacity="0.7"/>
-  <!-- Borda fina -->
-  <rect x="15" y="15" width="570" height="870" fill="none" stroke="#f0c040" stroke-width="0.5" stroke-opacity="0.25"/>
+  <!-- ═══ VINES LATERAIS ═══ -->
+  <g stroke="#2a5a1a" fill="none" stroke-width="1.5" opacity=".15">
+    <!-- Esquerda -->
+    <path d="M30,200 C35,260 25,320 30,380 C35,440 25,500 30,560 C35,620 25,680 30,740"/>
+    <circle cx="28" cy="280" r="3" fill="#2a5a1a"/>
+    <circle cx="32" cy="400" r="4" fill="#2a5a1a"/>
+    <circle cx="27" cy="520" r="3" fill="#2a5a1a"/>
+    <circle cx="33" cy="650" r="3.5" fill="#2a5a1a"/>
+    <!-- Direita -->
+    <path d="M570,200 C565,260 575,320 570,380 C565,440 575,500 570,560 C565,620 575,680 570,740"/>
+    <circle cx="572" cy="280" r="3" fill="#2a5a1a"/>
+    <circle cx="568" cy="400" r="4" fill="#2a5a1a"/>
+    <circle cx="573" cy="520" r="3" fill="#2a5a1a"/>
+    <circle cx="567" cy="650" r="3.5" fill="#2a5a1a"/>
+  </g>
+
+  <!-- ═══ RODAPÉ / AUTOR ═══ -->
+  <rect x="0" y="830" width="600" height="70" fill="#000000" fill-opacity=".5"/>
+  <line x1="40" y1="832" x2="560" y2="832" stroke="#c9a030" stroke-width=".8" stroke-opacity=".4"/>
+  <text x="300" y="868" font-family="Georgia, 'Times New Roman', serif" font-size="14"
+        fill="#c9a030" text-anchor="middle" letter-spacing="5">LUX VESPER</text>
+
+  <!-- ═══ MOLDURA DECORATIVA ═══ -->
+  <!-- Cantos -->
+  <path d="M 18,18 L 18,55 M 18,18 L 55,18" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".5"/>
+  <path d="M 582,18 L 582,55 M 582,18 L 545,18" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".5"/>
+  <path d="M 18,882 L 18,845 M 18,882 L 55,882" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".5"/>
+  <path d="M 582,882 L 582,845 M 582,882 L 545,882" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".5"/>
+  <!-- Borda interna sutil -->
+  <rect x="12" y="12" width="576" height="876" rx="2" fill="none" stroke="#c9a030" stroke-width=".5" stroke-opacity=".15"/>
 </svg>
