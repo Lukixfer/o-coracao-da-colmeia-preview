@@ -1,495 +1,200 @@
-﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 660" width="900" height="660">
+﻿<!-- Krawzer — A Árvore-Mundo (vista diagonal, de cabeça para baixo) -->
+<!-- Raízes no topo (início da jornada), Castelo de Pedra na copa (embaixo) -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
   <defs>
-    <!-- Fundo pergaminho com gradiente suave -->
-    <radialGradient id="parch" cx="50%" cy="45%" r="65%">
-      <stop offset="0%" stop-color="#f2e8cc"/>
-      <stop offset="60%" stop-color="#e8d8a8"/>
-      <stop offset="100%" stop-color="#c8a860"/>
+    <radialGradient id="bg_sky" cx="50%" cy="60%" r="55%">
+      <stop offset="0%" stop-color="#0a1a0a"/>
+      <stop offset="100%" stop-color="#050a05"/>
     </radialGradient>
-    <!-- Deserto laranja-avermelhado -->
-    <radialGradient id="gFogo" cx="50%" cy="60%" r="70%">
-      <stop offset="0%" stop-color="#e07040"/>
-      <stop offset="100%" stop-color="#8c2800"/>
-    </radialGradient>
-    <!-- Reino da Pedra: verde-arenoso -->
-    <radialGradient id="gPedra" cx="50%" cy="45%" r="60%">
-      <stop offset="0%" stop-color="#d4c898"/>
-      <stop offset="100%" stop-color="#a09050"/>
-    </radialGradient>
-    <!-- Reino do Vento: azul-pálido -->
-    <linearGradient id="gVento" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#daeeff"/>
-      <stop offset="100%" stop-color="#90c4e8"/>
+    <linearGradient id="bark" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2a1a08"/>
+      <stop offset="50%" stop-color="#3a2810"/>
+      <stop offset="100%" stop-color="#2a1a08"/>
     </linearGradient>
-    <!-- Reino da Agua: azul-profundo -->
-    <linearGradient id="gAgua" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#5898cc"/>
-      <stop offset="100%" stop-color="#1c4870"/>
-    </linearGradient>
-    <!-- Floresta -->
-    <radialGradient id="gForest" cx="50%" cy="50%" r="55%">
-      <stop offset="0%" stop-color="#68b040"/>
-      <stop offset="100%" stop-color="#2a6010"/>
+    <radialGradient id="glow_roots" cx="50%" cy="20%" r="30%">
+      <stop offset="0%" stop-color="#c9a030" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#c9a030" stop-opacity="0"/>
     </radialGradient>
-    <!-- Filtro suave de envelhecimento -->
-    <filter id="aged" x="-5%" y="-5%" width="110%" height="110%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="4" seed="8" result="noise"/>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3" xChannelSelector="R" yChannelSelector="G"/>
+    <radialGradient id="glow_crown" cx="50%" cy="85%" r="35%">
+      <stop offset="0%" stop-color="#4a8a3a" stop-opacity=".1"/>
+      <stop offset="100%" stop-color="#4a8a3a" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="soft_glow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
-    <!-- Sombra suave para labels -->
-    <filter id="lbl">
-      <feDropShadow dx="0" dy="1" stdDeviation="1.5" flood-color="#f2e8cc" flood-opacity="0.9"/>
-    </filter>
-    <!-- Padrão de hachura para floresta -->
-    <pattern id="hachura" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
-      <line x1="0" y1="8" x2="8" y2="0" stroke="#3a7020" stroke-width="0.6" stroke-opacity="0.4"/>
-    </pattern>
   </defs>
 
-  <!-- === FUNDO PERGAMINHO === -->
-  <rect width="900" height="660" fill="url(#parch)"/>
-  <!-- Manchas de envelhecimento -->
-  <ellipse cx="120" cy="100" rx="80" ry="60" fill="#b89040" fill-opacity="0.08"/>
-  <ellipse cx="780" cy="560" rx="70" ry="50" fill="#b89040" fill-opacity="0.10"/>
-  <ellipse cx="800" cy="80"  rx="60" ry="40" fill="#c89848" fill-opacity="0.07"/>
-  <ellipse cx="80"  cy="580" rx="65" ry="45" fill="#c89848" fill-opacity="0.09"/>
-  <!-- Borda dupla estilo atlas medieval -->
-  <rect x="6"  y="6"  width="888" height="648" rx="10" fill="none" stroke="#6a4010" stroke-width="4"/>
-  <rect x="13" y="13" width="874" height="634" rx="7"  fill="none" stroke="#9a6828" stroke-width="1.5"/>
-  <!-- Ornamentos de canto -->
-  <g fill="#7a5020" fill-opacity="0.75" stroke="none">
-    <!-- Canto superior-esquerdo -->
-    <path d="M14,14 L40,14 L14,40 Z"/>
-    <path d="M14,14 L14,40 Q24,28 40,14 Z" fill="#6a4010"/>
-    <circle cx="24" cy="24" r="5"/>
-    <!-- Canto superior-direito -->
-    <path d="M886,14 L860,14 L886,40 Z"/>
-    <circle cx="876" cy="24" r="5"/>
-    <!-- Canto inferior-esquerdo -->
-    <path d="M14,646 L40,646 L14,620 Z"/>
-    <circle cx="24" cy="636" r="5"/>
-    <!-- Canto inferior-direito -->
-    <path d="M886,646 L860,646 L886,620 Z"/>
-    <circle cx="876" cy="636" r="5"/>
+  <!-- Fundo -->
+  <rect width="800" height="600" fill="url(#bg_sky)"/>
+  <rect width="800" height="600" fill="url(#glow_roots)"/>
+  <rect width="800" height="600" fill="url(#glow_crown)"/>
+
+  <!-- Estrelas/partículas de fundo -->
+  <g fill="#c9a030" fill-opacity=".15">
+    <circle cx="120" cy="80" r="1"/><circle cx="680" cy="50" r="1.2"/>
+    <circle cx="200" cy="150" r=".8"/><circle cx="600" cy="130" r="1"/>
+    <circle cx="80" cy="400" r="1"/><circle cx="720" cy="420" r=".8"/>
+    <circle cx="150" cy="520" r="1.2"/><circle cx="650" cy="550" r="1"/>
   </g>
 
-  <!-- ============================================================
-       CAMADA 1 — DESERTO DO FOGO
-       Ocupa o fundo: Norte, Oeste e Sul do mapa
-       A leste há o Reino da Água (faixa costeira)
-       A noroeste há o Reino do Vento
-  ============================================================ -->
-  <!-- Todo o fundo do mapa é deserto -->
-  <rect x="14" y="14" width="872" height="632" rx="6" fill="url(#gFogo)" fill-opacity="0.48"/>
-
-  <!-- Textura de dunas: arcos horizontais repetidos -->
-  <g fill="none" stroke="#8c3010" stroke-opacity="0.30" stroke-width="1.4">
-    <!-- Dunas sul (abaixo do reino da pedra) -->
-    <path d="M 25,500 Q 120,484 220,498 Q 320,512 420,497 Q 520,483 620,496 Q 720,509 875,498"/>
-    <path d="M 25,522 Q 130,506 235,520 Q 340,534 445,519 Q 545,505 645,518 Q 745,531 875,520"/>
-    <path d="M 25,544 Q 140,529 248,542 Q 360,555 465,541 Q 568,527 668,540 Q 770,553 875,542"/>
-    <path d="M 25,566 Q 145,551 255,565 Q 370,578 475,564 Q 578,550 675,562 Q 770,574 875,564"/>
-    <path d="M 25,588 Q 150,573 262,587 Q 378,600 484,587 Q 585,574 680,585 Q 775,596 875,587"/>
-    <path d="M 25,610 Q 155,596 268,609 Q 385,622 490,609 Q 590,596 685,607 Q 778,618 875,609"/>
-    <path d="M 25,632 Q 160,618 275,631 Q 390,644 495,631 Q 595,618 688,629 Q 780,640 875,632"/>
-    <!-- Dunas norte (acima do reino da pedra) -->
-    <path d="M 280,20 Q 380,35 480,21 Q 575,8  668,20 Q 760,32 875,22"/>
-    <path d="M 280,42 Q 385,57 488,43 Q 584,30 676,42 Q 768,54 875,44"/>
-    <path d="M 280,64 Q 388,78 492,65 Q 590,52 682,64 Q 773,76 875,66"/>
-    <path d="M 280,86 Q 390,99 495,87 Q 594,75 686,86 Q 776,97 875,88"/>
-    <!-- Dunas oeste -->
-    <path d="M 20,120 Q 40,150 22,185 Q 42,210 20,240"/>
-    <path d="M 20,250 Q 40,282 22,315 Q 42,345 20,375"/>
-    <path d="M 20,385 Q 42,415 22,448 Q 44,478 20,498"/>
-  </g>
-  <!-- Fendas geotérmicas: traços flamejantes -->
-  <g fill="none" stroke="#e84808" stroke-opacity="0.70" stroke-width="2">
-    <path d="M 55,130 Q 58,117 62,126 Q 66,116 70,130"/>
-    <path d="M 820,110 Q 823,97  827,106 Q 831,96  835,110"/>
-    <path d="M 38,420 Q 41,407 45,416  Q 49,406 53,420"/>
-    <path d="M 700,580 Q 703,567 707,576 Q 711,566 715,580"/>
-    <path d="M 148,595 Q 151,582 155,591 Q 159,581 163,595"/>
-    <path d="M 455,608 Q 458,596 461,604 Q 464,595 467,608"/>
-    <path d="M 840,390 Q 843,377 847,386 Q 851,376 855,390"/>
-    <path d="M 340,30  Q 343,18  346,27  Q 349,17  352,30"/>
-    <path d="M 550,18  Q 553,6   556,15  Q 559,5   562,18"/>
-  </g>
-  <!-- Rótulo grande: Reino do Fogo (sul) -->
-  <text x="450" y="618" font-family="Georgia,serif" font-size="17" font-style="italic"
-        fill="#5a1000" fill-opacity="0.85" text-anchor="middle" letter-spacing="2"
-        filter="url(#lbl)">— Reino do Fogo — O Grande Deserto —</text>
-  <!-- Rótulo oeste -->
-  <text x="42" y="360" font-family="Georgia,serif" font-size="11" font-style="italic"
-        fill="#5a1000" fill-opacity="0.65" text-anchor="middle"
-        transform="rotate(-90,42,360)">Deserto</text>
-  <!-- Rótulo norte (acima do reino da pedra) -->
-  <text x="600" y="72" font-family="Georgia,serif" font-size="11" font-style="italic"
-        fill="#5a1000" fill-opacity="0.60" text-anchor="middle"
-        filter="url(#lbl)">Deserto do Norte</text>
-
-  <!-- ============================================================
-       CAMADA 2 — REINO DO VENTO (noroeste, faz divisa com o Fogo)
-  ============================================================ -->
-  <!-- Forma orgânica noroeste -->
-  <path d="M 14,14
-           Q 90,14  175,22
-           Q 230,28  268,62
-           Q 285,88  278,126
-           Q 265,162 235,188
-           Q 195,216 148,228
-           Q 100,240  55,238
-           Q 28,235  14,225
-           Z"
-        fill="url(#gVento)" fill-opacity="0.82"/>
-  <!-- Hachura suave de vento -->
-  <g fill="none" stroke="#3868a8" stroke-opacity="0.25" stroke-width="0.9">
-    <path d="M 30,40  Q 55,28  82,40  Q 55,34  30,40"/>
-    <path d="M 75,65  Q 105,51 138,65  Q 105,58  75,65"/>
-    <path d="M 40,95  Q 72,80 108,95  Q  72,88  40,95"/>
-    <path d="M 28,130 Q 60,114 98,130 Q  60,122  28,130"/>
-    <path d="M 35,165 Q 68,150 105,165 Q  68,157  35,165"/>
-    <path d="M 72,200 Q 105,185 140,200 Q 105,192  72,200"/>
-    <path d="M 118,32 Q 155,18 194,32  Q 155,25 118,32"/>
-    <path d="M 152,58 Q 188,44 225,58  Q 188,51 152,58"/>
-    <path d="M 168,95 Q 204,80 240,95  Q 204,88 168,95"/>
-    <path d="M 158,135 Q 194,121 228,135 Q 194,128 158,135"/>
-    <path d="M 130,172 Q 164,158 196,172 Q 164,165 130,172"/>
-  </g>
-  <!-- Fronteira Vento / Deserto (tracejado) -->
-  <path d="M 175,22 Q 230,28 268,62 Q 285,88 278,126 Q 265,162 235,188 Q 195,216 148,228 Q 100,240 55,238"
-        fill="none" stroke="#3868a8" stroke-width="1.8" stroke-dasharray="6,4" stroke-opacity="0.55"/>
-  <text x="130" y="112" font-family="Georgia,serif" font-size="13" font-style="italic"
-        fill="#1a4070" fill-opacity="0.92" text-anchor="middle"
-        transform="rotate(-8,130,112)" filter="url(#lbl)">Reino do Vento</text>
-
-  <!-- ============================================================
-       CAMADA 3 — REINO DA ÁGUA (faixa costeira leste)
-  ============================================================ -->
-  <path d="M 886,14
-           L 730,14
-           Q 710,22  702,68
-           Q 694,128 692,200
-           Q 690,270 691,340
-           Q 692,410 696,460
-           Q 702,490 720,502
-           L 780,496
-           Q 840,478 864,428
-           Q 886,385 886,290
-           Z"
-        fill="url(#gAgua)" fill-opacity="0.72"/>
-  <!-- Ondas -->
-  <g fill="none" stroke="#0a3060" stroke-opacity="0.40" stroke-width="1">
-    <path d="M 715,42  Q 738,30 762,42  Q 738,36 715,42"/>
-    <path d="M 706,92  Q 730,80 755,92  Q 730,86 706,92"/>
-    <path d="M 703,152 Q 726,140 750,152 Q 726,146 703,152"/>
-    <path d="M 701,222 Q 722,210 746,222 Q 722,216 701,222"/>
-    <path d="M 701,295 Q 720,283 743,295 Q 720,289 701,295"/>
-    <path d="M 702,370 Q 720,358 741,370 Q 720,364 702,370"/>
-    <path d="M 706,440 Q 722,428 740,440 Q 722,434 706,440"/>
-  </g>
-  <text x="802" y="248" font-family="Georgia,serif" font-size="13" font-style="italic"
-        fill="#0a2848" fill-opacity="0.90" text-anchor="middle"
-        transform="rotate(90,802,248)" filter="url(#lbl)">Reino da Água</text>
-
-  <!-- ============================================================
-       CAMADA 4 — REINO DA PEDRA (território central)
-       Forma: grosso losango irregular, cercado de deserto N/W/S
-       Aberto a leste para a enseada e o reino da água
-  ============================================================ -->
-  <path d="M 262,78
-           Q 370,60  488,62
-           Q 580,64  640,90
-           Q 676,110 686,158
-           Q 692,200 691,270
-           Q 690,340 685,390
-           Q 674,440 644,464
-           Q 590,488 498,490
-           Q 400,492 308,480
-           Q 238,466 206,432
-           Q 182,405 178,362
-           Q 172,308 175,255
-           Q 178,200 198,158
-           Q 218,110 262,78
-           Z"
-        fill="url(#gPedra)" fill-opacity="0.90" stroke="#7a5818" stroke-width="2.2"/>
-  <!-- Textura de pedra/rocha: hachura cruzada leve -->
-  <rect x="178" y="62" width="512" height="432" fill="url(#hachura)" fill-opacity="0.18"
-        clip-path="url(#maskPedra)"/>
-  <!-- Zona de floresta (Raízes) no centro -->
-  <ellipse cx="390" cy="282" rx="130" ry="100"
-           fill="url(#gForest)" fill-opacity="0.30"/>
-
-  <!-- ============================================================
-       ENSEADA LESTE — ponto de contato Pedra/Água (geopolítica)
-  ============================================================ -->
-  <path d="M 676,262 Q 696,238 714,254 Q 724,278 716,308 Q 700,326 680,314 Q 668,294 676,262 Z"
-        fill="#4888b8" fill-opacity="0.55" stroke="#1a4878" stroke-width="1.4" stroke-dasharray="4,3"/>
-  <text x="696" y="302" font-family="Georgia,serif" font-size="9" font-style="italic"
-        fill="#0a2848" text-anchor="middle" filter="url(#lbl)">Enseada</text>
-  <text x="696" y="313" font-family="Georgia,serif" font-size="9" font-style="italic"
-        fill="#0a2848" text-anchor="middle" filter="url(#lbl)">Leste ★</text>
-
-  <!-- ============================================================
-       LOCALIZAÇÕES
-  ============================================================ -->
-
-  <!-- ★ CASTELO DE PEDRA — capital do reino (centro-leste) -->
-  <!-- Base / muralha -->
-  <rect x="522" y="238" width="66" height="72" rx="3"
-        fill="#b0a880" stroke="#5a4828" stroke-width="1.8"/>
-  <!-- Torres: esq, central, dir -->
-  <rect x="514" y="218" width="16" height="42" rx="2" fill="#c0b890" stroke="#5a4828" stroke-width="1.2"/>
-  <rect x="540" y="210" width="16" height="42" rx="2" fill="#d0c8a0" stroke="#5a4828" stroke-width="1.2"/>
-  <rect x="566" y="214" width="16" height="42" rx="2" fill="#c0b890" stroke="#5a4828" stroke-width="1.2"/>
-  <!-- Janelas amuralha -->
-  <rect x="534" y="248" width="8" height="10" rx="1" fill="#3a2808" fill-opacity="0.7"/>
-  <rect x="548" y="248" width="8" height="10" rx="1" fill="#3a2808" fill-opacity="0.7"/>
-  <!-- Porta arco -->
-  <path d="M 545,310 Q 545,293 555,291 Q 565,293 565,310 Z" fill="#3a2808"/>
-  <!-- Ameias nas torres -->
-  <g fill="#8a7848">
-    <rect x="514" y="215" width="3" height="5"/><rect x="519" y="215" width="3" height="5"/><rect x="524" y="215" width="3" height="5"/>
-    <rect x="540" y="207" width="3" height="5"/><rect x="545" y="207" width="3" height="5"/><rect x="550" y="207" width="3" height="5"/>
-    <rect x="566" y="211" width="3" height="5"/><rect x="571" y="211" width="3" height="5"/><rect x="576" y="211" width="3" height="5"/>
-  </g>
-  <!-- Bandeira laranja no mastro central -->
-  <line x1="548" y1="210" x2="548" y2="185" stroke="#5a3808" stroke-width="1.8"/>
-  <polygon points="548,185 570,194 548,203" fill="#d07030" fill-opacity="0.95"/>
-  <!-- Marcador capital -->
-  <text x="555" y="180" font-family="Georgia,serif" font-size="9" fill="#c07020"
-        text-anchor="middle" font-weight="bold">★ CAPITAL</text>
-  <!-- Rótulo -->
-  <text x="555" y="324" font-family="Georgia,serif" font-size="14" font-weight="bold"
-        fill="#3a2808" text-anchor="middle" filter="url(#lbl)">Castelo de Pedra</text>
-  <text x="555" y="338" font-family="Georgia,serif" font-size="10" font-style="italic"
-        fill="#5a4020" text-anchor="middle" filter="url(#lbl)">(Sede do Reino)</text>
-
-  <!-- ● RAÍZES — cidade-árvore, floresta central -->
-  <!-- Tronco -->
-  <rect x="368" y="270" width="16" height="30" rx="3" fill="#8a6020" stroke="#5a3a08" stroke-width="1.5"/>
-  <!-- Copa: 3 círculos sobrepostos -->
-  <circle cx="376" cy="258" r="28" fill="#3a8018" fill-opacity="0.90" stroke="#285010" stroke-width="1.5"/>
-  <circle cx="358" cy="250" r="20" fill="#48a028" fill-opacity="0.80"/>
-  <circle cx="394" cy="248" r="22" fill="#48a028" fill-opacity="0.80"/>
-  <circle cx="376" cy="238" r="18" fill="#5ab030" fill-opacity="0.75"/>
-  <!-- Raízes saindo do tronco (linhas curvas) -->
-  <path d="M 376,298 Q 352,316 326,326" stroke="#8a6020" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-  <path d="M 376,298 Q 400,316 426,325" stroke="#8a6020" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-  <path d="M 376,298 Q 376,320 370,332" stroke="#8a6020" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-  <!-- Rótulo -->
-  <text x="376" y="346" font-family="Georgia,serif" font-size="14" font-weight="bold"
-        fill="#1a1000" text-anchor="middle" filter="url(#lbl)">Raízes</text>
-  <text x="376" y="360" font-family="Georgia,serif" font-size="10" font-style="italic"
-        fill="#3a2008" text-anchor="middle" filter="url(#lbl)">(Cidade-Árvore)</text>
-
-  <!-- ■ TRONCO — zona industrial, norte do reino -->
-  <rect x="428" y="136" width="64" height="44" rx="2" fill="#90887a" stroke="#686058" stroke-width="1.5"/>
-  <!-- Chaminés -->
-  <rect x="438" y="112" width="8" height="36" rx="1" fill="#78706a"/>
-  <rect x="452" y="106" width="8" height="42" rx="1" fill="#78706a"/>
-  <rect x="466" y="114" width="8" height="34" rx="1" fill="#78706a"/>
-  <rect x="480" y="109" width="8" height="39" rx="1" fill="#78706a"/>
-  <!-- Fumaça (elipses difusas) -->
-  <ellipse cx="442" cy="108" rx="7"  ry="9"  fill="#c8c0b0" fill-opacity="0.42"/>
-  <ellipse cx="456" cy="101" rx="7"  ry="10" fill="#c8c0b0" fill-opacity="0.38"/>
-  <ellipse cx="470" cy="109" rx="6"  ry="8"  fill="#c8c0b0" fill-opacity="0.40"/>
-  <ellipse cx="484" cy="104" rx="6"  ry="9"  fill="#c8c0b0" fill-opacity="0.38"/>
-  <!-- Janela fábrica -->
-  <rect x="436" y="152" width="10" height="8" rx="1" fill="#4a4840" fill-opacity="0.6"/>
-  <rect x="452" y="152" width="10" height="8" rx="1" fill="#4a4840" fill-opacity="0.6"/>
-  <rect x="468" y="152" width="10" height="8" rx="1" fill="#4a4840" fill-opacity="0.6"/>
-  <!-- Rótulo -->
-  <text x="460" y="196" font-family="Georgia,serif" font-size="13" font-weight="bold"
-        fill="#3a3028" text-anchor="middle" filter="url(#lbl)">Tronco</text>
-  <text x="460" y="210" font-family="Georgia,serif" font-size="9" font-style="italic"
-        fill="#5a4838" text-anchor="middle" filter="url(#lbl)">(Zona Industrial)</text>
-
-  <!-- △ ALDEIA DA FOLHA — sudoeste (beira do deserto) -->
-  <!-- Casas estilizadas (3 casas com telhado triangular) -->
-  <g stroke="#7a4010" stroke-width="1.2">
-    <!-- Casa 1 -->
-    <rect x="235" y="398" width="22" height="18" fill="#d49060"/>
-    <polygon points="234,398 246,383 258,398" fill="#b87038"/>
-    <!-- Casa 2 -->
-    <rect x="255" y="394" width="24" height="22" fill="#d89868"/>
-    <polygon points="254,394 267,378 280,394" fill="#c07840"/>
-    <!-- Casa 3 -->
-    <rect x="276" y="400" width="20" height="16" fill="#cc8858"/>
-    <polygon points="275,400 285,386 295,400" fill="#b07038"/>
-    <!-- Poço central -->
-    <circle cx="262" cy="416" r="5" fill="#b89860" stroke="#8a6020" stroke-width="1.2"/>
-    <line x1="262" y1="411" x2="262" y2="422" stroke="#6a4010" stroke-width="1"/>
-  </g>
-  <text x="264" y="434" font-family="Georgia,serif" font-size="13" font-weight="bold"
-        fill="#3a2008" text-anchor="middle" filter="url(#lbl)">Aldeia da Folha</text>
-  <text x="264" y="448" font-family="Georgia,serif" font-size="10" font-style="italic"
-        fill="#5a3010" text-anchor="middle" filter="url(#lbl)">(lar de Tio e Lia)</text>
-
-  <!-- ~ VILA DO GALHO — agricola, leste (perto da enseada) -->
-  <!-- Terraços em escada -->
-  <g fill="none" stroke="#507020" stroke-width="1.4">
-    <path d="M 590,352 Q 622,345 654,352" stroke-opacity="0.9"/>
-    <path d="M 586,364 Q 620,357 653,364" stroke-opacity="0.8"/>
-    <path d="M 584,376 Q 618,369 650,376" stroke-opacity="0.7"/>
-    <path d="M 584,388 Q 618,381 650,388" stroke-opacity="0.6"/>
-  </g>
-  <ellipse cx="618" cy="365" rx="40" ry="26" fill="#84b030" fill-opacity="0.38" stroke="#507020" stroke-width="1.2"/>
-  <!-- Moinho de vento estilizado -->
-  <line x1="618" y1="340" x2="618" y2="360" stroke="#704820" stroke-width="2"/>
-  <g stroke="#704820" stroke-width="1.5" fill="none">
-    <line x1="618" y1="344" x2="608" y2="334"/>
-    <line x1="618" y1="344" x2="628" y2="334"/>
-    <line x1="618" y1="344" x2="610" y2="352"/>
-    <line x1="618" y1="344" x2="626" y2="352"/>
-  </g>
-  <text x="618" y="402" font-family="Georgia,serif" font-size="13" font-weight="bold"
-        fill="#304008" text-anchor="middle" filter="url(#lbl)">Vila do Galho</text>
-  <text x="618" y="416" font-family="Georgia,serif" font-size="9" font-style="italic"
-        fill="#507018" text-anchor="middle" filter="url(#lbl)">(Região Agrícola)</text>
-
-  <!-- ✦ ENCRUZILHADA DOS VENTOS — fronteira norte, próx. ao Reino do Vento -->
-  <!-- Rosa de vento pequena -->
-  <g transform="translate(286,148)">
-    <circle cx="0" cy="0" r="10" fill="#c8e0f0" fill-opacity="0.80" stroke="#5080b8" stroke-width="1.5"/>
-    <polygon points="0,-9 -2,-4 2,-4" fill="#3060a0"/>
-    <polygon points="0,9 -2,4 2,4" fill="#3060a0" fill-opacity="0.5"/>
-    <polygon points="-9,0 -4,-2 -4,2" fill="#3060a0" fill-opacity="0.5"/>
-    <polygon points="9,0 4,-2 4,2" fill="#3060a0" fill-opacity="0.5"/>
-    <circle cx="0" cy="0" r="2.5" fill="#5080b8"/>
-  </g>
-  <text x="286" y="172" font-family="Georgia,serif" font-size="11" font-style="italic"
-        fill="#204878" text-anchor="middle" filter="url(#lbl)">Encruzilhada</text>
-  <text x="286" y="184" font-family="Georgia,serif" font-size="10" font-style="italic"
-        fill="#204878" text-anchor="middle" filter="url(#lbl)">dos Ventos</text>
-
-  <!-- 🔥 A FORNALHA — capital do Fogo (deserto sul, fora do reino da pedra) -->
-  <!-- Caldeira vulcânica -->
-  <circle cx="490" cy="562" r="20" fill="#b83808" fill-opacity="0.90" stroke="#881808" stroke-width="2.5"/>
-  <circle cx="490" cy="562" r="13" fill="#d84a10" fill-opacity="0.78"/>
-  <circle cx="490" cy="562" r="7"  fill="#f87028" fill-opacity="0.90"/>
-  <!-- Chamas -->
-  <g fill="none" stroke="#ff5000" stroke-width="2.2" stroke-opacity="0.82">
-    <path d="M 484,550 Q 487,537 490,545 Q 493,537 496,550"/>
-    <path d="M 478,555 Q 481,544 483,552"/>
-    <path d="M 497,556 Q 500,545 502,553"/>
-  </g>
-  <!-- Faíscas -->
-  <g fill="#ff8020" fill-opacity="0.70">
-    <circle cx="483" cy="534" r="2"/>
-    <circle cx="492" cy="530" r="1.5"/>
-    <circle cx="498" cy="536" r="1.8"/>
-  </g>
-  <text x="490" y="590" font-family="Georgia,serif" font-size="13" font-weight="bold"
-        fill="#700808" text-anchor="middle" filter="url(#lbl)">A Fornalha</text>
-  <text x="490" y="604" font-family="Georgia,serif" font-size="10" font-style="italic"
-        fill="#900a0a" text-anchor="middle" filter="url(#lbl)">(Capital do Fogo)</text>
-
-  <!-- ============================================================
-       ROTAS DE VIAGEM
-  ============================================================ -->
-  <!-- Aldeia da Folha → Raízes -->
-  <path d="M 285,408 Q 325,374 355,336"
-        fill="none" stroke="#7a5520" stroke-width="1.6" stroke-dasharray="7,4" stroke-opacity="0.72"
-        stroke-linecap="round"/>
-  <!-- Raízes → Tronco -->
-  <path d="M 382,250 Q 410,218 436,182"
-        fill="none" stroke="#7a5520" stroke-width="1.6" stroke-dasharray="7,4" stroke-opacity="0.72"
-        stroke-linecap="round"/>
-  <!-- Raízes → Castelo de Pedra -->
-  <path d="M 404,272 Q 462,256 516,252"
-        fill="none" stroke="#7a5520" stroke-width="1.6" stroke-dasharray="7,4" stroke-opacity="0.72"
-        stroke-linecap="round"/>
-  <!-- Castelo → Vila do Galho -->
-  <path d="M 572,286 Q 596,320 608,348"
-        fill="none" stroke="#7a5520" stroke-width="1.6" stroke-dasharray="7,4" stroke-opacity="0.72"
-        stroke-linecap="round"/>
-  <!-- Rota perigosa para A Fornalha (atravessa o deserto) -->
-  <path d="M 318,468 Q 380,512 462,548"
-        fill="none" stroke="#a03010" stroke-width="1.5" stroke-dasharray="5,5" stroke-opacity="0.55"
-        stroke-linecap="round"/>
-  <!-- Encruzilhada → Raízes -->
-  <path d="M 286,164 Q 318,210 355,258"
-        fill="none" stroke="#4878a8" stroke-width="1.3" stroke-dasharray="6,4" stroke-opacity="0.52"
-        stroke-linecap="round"/>
-
-  <!-- ============================================================
-       ÍCONE PTEROFYLLOS (folha de transporte mágico)
-  ============================================================ -->
-  <g transform="translate(202,272) rotate(-35)">
-    <ellipse cx="0" cy="0" rx="18" ry="9" fill="#52c888" fill-opacity="0.80" stroke="#286845" stroke-width="1.2"/>
-    <line x1="-15" y1="0" x2="15" y2="0" stroke="#286845" stroke-width="1"/>
-    <line x1="-5" y1="-6" x2="5" y2="6" stroke="#286845" stroke-width="0.7"/>
-    <line x1="5" y1="-6" x2="-5" y2="6" stroke="#286845" stroke-width="0.7"/>
-  </g>
-  <text x="230" y="295" font-family="Georgia,serif" font-size="9" font-style="italic"
-        fill="#286845" filter="url(#lbl)">pterofyllos</text>
-
-  <!-- ============================================================
-       LEGENDA
-  ============================================================ -->
-  <rect x="16" y="470" width="216" height="160" rx="8"
-        fill="#f0e4c0" fill-opacity="0.94" stroke="#8a6020" stroke-width="1.8"/>
-  <!-- Linha de título -->
-  <text x="124" y="492" font-family="Georgia,serif" font-size="12" font-weight="bold"
-        fill="#4a3010" text-anchor="middle">Legenda</text>
-  <line x1="24" y1="496" x2="224" y2="496" stroke="#8a6020" stroke-width="0.9"/>
-  <!-- Itens -->
-  <rect x="26" y="504" width="13" height="9" rx="1" fill="#e07040" fill-opacity="0.55"/>
-  <text x="46" y="513" font-family="Georgia,serif" font-size="10" fill="#4a3010">Deserto do Fogo (N·W·S)</text>
-  <rect x="26" y="520" width="13" height="9" rx="1" fill="#d4c898" fill-opacity="0.90" stroke="#8a6828" stroke-width="0.8"/>
-  <text x="46" y="529" font-family="Georgia,serif" font-size="10" fill="#4a3010">Reino da Pedra (central)</text>
-  <rect x="26" y="536" width="13" height="9" rx="1" fill="#daeeff" fill-opacity="0.85"/>
-  <text x="46" y="545" font-family="Georgia,serif" font-size="10" fill="#4a3010">Reino do Vento (noroeste)</text>
-  <rect x="26" y="552" width="13" height="9" rx="1" fill="#5898cc" fill-opacity="0.70"/>
-  <text x="46" y="561" font-family="Georgia,serif" font-size="10" fill="#4a3010">Reino da Água (leste)</text>
-  <line x1="26" y1="573" x2="39" y2="573" stroke="#7a5520" stroke-width="1.8" stroke-dasharray="5,3"/>
-  <text x="46" y="577" font-family="Georgia,serif" font-size="10" fill="#4a3010">Rota de viagem</text>
-  <line x1="26" y1="589" x2="39" y2="589" stroke="#a03010" stroke-width="1.6" stroke-dasharray="4,4"/>
-  <text x="46" y="593" font-family="Georgia,serif" font-size="10" fill="#4a3010">Rota pelo deserto</text>
-  <line x1="26" y1="605" x2="39" y2="605" stroke="#4878a8" stroke-width="1.4" stroke-dasharray="5,3"/>
-  <text x="46" y="609" font-family="Georgia,serif" font-size="10" fill="#4a3010">Rota do Vento</text>
-  <text x="124" y="622" font-family="Georgia,serif" font-size="8" font-style="italic"
-        fill="#7a5020" text-anchor="middle">★ = ponto geopolítico disputado</text>
-
-  <!-- ============================================================
-       ROSA DOS VENTOS
-  ============================================================ -->
-  <g transform="translate(820, 596)">
-    <circle cx="0" cy="0" r="36" fill="#f0e4c0" fill-opacity="0.82" stroke="#8a6020" stroke-width="1.5"/>
-    <!-- Ponteiro norte (maior, escuro) -->
-    <polygon points="0,-32 -5,-12 0,-18 5,-12" fill="#3a2008"/>
-    <!-- Sul -->
-    <polygon points="0,32 -5,12 0,18 5,12" fill="#9a7840"/>
-    <!-- Leste -->
-    <polygon points="32,0 12,-5 18,0 12,5" fill="#9a7840"/>
-    <!-- Oeste -->
-    <polygon points="-32,0 -12,-5 -18,0 -12,5" fill="#9a7840"/>
-    <!-- Diagonais menores -->
-    <polygon points="-22,-22 -10,-12 -12,-10" fill="#c8a050" fill-opacity="0.7"/>
-    <polygon points="22,-22 10,-12 12,-10"  fill="#c8a050" fill-opacity="0.7"/>
-    <polygon points="-22,22 -10,12 -12,10"  fill="#c8a050" fill-opacity="0.7"/>
-    <polygon points="22,22 10,12 12,10"    fill="#c8a050" fill-opacity="0.7"/>
-    <!-- Centro -->
-    <circle cx="0" cy="0" r="5" fill="#d08030" stroke="#8a5020" stroke-width="1.2"/>
-    <!-- Letras -->
-    <text x="0" y="-36" font-family="Georgia,serif" font-size="12" font-weight="bold"
-          fill="#3a2008" text-anchor="middle">N</text>
-    <text x="0" y="48" font-family="Georgia,serif" font-size="12" font-weight="bold"
-          fill="#3a2008" text-anchor="middle">S</text>
-    <text x="-46" y="5" font-family="Georgia,serif" font-size="12" font-weight="bold"
-          fill="#3a2008" text-anchor="middle">O</text>
-    <text x="46" y="5" font-family="Georgia,serif" font-size="12" font-weight="bold"
-          fill="#3a2008" text-anchor="middle">L</text>
+  <!-- ═══ RAÍZES (TOPO) — A cidade de Raízes ═══ -->
+  <!-- Raízes se espalham para cima como galhos invertidos -->
+  <g stroke="#4a3018" fill="none" stroke-linecap="round">
+    <!-- Raiz principal esquerda -->
+    <path d="M400,180 C380,140 340,100 280,50" stroke-width="8" opacity=".7"/>
+    <path d="M280,50 C260,30 230,15 190,5" stroke-width="4" opacity=".5"/>
+    <path d="M280,50 C270,35 280,20 300,10" stroke-width="3" opacity=".4"/>
+    <!-- Raiz principal direita -->
+    <path d="M400,180 C420,140 460,100 520,50" stroke-width="8" opacity=".7"/>
+    <path d="M520,50 C540,30 570,15 610,5" stroke-width="4" opacity=".5"/>
+    <path d="M520,50 C530,35 520,20 500,10" stroke-width="3" opacity=".4"/>
+    <!-- Raízes secundárias -->
+    <path d="M380,160 C350,130 310,110 260,90" stroke-width="5" opacity=".5"/>
+    <path d="M260,90 C240,80 210,75 180,80" stroke-width="3" opacity=".4"/>
+    <path d="M420,160 C450,130 490,110 540,90" stroke-width="5" opacity=".5"/>
+    <path d="M540,90 C560,80 590,75 620,80" stroke-width="3" opacity=".4"/>
+    <!-- Raízes finas -->
+    <path d="M360,150 C330,120 290,105 250,100" stroke-width="3" opacity=".4"/>
+    <path d="M440,150 C470,120 510,105 550,100" stroke-width="3" opacity=".4"/>
+    <path d="M370,140 C360,110 340,80 310,60" stroke-width="2" opacity=".3"/>
+    <path d="M430,140 C440,110 460,80 490,60" stroke-width="2" opacity=".3"/>
   </g>
 
-  <!-- ============================================================
-       TÍTULO DO MAPA
-  ============================================================ -->
-  <rect x="268" y="17" width="364" height="48" rx="6"
-        fill="#7a5010" fill-opacity="0.82"/>
-  <text x="450" y="36" font-family="Georgia,serif" font-size="16" font-weight="bold"
-        fill="#f8e8a0" text-anchor="middle" letter-spacing="5">MAPA DE KRAWZER</text>
-  <text x="450" y="55" font-family="Georgia,serif" font-size="10" font-style="italic"
-        fill="#e0c878" text-anchor="middle" letter-spacing="2">Reino da Pedra e Territórios Adjacentes</text>
+  <!-- Cidade de Raízes (aglomerado no topo, entre as raízes) -->
+  <g filter="url(#soft_glow)">
+    <!-- Luzes da cidade -->
+    <circle cx="350" cy="110" r="3" fill="#c9a030" fill-opacity=".6"/>
+    <circle cx="390" cy="95" r="2.5" fill="#c9a030" fill-opacity=".5"/>
+    <circle cx="420" cy="105" r="3" fill="#c9a030" fill-opacity=".6"/>
+    <circle cx="370" cy="80" r="2" fill="#e8c040" fill-opacity=".4"/>
+    <circle cx="440" cy="85" r="2" fill="#e8c040" fill-opacity=".4"/>
+    <circle cx="400" cy="70" r="2.5" fill="#c9a030" fill-opacity=".5"/>
+    <!-- Estruturas de Raízes (casas entre raízes) -->
+    <rect x="360" y="100" width="12" height="18" rx="2" fill="#3a2810" stroke="#c9a030" stroke-width=".5" stroke-opacity=".3"/>
+    <rect x="385" y="85" width="14" height="22" rx="2" fill="#3a2810" stroke="#c9a030" stroke-width=".5" stroke-opacity=".3"/>
+    <rect x="410" y="95" width="11" height="16" rx="2" fill="#3a2810" stroke="#c9a030" stroke-width=".5" stroke-opacity=".3"/>
+    <rect x="435" y="80" width="10" height="14" rx="2" fill="#3a2810" stroke="#c9a030" stroke-width=".5" stroke-opacity=".3"/>
+  </g>
 
+  <!-- Label: Raízes -->
+  <text x="400" y="45" font-family="Cinzel, serif" font-size="14" fill="#c9a030" text-anchor="middle" letter-spacing="3" opacity=".8">RAÍZES</text>
+  <text x="400" y="60" font-family="Cormorant Garamond, serif" font-size="9" fill="#8a8470" text-anchor="middle" font-style="italic">Início da Jornada</text>
+
+  <!-- ═══ TRONCO PRINCIPAL (diagonal sutil) ═══ -->
+  <!-- Tronco massivo da árvore-mundo -->
+  <path d="M370,180 C365,220 360,280 355,340 C350,400 360,440 370,480 C375,500 385,520 400,540
+           C415,520 425,500 430,480 C440,440 450,400 445,340 C440,280 435,220 430,180 Z"
+        fill="url(#bark)" stroke="#4a3018" stroke-width="1"/>
+
+  <!-- Textura do tronco (linhas verticais) -->
+  <g stroke="#1a0e04" stroke-width=".5" opacity=".4">
+    <path d="M380,190 C378,260 376,340 380,420 C382,460 388,500 395,535"/>
+    <path d="M395,185 C393,260 392,340 394,420 C396,470 399,510 400,540"/>
+    <path d="M410,185 C412,260 413,340 411,420 C409,470 406,510 405,540"/>
+    <path d="M420,190 C422,260 424,340 420,420 C418,460 412,500 405,535"/>
+  </g>
+
+  <!-- ═══ ALDEIA DA FOLHA (lateral esquerda do tronco) ═══ -->
+  <g>
+    <!-- Galho lateral -->
+    <path d="M365,280 C340,270 300,260 260,265" stroke="#3a2810" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M260,265 C240,268 220,275 200,285" stroke="#3a2810" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- Folhas ao redor -->
+    <ellipse cx="260" cy="258" rx="20" ry="12" fill="#2a5a1a" fill-opacity=".5"/>
+    <ellipse cx="240" cy="270" rx="15" ry="10" fill="#3a7a2a" fill-opacity=".4"/>
+    <ellipse cx="220" cy="280" rx="12" ry="8" fill="#2a5a1a" fill-opacity=".3"/>
+    <!-- Casinhas da aldeia -->
+    <circle cx="258" cy="260" r="2.5" fill="#c9a030" fill-opacity=".5"/>
+    <circle cx="245" cy="268" r="2" fill="#e8c040" fill-opacity=".4"/>
+    <circle cx="232" cy="277" r="1.5" fill="#c9a030" fill-opacity=".4"/>
+  </g>
+  <text x="230" y="300" font-family="Cinzel, serif" font-size="10" fill="#5aaa40" text-anchor="middle" letter-spacing="1" opacity=".7">Aldeia da Folha</text>
+
+  <!-- ═══ TRONCO INDUSTRIAL (lateral direita) ═══ -->
+  <g>
+    <!-- Galho lateral -->
+    <path d="M435,320 C460,310 500,305 540,310" stroke="#3a2810" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M540,310 C560,315 580,320 600,330" stroke="#3a2810" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <!-- Estruturas industriais (Tronco) -->
+    <rect x="535" y="298" width="16" height="20" rx="1" fill="#2a2018" stroke="#5a4a30" stroke-width=".5"/>
+    <rect x="555" y="302" width="12" height="16" rx="1" fill="#2a2018" stroke="#5a4a30" stroke-width=".5"/>
+    <rect x="570" y="306" width="14" height="18" rx="1" fill="#2a2018" stroke="#5a4a30" stroke-width=".5"/>
+    <!-- Fumaça/vapor -->
+    <circle cx="543" cy="292" r="3" fill="#5a5a4a" fill-opacity=".2"/>
+    <circle cx="561" cy="296" r="2.5" fill="#5a5a4a" fill-opacity=".15"/>
+  </g>
+  <text x="560" y="340" font-family="Cinzel, serif" font-size="10" fill="#8a7a50" text-anchor="middle" letter-spacing="1" opacity=".7">Tronco</text>
+  <text x="560" y="352" font-family="Cormorant Garamond, serif" font-size="8" fill="#8a8470" text-anchor="middle" font-style="italic">Zona Industrial</text>
+
+  <!-- ═══ ENCRUZILHADA DOS VENTOS (entre tronco e copa, esquerda) ═══ -->
+  <g>
+    <path d="M360,400 C330,410 290,415 250,410" stroke="#3a2810" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- Espirais de vento -->
+    <path d="M250,400 C240,395 235,405 245,408" stroke="#6aaa80" stroke-width="1" fill="none" opacity=".4"/>
+    <path d="M240,410 C230,405 225,415 235,418" stroke="#6aaa80" stroke-width="1" fill="none" opacity=".3"/>
+    <path d="M260,395 C250,390 245,398 255,402" stroke="#6aaa80" stroke-width="1" fill="none" opacity=".35"/>
+    <circle cx="248" cy="406" r="2" fill="#6aaa80" fill-opacity=".3"/>
+  </g>
+  <text x="230" y="430" font-family="Cinzel, serif" font-size="9" fill="#6aaa80" text-anchor="middle" letter-spacing="1" opacity=".6">Encruzilhada</text>
+  <text x="230" y="441" font-family="Cormorant Garamond, serif" font-size="8" fill="#8a8470" text-anchor="middle" font-style="italic">dos Ventos</text>
+
+  <!-- ═══ COPA / CASTELO DE PEDRA (base/fundo — destino final) ═══ -->
+  <!-- Copa massiva da árvore invertida (embaixo) -->
+  <ellipse cx="400" cy="560" rx="200" ry="50" fill="#1a3a12" fill-opacity=".4"/>
+  <ellipse cx="400" cy="550" rx="170" ry="40" fill="#2a4a1a" fill-opacity=".3"/>
+  <ellipse cx="400" cy="545" rx="140" ry="30" fill="#1a3a12" fill-opacity=".25"/>
+
+  <!-- Castelo de Pedra (na copa, embaixo) -->
+  <g>
+    <!-- Base do castelo -->
+    <rect x="370" y="515" width="60" height="35" rx="2" fill="#3a3a30" stroke="#6a6a50" stroke-width="1"/>
+    <!-- Torres -->
+    <rect x="368" y="500" width="14" height="50" rx="1" fill="#4a4a3a" stroke="#6a6a50" stroke-width=".5"/>
+    <rect x="418" y="500" width="14" height="50" rx="1" fill="#4a4a3a" stroke="#6a6a50" stroke-width=".5"/>
+    <!-- Torre central (mais alta) -->
+    <rect x="390" y="490" width="20" height="60" rx="1" fill="#5a5a48" stroke="#7a7a60" stroke-width=".5"/>
+    <!-- Topo das torres (merlões) -->
+    <rect x="366" y="497" width="4" height="5" fill="#5a5a48"/>
+    <rect x="372" y="497" width="4" height="5" fill="#5a5a48"/>
+    <rect x="378" y="497" width="4" height="5" fill="#5a5a48"/>
+    <rect x="416" y="497" width="4" height="5" fill="#5a5a48"/>
+    <rect x="422" y="497" width="4" height="5" fill="#5a5a48"/>
+    <rect x="428" y="497" width="4" height="5" fill="#5a5a48"/>
+    <!-- Torre central merlões -->
+    <rect x="389" y="487" width="4" height="5" fill="#6a6a58"/>
+    <rect x="395" y="487" width="4" height="5" fill="#6a6a58"/>
+    <rect x="401" y="487" width="4" height="5" fill="#6a6a58"/>
+    <rect x="407" y="487" width="4" height="5" fill="#6a6a58"/>
+    <!-- Janelas iluminadas -->
+    <rect x="394" y="510" width="5" height="8" rx="2" fill="#c9a030" fill-opacity=".5"/>
+    <rect x="401" y="510" width="5" height="8" rx="2" fill="#c9a030" fill-opacity=".4"/>
+    <rect x="373" y="520" width="4" height="6" rx="1" fill="#c9a030" fill-opacity=".3"/>
+    <rect x="423" y="520" width="4" height="6" rx="1" fill="#c9a030" fill-opacity=".3"/>
+    <!-- Portal -->
+    <path d="M393,545 L393,535 Q400,530 407,535 L407,545" fill="#1a1a10" stroke="#6a6a50" stroke-width=".5"/>
+  </g>
+
+  <!-- Label: Castelo de Pedra -->
+  <text x="400" y="575" font-family="Cinzel, serif" font-size="13" fill="#c9a030" text-anchor="middle" letter-spacing="2" opacity=".8">CASTELO DE PEDRA</text>
+  <text x="400" y="592" font-family="Cormorant Garamond, serif" font-size="9" fill="#8a8470" text-anchor="middle" font-style="italic">Fim da Jornada — Livro 1</text>
+
+  <!-- ═══ SETA DE JORNADA (de cima para baixo) ═══ -->
+  <g stroke="#c9a030" stroke-width="1" fill="none" opacity=".25" stroke-dasharray="4 6">
+    <path d="M400,65 C400,120 400,160 400,180"/>
+    <path d="M400,180 C400,250 400,350 400,480"/>
+  </g>
+  <!-- Pontos da jornada -->
+  <circle cx="400" cy="70" r="4" fill="none" stroke="#c9a030" stroke-width="1" opacity=".4"/>
+  <circle cx="400" cy="180" r="3" fill="#c9a030" fill-opacity=".3"/>
+  <circle cx="400" cy="340" r="3" fill="#c9a030" fill-opacity=".2"/>
+  <circle cx="400" cy="485" r="4" fill="none" stroke="#c9a030" stroke-width="1" opacity=".4"/>
+
+  <!-- ═══ TÍTULO DO MAPA ═══ -->
+  <text x="680" y="40" font-family="Cinzel Decorative, serif" font-size="18" fill="#c9a030" text-anchor="end" letter-spacing="2" opacity=".5">KRAWZER</text>
+  <text x="680" y="58" font-family="Cormorant Garamond, serif" font-size="11" fill="#8a8470" text-anchor="end" font-style="italic">A Árvore-Mundo</text>
+
+  <!-- Borda ornamental -->
+  <rect x="8" y="8" width="784" height="584" rx="4" fill="none" stroke="#4a3a10" stroke-width="1" opacity=".3"/>
+  <rect x="12" y="12" width="776" height="576" rx="3" fill="none" stroke="#4a3a10" stroke-width=".5" opacity=".15"/>
 </svg>
