@@ -1,200 +1,283 @@
-<!-- KRAWZ — O Coração da Colmeia · Livro 1 · Capa -->
+<!-- KRAWZ — O Coração da Colmeia · Livro 1 · Capa Ilustrada -->
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" width="600" height="900">
   <defs>
-    <linearGradient id="bg_main" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#040804"/>
-      <stop offset="30%" stop-color="#0a1a0a"/>
-      <stop offset="60%" stop-color="#081408"/>
-      <stop offset="100%" stop-color="#040604"/>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#020408"/>
+      <stop offset="15%" stop-color="#0a0e1a"/>
+      <stop offset="40%" stop-color="#0a1a0e"/>
+      <stop offset="70%" stop-color="#081208"/>
+      <stop offset="100%" stop-color="#030604"/>
     </linearGradient>
-    <radialGradient id="glow_center" cx="50%" cy="45%" r="35%">
-      <stop offset="0%" stop-color="#c9a030" stop-opacity=".15"/>
-      <stop offset="60%" stop-color="#c9a030" stop-opacity=".04"/>
+    <radialGradient id="moon_glow" cx="50%" cy="12%" r="20%">
+      <stop offset="0%" stop-color="#e8e0c0" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#e8e0c0" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="colmeia_glow" cx="50%" cy="52%" r="18%">
+      <stop offset="0%" stop-color="#f0c040" stop-opacity=".2"/>
+      <stop offset="60%" stop-color="#c9a030" stop-opacity=".06"/>
       <stop offset="100%" stop-color="#c9a030" stop-opacity="0"/>
     </radialGradient>
-    <radialGradient id="glow_tree" cx="50%" cy="55%" r="40%">
-      <stop offset="0%" stop-color="#3a7a2a" stop-opacity=".08"/>
-      <stop offset="100%" stop-color="#3a7a2a" stop-opacity="0"/>
+    <radialGradient id="hex_inner" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f0c040" stop-opacity=".5"/>
+      <stop offset="100%" stop-color="#c9a030" stop-opacity=".1"/>
     </radialGradient>
-    <radialGradient id="hex_glow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#f0c040" stop-opacity=".6"/>
-      <stop offset="100%" stop-color="#c9a030" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="blur_soft">
-      <feGaussianBlur stdDeviation="4"/>
-    </filter>
-    <filter id="glow_filter">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
-    </filter>
+    <filter id="glow"><feGaussianBlur stdDeviation="2.5"/></filter>
+    <filter id="glow_lg"><feGaussianBlur stdDeviation="6"/></filter>
   </defs>
 
-  <!-- ═══ FUNDO ═══ -->
-  <rect width="600" height="900" fill="url(#bg_main)"/>
-  <rect width="600" height="900" fill="url(#glow_center)"/>
-  <rect width="600" height="900" fill="url(#glow_tree)"/>
+  <!-- ═══ FUNDO: CÉU NOTURNO → FLORESTA ═══ -->
+  <rect width="600" height="900" fill="url(#sky)"/>
+  <rect width="600" height="900" fill="url(#moon_glow)"/>
+  <rect width="600" height="900" fill="url(#colmeia_glow)"/>
 
-  <!-- ═══ ÁRVORE-MUNDO (invertida — raízes para cima) ═══ -->
-  <!-- Raízes superiores -->
-  <g stroke="#2a4a1a" fill="none" stroke-linecap="round" opacity=".5">
-    <path d="M300,320 C280,260 240,200 180,140" stroke-width="6"/>
-    <path d="M180,140 C160,120 130,100 90,80" stroke-width="3"/>
-    <path d="M180,140 C170,125 175,105 190,90" stroke-width="2.5"/>
-    <path d="M300,320 C320,260 360,200 420,140" stroke-width="6"/>
-    <path d="M420,140 C440,120 470,100 510,80" stroke-width="3"/>
-    <path d="M420,140 C430,125 425,105 410,90" stroke-width="2.5"/>
-    <path d="M290,310 C260,250 220,200 170,170" stroke-width="4"/>
-    <path d="M310,310 C340,250 380,200 430,170" stroke-width="4"/>
-    <path d="M280,300 C250,240 210,190 160,160" stroke-width="2.5" opacity=".3"/>
-    <path d="M320,300 C350,240 390,190 440,160" stroke-width="2.5" opacity=".3"/>
-    <!-- Raízes finas -->
-    <path d="M270,280 C240,230 200,180 150,150" stroke-width="1.5" opacity=".25"/>
-    <path d="M330,280 C360,230 400,180 450,150" stroke-width="1.5" opacity=".25"/>
-    <path d="M260,260 C230,210 190,160 140,130" stroke-width="1" opacity=".2"/>
-    <path d="M340,260 C370,210 410,160 460,130" stroke-width="1" opacity=".2"/>
+  <!-- ═══ ESTRELAS ═══ -->
+  <g fill="#e0dcc0">
+    <circle cx="80" cy="40" r=".8" opacity=".4"/><circle cx="520" cy="55" r="1" opacity=".3"/>
+    <circle cx="150" cy="70" r=".6" opacity=".3"/><circle cx="450" cy="35" r=".7" opacity=".35"/>
+    <circle cx="200" cy="25" r=".5" opacity=".25"/><circle cx="380" cy="60" r=".8" opacity=".3"/>
+    <circle cx="50" cy="100" r=".7" opacity=".2"/><circle cx="550" cy="90" r=".6" opacity=".25"/>
+    <circle cx="300" cy="20" r=".9" opacity=".35"/><circle cx="100" cy="130" r=".5" opacity=".2"/>
+    <circle cx="500" cy="120" r=".7" opacity=".22"/>
   </g>
 
-  <!-- Tronco principal -->
-  <path d="M280,320 C278,380 275,440 278,500 C280,540 285,580 295,620
-           C305,580 310,540 312,500 C315,440 312,380 310,320 Z"
-        fill="#1a2e12" stroke="#2a4a1a" stroke-width="1" opacity=".6"/>
-  <!-- Textura tronco -->
-  <g stroke="#0a1a08" stroke-width=".5" opacity=".3">
-    <path d="M285,330 C284,400 283,470 286,550 C288,580 292,610 295,620"/>
-    <path d="M295,325 C294,400 294,470 295,550 C296,580 298,610 300,620"/>
-    <path d="M305,330 C306,400 307,470 304,550 C303,580 301,610 300,620"/>
+  <!-- ═══ LUA CRESCENTE (topo direito) ═══ -->
+  <circle cx="480" cy="95" r="22" fill="#e8e0c0" fill-opacity=".08"/>
+  <circle cx="480" cy="95" r="18" fill="#e8e0c0" fill-opacity=".05"/>
+  <path d="M472,78 A18,18 0 1,1 472,112 A14,14 0 0,0 472,78" fill="#d0c890" fill-opacity=".15"/>
+
+  <!-- ═══ ÁRVORE-MUNDO INVERTIDA (ELEMENTO CENTRAL) ═══ -->
+
+  <!-- RAÍZES (topo — espalhando-se para cima como galhos do céu) -->
+  <g stroke="#3a6a28" fill="none" stroke-linecap="round">
+    <!-- Raiz principal esquerda -->
+    <path d="M300,340 C285,290 250,230 190,170 C160,140 120,115 70,95" stroke-width="8" opacity=".55"/>
+    <path d="M190,170 C175,155 150,145 120,140" stroke-width="4" opacity=".4"/>
+    <path d="M190,170 C180,150 185,135 200,120" stroke-width="3" opacity=".35"/>
+    <path d="M250,230 C230,210 200,195 165,185" stroke-width="3" opacity=".3"/>
+    <!-- Raiz principal direita -->
+    <path d="M300,340 C315,290 350,230 410,170 C440,140 480,115 530,95" stroke-width="8" opacity=".55"/>
+    <path d="M410,170 C425,155 450,145 480,140" stroke-width="4" opacity=".4"/>
+    <path d="M410,170 C420,150 415,135 400,120" stroke-width="3" opacity=".35"/>
+    <path d="M350,230 C370,210 400,195 435,185" stroke-width="3" opacity=".3"/>
+    <!-- Raízes secundárias -->
+    <path d="M290,320 C265,270 225,220 175,180" stroke-width="5" opacity=".4"/>
+    <path d="M310,320 C335,270 375,220 425,180" stroke-width="5" opacity=".4"/>
+    <!-- Raízes finas (capilares) -->
+    <path d="M270,300 C240,250 195,205 145,170" stroke-width="2" opacity=".25"/>
+    <path d="M330,300 C360,250 405,205 455,170" stroke-width="2" opacity=".25"/>
+    <path d="M260,280 C230,230 180,185 130,155" stroke-width="1.5" opacity=".18"/>
+    <path d="M340,280 C370,230 420,185 470,155" stroke-width="1.5" opacity=".18"/>
+    <path d="M250,260 C220,215 175,175 125,150" stroke-width="1" opacity=".12"/>
+    <path d="M350,260 C380,215 425,175 475,150" stroke-width="1" opacity=".12"/>
   </g>
 
-  <!-- Copa (embaixo — árvore invertida) -->
-  <ellipse cx="300" cy="660" rx="140" ry="50" fill="#1a3a12" fill-opacity=".3"/>
-  <ellipse cx="300" cy="650" rx="110" ry="35" fill="#2a4a1a" fill-opacity=".2"/>
-  <ellipse cx="300" cy="645" rx="80" ry="25" fill="#1a3a12" fill-opacity=".15"/>
-
-  <!-- ═══ COLMEIA CENTRAL (hexágonos dourados) ═══ -->
-  <g filter="url(#glow_filter)" opacity=".8">
-    <!-- Hexágono central grande -->
-    <polygon points="300,395 320,408 320,432 300,445 280,432 280,408"
-             fill="none" stroke="#c9a030" stroke-width="1.5"/>
-    <!-- Anel de hexágonos -->
-    <polygon points="300,365 315,374 315,392 300,401 285,392 285,374"
-             fill="none" stroke="#c9a030" stroke-width="1" opacity=".7"/>
-    <polygon points="330,380 345,389 345,407 330,416 315,407 315,389"
-             fill="none" stroke="#c9a030" stroke-width="1" opacity=".6"/>
-    <polygon points="330,410 345,419 345,437 330,446 315,437 315,419"
-             fill="none" stroke="#c9a030" stroke-width="1" opacity=".6"/>
-    <polygon points="300,425 315,434 315,452 300,461 285,452 285,434"
-             fill="none" stroke="#c9a030" stroke-width="1" opacity=".7"/>
-    <polygon points="270,410 285,419 285,437 270,446 255,437 255,419"
-             fill="none" stroke="#c9a030" stroke-width="1" opacity=".6"/>
-    <polygon points="270,380 285,389 285,407 270,416 255,407 255,389"
-             fill="none" stroke="#c9a030" stroke-width="1" opacity=".6"/>
-    <!-- Hexágonos exteriores (mais transparentes) -->
-    <polygon points="300,340 312,347 312,361 300,368 288,361 288,347"
-             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".35"/>
-    <polygon points="350,370 362,377 362,391 350,398 338,391 338,377"
-             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".3"/>
-    <polygon points="350,430 362,437 362,451 350,458 338,451 338,437"
-             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".3"/>
-    <polygon points="300,460 312,467 312,481 300,488 288,481 288,467"
-             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".35"/>
-    <polygon points="250,430 262,437 262,451 250,458 238,451 238,437"
-             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".3"/>
-    <polygon points="250,370 262,377 262,391 250,398 238,391 238,377"
-             fill="none" stroke="#c9a030" stroke-width=".8" opacity=".3"/>
-  </g>
-  <!-- Glow central -->
-  <ellipse cx="300" cy="420" rx="30" ry="35" fill="url(#hex_glow)" fill-opacity=".2"/>
-
-  <!-- ═══ ABELHAS (silhuetas pequenas) ═══ -->
-  <g fill="#c9a030" opacity=".5">
-    <!-- Abelha 1 -->
-    <ellipse cx="230" cy="360" rx="4" ry="2.5" transform="rotate(-20 230 360)"/>
-    <ellipse cx="228" cy="358" rx="2.5" ry="1.5" fill="#e8c040" fill-opacity=".6" transform="rotate(-40 228 358)"/>
-    <!-- Abelha 2 -->
-    <ellipse cx="370" cy="380" rx="3.5" ry="2" transform="rotate(15 370 380)"/>
-    <ellipse cx="372" cy="378" rx="2" ry="1.2" fill="#e8c040" fill-opacity=".6" transform="rotate(30 372 378)"/>
-    <!-- Abelha 3 -->
-    <ellipse cx="255" cy="460" rx="3" ry="2" transform="rotate(10 255 460)"/>
-    <!-- Abelha 4 -->
-    <ellipse cx="348" cy="350" rx="3" ry="1.8" transform="rotate(-10 348 350)"/>
-    <!-- Abelha 5 -->
-    <ellipse cx="330" cy="470" rx="3.5" ry="2" transform="rotate(25 330 470)"/>
+  <!-- Cidade de RAÍZES (luzes entre as raízes no topo) -->
+  <g filter="url(#glow)">
+    <circle cx="250" cy="220" r="2.5" fill="#c9a030" fill-opacity=".6"/>
+    <circle cx="280" cy="200" r="2" fill="#e8c040" fill-opacity=".5"/>
+    <circle cx="310" cy="210" r="2.5" fill="#c9a030" fill-opacity=".55"/>
+    <circle cx="340" cy="195" r="2" fill="#e8c040" fill-opacity=".45"/>
+    <circle cx="270" cy="240" r="1.8" fill="#c9a030" fill-opacity=".4"/>
+    <circle cx="325" cy="235" r="2" fill="#c9a030" fill-opacity=".45"/>
+    <circle cx="295" cy="180" r="1.5" fill="#e8c040" fill-opacity=".35"/>
   </g>
 
-  <!-- ═══ PARTÍCULAS / VAGALUMES ═══ -->
+  <!-- TRONCO massivo -->
+  <path d="M275,340 C272,390 268,450 270,510 C272,560 278,610 290,660 C295,680 298,695 300,710
+           C302,695 305,680 310,660 C322,610 328,560 330,510 C332,450 328,390 325,340 Z"
+        fill="#1e3414" stroke="#2a4a1a" stroke-width="1.5" opacity=".7"/>
+  <!-- Textura tronco (linhas de casca) -->
+  <g stroke="#0e1a08" stroke-width=".7" opacity=".35" fill="none">
+    <path d="M282,350 C280,410 279,470 281,540 C283,590 287,640 294,690"/>
+    <path d="M295,345 C293,410 292,470 294,540 C295,590 298,640 300,700"/>
+    <path d="M308,345 C310,410 311,470 309,540 C308,590 305,640 302,690"/>
+    <path d="M318,350 C320,410 321,470 319,540 C317,590 313,640 308,680"/>
+  </g>
+  <!-- Nós da madeira -->
+  <ellipse cx="288" cy="420" rx="5" ry="7" fill="#142a0e" stroke="#2a4a1a" stroke-width=".5" opacity=".4"/>
+  <ellipse cx="312" cy="520" rx="4" ry="6" fill="#142a0e" stroke="#2a4a1a" stroke-width=".5" opacity=".35"/>
+
+  <!-- GALHOS LATERAIS com localizações -->
+  <!-- Aldeia da Folha (esquerda, meio-alto) -->
+  <path d="M275,400 C250,390 210,385 170,392" stroke="#2a5a1a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".5"/>
+  <path d="M170,392 C150,396 130,405 115,415" stroke="#2a5a1a" stroke-width="3" fill="none" stroke-linecap="round" opacity=".35"/>
+  <ellipse cx="165" cy="385" rx="22" ry="14" fill="#1a4a12" fill-opacity=".4"/>
+  <ellipse cx="145" cy="395" rx="16" ry="10" fill="#2a5a1a" fill-opacity=".3"/>
+  <circle cx="168" cy="388" r="2" fill="#c9a030" fill-opacity=".4"/>
+  <circle cx="155" cy="394" r="1.5" fill="#e8c040" fill-opacity=".35"/>
+  <text x="145" y="425" font-family="Georgia, serif" font-size="8" fill="#5aaa40" text-anchor="middle" letter-spacing="1" opacity=".5" font-style="italic">Aldeia da Folha</text>
+
+  <!-- Tronco Industrial (direita, meio) -->
+  <path d="M325,480 C350,475 390,470 430,475" stroke="#2a4a1a" stroke-width="5" fill="none" stroke-linecap="round" opacity=".45"/>
+  <path d="M430,475 C450,478 470,483 490,490" stroke="#2a4a1a" stroke-width="3" fill="none" stroke-linecap="round" opacity=".3"/>
+  <rect x="425" y="462" width="14" height="20" rx="1" fill="#1a1a14" stroke="#3a3a28" stroke-width=".5" opacity=".5"/>
+  <rect x="442" y="466" width="11" height="16" rx="1" fill="#1a1a14" stroke="#3a3a28" stroke-width=".5" opacity=".45"/>
+  <rect x="456" y="464" width="12" height="18" rx="1" fill="#1a1a14" stroke="#3a3a28" stroke-width=".5" opacity=".4"/>
+  <!-- Fumaça -->
+  <circle cx="432" cy="456" r="3" fill="#4a4a3a" fill-opacity=".12"/>
+  <circle cx="448" cy="460" r="2.5" fill="#4a4a3a" fill-opacity=".1"/>
+  <text x="452" y="500" font-family="Georgia, serif" font-size="8" fill="#8a7a50" text-anchor="middle" letter-spacing="1" opacity=".45" font-style="italic">Tronco</text>
+
+  <!-- Encruzilhada dos Ventos (esquerda, mais baixo) -->
+  <path d="M278,560 C255,555 220,552 185,558" stroke="#2a5a1a" stroke-width="4" fill="none" stroke-linecap="round" opacity=".4"/>
+  <!-- Espirais de vento -->
+  <g stroke="#6aaa80" fill="none" stroke-width=".8" opacity=".3">
+    <path d="M185,550 C178,545 175,552 182,555"/>
+    <path d="M175,558 C168,553 165,560 172,563"/>
+    <path d="M192,545 C185,540 182,547 189,550"/>
+  </g>
+  <text x="172" y="575" font-family="Georgia, serif" font-size="7" fill="#6aaa80" text-anchor="middle" letter-spacing="1" opacity=".4" font-style="italic">Encruzilhada</text>
+
+  <!-- ═══ COPA / CASTELO DE PEDRA (embaixo) ═══ -->
+  <!-- Copa da árvore invertida -->
+  <ellipse cx="300" cy="730" rx="160" ry="45" fill="#142a0e" fill-opacity=".35"/>
+  <ellipse cx="300" cy="722" rx="130" ry="35" fill="#1a3a12" fill-opacity=".25"/>
+  <ellipse cx="300" cy="718" rx="100" ry="25" fill="#1a3a12" fill-opacity=".2"/>
+
+  <!-- Castelo de Pedra -->
+  <g opacity=".7">
+    <!-- Base do castelo -->
+    <rect x="268" y="690" width="64" height="40" rx="2" fill="#2a2a22" stroke="#4a4a38" stroke-width="1"/>
+    <!-- Torres laterais -->
+    <rect x="262" y="670" width="16" height="60" rx="1" fill="#3a3a2e" stroke="#5a5a48" stroke-width=".5"/>
+    <rect x="322" y="670" width="16" height="60" rx="1" fill="#3a3a2e" stroke="#5a5a48" stroke-width=".5"/>
+    <!-- Torre central (mais alta) -->
+    <rect x="286" y="655" width="28" height="75" rx="1" fill="#4a4a3a" stroke="#6a6a58" stroke-width=".7"/>
+    <!-- Merlões torre central -->
+    <g fill="#5a5a48">
+      <rect x="285" y="651" width="5" height="6"/><rect x="292" y="651" width="5" height="6"/>
+      <rect x="299" y="651" width="5" height="6"/><rect x="306" y="651" width="5" height="6"/>
+    </g>
+    <!-- Merlões torres laterais -->
+    <g fill="#4a4a3a">
+      <rect x="261" y="666" width="4" height="5"/><rect x="267" y="666" width="4" height="5"/><rect x="273" y="666" width="4" height="5"/>
+      <rect x="321" y="666" width="4" height="5"/><rect x="327" y="666" width="4" height="5"/><rect x="333" y="666" width="4" height="5"/>
+    </g>
+    <!-- Janelas iluminadas -->
+    <rect x="293" y="680" width="5" height="9" rx="2" fill="#c9a030" fill-opacity=".5"/>
+    <rect x="301" y="680" width="5" height="9" rx="2" fill="#c9a030" fill-opacity=".4"/>
+    <rect x="297" y="695" width="6" height="10" rx="2" fill="#c9a030" fill-opacity=".35"/>
+    <rect x="267" y="690" width="4" height="6" rx="1" fill="#c9a030" fill-opacity=".3"/>
+    <rect x="329" y="690" width="4" height="6" rx="1" fill="#c9a030" fill-opacity=".3"/>
+    <!-- Estandarte -->
+    <line x1="300" y1="645" x2="300" y2="652" stroke="#6a6a58" stroke-width="1"/>
+    <polygon points="300,645 308,649 300,653" fill="#c9a030" fill-opacity=".5"/>
+  </g>
+  <text x="300" y="745" font-family="Georgia, serif" font-size="9" fill="#c9a030" text-anchor="middle" letter-spacing="2" opacity=".5">Castelo de Pedra</text>
+
+  <!-- ═══ COLMEIA (hexágonos no coração da árvore) ═══ -->
+  <g opacity=".75">
+    <!-- Glow por trás -->
+    <ellipse cx="300" cy="440" rx="35" ry="40" fill="url(#hex_inner)" filter="url(#glow_lg)" opacity=".4"/>
+    <!-- Hexágono central -->
+    <polygon points="300,418 318,428 318,450 300,460 282,450 282,428" fill="url(#hex_inner)" fill-opacity=".15" stroke="#c9a030" stroke-width="1.5"/>
+    <!-- Anel 1 -->
+    <polygon points="300,392 314,400 314,416 300,424 286,416 286,400" fill="none" stroke="#c9a030" stroke-width="1" opacity=".6"/>
+    <polygon points="326,406 340,414 340,430 326,438 312,430 312,414" fill="none" stroke="#c9a030" stroke-width="1" opacity=".55"/>
+    <polygon points="326,434 340,442 340,458 326,466 312,458 312,442" fill="none" stroke="#c9a030" stroke-width="1" opacity=".55"/>
+    <polygon points="300,448 314,456 314,472 300,480 286,472 286,456" fill="none" stroke="#c9a030" stroke-width="1" opacity=".6"/>
+    <polygon points="274,434 288,442 288,458 274,466 260,458 260,442" fill="none" stroke="#c9a030" stroke-width="1" opacity=".55"/>
+    <polygon points="274,406 288,414 288,430 274,438 260,430 260,414" fill="none" stroke="#c9a030" stroke-width="1" opacity=".55"/>
+    <!-- Anel 2 (mais sutil) -->
+    <polygon points="300,368 311,375 311,387 300,394 289,387 289,375" fill="none" stroke="#c9a030" stroke-width=".7" opacity=".3"/>
+    <polygon points="348,392 359,399 359,411 348,418 337,411 337,399" fill="none" stroke="#c9a030" stroke-width=".7" opacity=".25"/>
+    <polygon points="348,446 359,453 359,465 348,472 337,465 337,453" fill="none" stroke="#c9a030" stroke-width=".7" opacity=".25"/>
+    <polygon points="300,476 311,483 311,495 300,502 289,495 289,483" fill="none" stroke="#c9a030" stroke-width=".7" opacity=".3"/>
+    <polygon points="252,446 263,453 263,465 252,472 241,465 241,453" fill="none" stroke="#c9a030" stroke-width=".7" opacity=".25"/>
+    <polygon points="252,392 263,399 263,411 252,418 241,411 241,399" fill="none" stroke="#c9a030" stroke-width=".7" opacity=".25"/>
+  </g>
+
+  <!-- ═══ ABELHAS voando ao redor da colmeia ═══ -->
+  <g fill="#c9a030" opacity=".6">
+    <ellipse cx="235" cy="410" rx="4.5" ry="2.5" transform="rotate(-25 235 410)"/>
+    <ellipse cx="233" cy="408" rx="3" ry="1.5" fill="#e8c040" fill-opacity=".5" transform="rotate(-45 233 408)"/>
+    <ellipse cx="365" cy="425" rx="4" ry="2.2" transform="rotate(20 365 425)"/>
+    <ellipse cx="367" cy="423" rx="2.5" ry="1.3" fill="#e8c040" fill-opacity=".5" transform="rotate(35 367 423)"/>
+    <ellipse cx="260" cy="480" rx="3.5" ry="2" transform="rotate(10 260 480)"/>
+    <ellipse cx="258" cy="478" rx="2.2" ry="1.2" fill="#e8c040" fill-opacity=".5" transform="rotate(-10 258 478)"/>
+    <ellipse cx="345" cy="385" rx="3.5" ry="2" transform="rotate(-15 345 385)"/>
+    <ellipse cx="343" cy="383" rx="2.2" ry="1.2" fill="#e8c040" fill-opacity=".4" transform="rotate(-30 343 383)"/>
+    <ellipse cx="320" cy="498" rx="3" ry="1.8" transform="rotate(30 320 498)"/>
+    <ellipse cx="250" cy="375" rx="3" ry="1.8" transform="rotate(-5 250 375)"/>
+    <ellipse cx="350" cy="470" rx="3.5" ry="2" transform="rotate(15 350 470)"/>
+  </g>
+
+  <!-- ═══ SILHUETA DE GAEL (observando a árvore, primeiro plano embaixo) ═══ -->
+  <g opacity=".55">
+    <!-- Corpo de costas, olhando para cima -->
+    <ellipse cx="300" cy="840" rx="14" ry="8" fill="#0a0a08"/>
+    <rect x="293" y="790" width="14" height="50" rx="4" fill="#0a0a08"/>
+    <!-- Cabeça -->
+    <circle cx="300" cy="780" r="10" fill="#0a0a08"/>
+    <!-- Cabelo -->
+    <path d="M290,778 Q292,770 300,768 Q308,770 310,778" fill="#0a0a08"/>
+    <!-- Braços levemente afastados -->
+    <path d="M293,800 C288,810 284,820 282,830" stroke="#0a0a08" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <path d="M307,800 C312,810 316,820 318,830" stroke="#0a0a08" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <!-- Brilho de luz ao redor (magia de Gael) -->
+    <circle cx="300" cy="780" r="14" fill="#f0c040" fill-opacity=".06" filter="url(#glow)"/>
+  </g>
+
+  <!-- ═══ MIRAFERRO (silhueta de cidade distante, horizonte esquerdo) ═══ -->
+  <g opacity=".2">
+    <rect x="30" cy="760" y="760" width="8" height="50" fill="#1a1a20"/>
+    <rect x="42" y="770" width="6" height="40" fill="#1a1a20"/>
+    <rect x="52" y="755" width="10" height="55" fill="#1a1a20"/>
+    <rect x="66" y="768" width="7" height="42" fill="#1a1a20"/>
+    <rect x="76" y="762" width="9" height="48" fill="#1a1a20"/>
+    <rect x="90" y="775" width="6" height="35" fill="#1a1a20"/>
+    <!-- Luzes vermelhas (antenas) -->
+    <circle cx="57" cy="753" r="1.2" fill="#ff3030" fill-opacity=".5"/>
+    <circle cx="80" cy="760" r="1" fill="#ff3030" fill-opacity=".4"/>
+  </g>
+  <text x="65" y="818" font-family="Georgia, serif" font-size="7" fill="#5a5a6a" text-anchor="middle" letter-spacing="1.5" opacity=".35" font-style="italic">Miraferro</text>
+
+  <!-- ═══ VAGALUMES / PARTÍCULAS ═══ -->
   <g fill="#c9a030">
-    <circle cx="150" cy="200" r="2" fill-opacity=".4"/>
-    <circle cx="450" cy="180" r="1.5" fill-opacity=".3"/>
-    <circle cx="120" cy="400" r="1.5" fill-opacity=".3"/>
-    <circle cx="480" cy="420" r="2" fill-opacity=".35"/>
-    <circle cx="180" cy="550" r="1.5" fill-opacity=".25"/>
-    <circle cx="420" cy="570" r="1.5" fill-opacity=".3"/>
-    <circle cx="100" cy="300" r="1" fill-opacity=".2"/>
-    <circle cx="500" cy="310" r="1.2" fill-opacity=".2"/>
-    <circle cx="200" cy="680" r="1.5" fill-opacity=".2"/>
-    <circle cx="400" cy="700" r="1.2" fill-opacity=".2"/>
+    <circle cx="130" cy="280" r="2" fill-opacity=".35"/><circle cx="470" cy="260" r="1.8" fill-opacity=".3"/>
+    <circle cx="100" cy="450" r="1.5" fill-opacity=".25"/><circle cx="500" cy="480" r="2" fill-opacity=".3"/>
+    <circle cx="150" cy="620" r="1.5" fill-opacity=".2"/><circle cx="450" cy="600" r="1.8" fill-opacity=".25"/>
+    <circle cx="520" cy="350" r="1.2" fill-opacity=".2"/><circle cx="80" cy="350" r="1.5" fill-opacity=".22"/>
   </g>
-  <!-- Partículas verdes (vida) -->
   <g fill="#5aaa40">
-    <circle cx="220" cy="600" r="1.5" fill-opacity=".25"/>
-    <circle cx="380" cy="620" r="1.2" fill-opacity=".2"/>
-    <circle cx="250" cy="650" r="1" fill-opacity=".2"/>
-    <circle cx="350" cy="660" r="1.5" fill-opacity=".2"/>
+    <circle cx="200" cy="650" r="1.5" fill-opacity=".2"/><circle cx="400" cy="670" r="1.2" fill-opacity=".18"/>
+    <circle cx="230" cy="710" r="1" fill-opacity=".15"/><circle cx="370" cy="720" r="1.2" fill-opacity=".15"/>
   </g>
 
-  <!-- ═══ TÍTULO: KRAWZ ═══ -->
-  <rect x="0" y="60" width="600" height="130" fill="#000000" fill-opacity=".5"/>
-  <line x1="40" y1="62" x2="560" y2="62" stroke="#c9a030" stroke-width="1" stroke-opacity=".5"/>
-  <line x1="40" y1="188" x2="560" y2="188" stroke="#c9a030" stroke-width="1" stroke-opacity=".5"/>
+  <!-- ═══ TÍTULO ═══ -->
+  <rect x="0" y="45" width="600" height="135" fill="#000000" fill-opacity=".55"/>
+  <line x1="50" y1="47" x2="550" y2="47" stroke="#c9a030" stroke-width="1" stroke-opacity=".4"/>
+  <line x1="50" y1="178" x2="550" y2="178" stroke="#c9a030" stroke-width="1" stroke-opacity=".4"/>
 
-  <!-- Sombra -->
-  <text x="302" y="130" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="bold"
-        fill="#5a4010" text-anchor="middle" letter-spacing="12" fill-opacity=".5">KRAWZ</text>
+  <!-- Sombra título -->
+  <text x="302" y="115" font-family="Georgia, 'Times New Roman', serif" font-size="68" font-weight="bold"
+        fill="#4a3008" text-anchor="middle" letter-spacing="14" fill-opacity=".6">KRAWZ</text>
   <!-- Título principal -->
-  <text x="300" y="128" font-family="Georgia, 'Times New Roman', serif" font-size="62" font-weight="bold"
-        fill="#c9a030" text-anchor="middle" letter-spacing="12">KRAWZ</text>
+  <text x="300" y="113" font-family="Georgia, 'Times New Roman', serif" font-size="68" font-weight="bold"
+        fill="#c9a030" text-anchor="middle" letter-spacing="14">KRAWZ</text>
 
   <!-- Subtítulo -->
-  <text x="300" y="165" font-family="Georgia, 'Times New Roman', serif" font-size="15"
-        fill="#a89060" text-anchor="middle" letter-spacing="3">O CORAÇÃO DA COLMEIA</text>
+  <text x="300" y="148" font-family="Georgia, 'Times New Roman', serif" font-size="14"
+        fill="#a89060" text-anchor="middle" letter-spacing="4">O CORAÇÃO DA COLMEIA</text>
 
-  <!-- Ornamento separador -->
-  <line x1="200" y1="178" x2="270" y2="178" stroke="#c9a030" stroke-width=".5" stroke-opacity=".4"/>
-  <text x="300" y="182" font-family="Georgia, serif" font-size="8" fill="#c9a030" fill-opacity=".5" text-anchor="middle">◆</text>
-  <line x1="330" y1="178" x2="400" y2="178" stroke="#c9a030" stroke-width=".5" stroke-opacity=".4"/>
+  <!-- Ornamento -->
+  <line x1="180" y1="162" x2="265" y2="162" stroke="#c9a030" stroke-width=".6" stroke-opacity=".35"/>
+  <text x="300" y="166" font-family="Georgia, serif" font-size="9" fill="#c9a030" fill-opacity=".4" text-anchor="middle" letter-spacing="3">◆ LIVRO 1 ◆</text>
+  <line x1="335" y1="162" x2="420" y2="162" stroke="#c9a030" stroke-width=".6" stroke-opacity=".35"/>
 
-  <!-- ═══ INDICADOR LIVRO 1 ═══ -->
-  <text x="300" y="205" font-family="Georgia, 'Times New Roman', serif" font-size="11"
-        fill="#8a8470" text-anchor="middle" letter-spacing="5" font-style="italic">LIVRO 1</text>
-
-  <!-- ═══ VINES LATERAIS ═══ -->
-  <g stroke="#2a5a1a" fill="none" stroke-width="1.5" opacity=".15">
-    <!-- Esquerda -->
-    <path d="M30,200 C35,260 25,320 30,380 C35,440 25,500 30,560 C35,620 25,680 30,740"/>
-    <circle cx="28" cy="280" r="3" fill="#2a5a1a"/>
-    <circle cx="32" cy="400" r="4" fill="#2a5a1a"/>
-    <circle cx="27" cy="520" r="3" fill="#2a5a1a"/>
-    <circle cx="33" cy="650" r="3.5" fill="#2a5a1a"/>
-    <!-- Direita -->
-    <path d="M570,200 C565,260 575,320 570,380 C565,440 575,500 570,560 C565,620 575,680 570,740"/>
-    <circle cx="572" cy="280" r="3" fill="#2a5a1a"/>
-    <circle cx="568" cy="400" r="4" fill="#2a5a1a"/>
-    <circle cx="573" cy="520" r="3" fill="#2a5a1a"/>
-    <circle cx="567" cy="650" r="3.5" fill="#2a5a1a"/>
-  </g>
-
-  <!-- ═══ RODAPÉ / AUTOR ═══ -->
-  <rect x="0" y="830" width="600" height="70" fill="#000000" fill-opacity=".5"/>
-  <line x1="40" y1="832" x2="560" y2="832" stroke="#c9a030" stroke-width=".8" stroke-opacity=".4"/>
-  <text x="300" y="868" font-family="Georgia, 'Times New Roman', serif" font-size="14"
+  <!-- ═══ AUTOR ═══ -->
+  <rect x="0" y="855" width="600" height="45" fill="#000000" fill-opacity=".5"/>
+  <line x1="50" y1="857" x2="550" y2="857" stroke="#c9a030" stroke-width=".6" stroke-opacity=".35"/>
+  <text x="300" y="882" font-family="Georgia, 'Times New Roman', serif" font-size="13"
         fill="#c9a030" text-anchor="middle" letter-spacing="5">LUX VESPER</text>
 
-  <!-- ═══ MOLDURA DECORATIVA ═══ -->
-  <!-- Cantos -->
-  <path d="M 18,18 L 18,55 M 18,18 L 55,18" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".5"/>
-  <path d="M 582,18 L 582,55 M 582,18 L 545,18" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".5"/>
-  <path d="M 18,882 L 18,845 M 18,882 L 55,882" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".5"/>
-  <path d="M 582,882 L 582,845 M 582,882 L 545,882" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".5"/>
-  <!-- Borda interna sutil -->
-  <rect x="12" y="12" width="576" height="876" rx="2" fill="none" stroke="#c9a030" stroke-width=".5" stroke-opacity=".15"/>
+  <!-- ═══ MOLDURA ORNAMENTAL ═══ -->
+  <path d="M 16,16 L 16,56 M 16,16 L 56,16" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".45"/>
+  <path d="M 584,16 L 584,56 M 584,16 L 544,16" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".45"/>
+  <path d="M 16,884 L 16,844 M 16,884 L 56,884" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".45"/>
+  <path d="M 584,884 L 584,844 M 584,884 L 544,884" stroke="#c9a030" stroke-width="1.5" fill="none" stroke-opacity=".45"/>
+  <rect x="10" y="10" width="580" height="880" rx="2" fill="none" stroke="#c9a030" stroke-width=".4" stroke-opacity=".12"/>
+
+  <!-- ═══ TAGLINE (embaixo do castelo, acima do autor) ═══ -->
+  <text x="300" y="775" font-family="Georgia, serif" font-size="10" fill="#8a8470" text-anchor="middle" letter-spacing="2" font-style="italic" opacity=".5">Entre dois mundos, o coração pulsa</text>
 </svg>
