@@ -1,0 +1,74 @@
+<!-- OG Image 1200x630 - Para compartilhamento em redes sociais -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="og_bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#040804"/>
+      <stop offset="50%" stop-color="#0a1a0a"/>
+      <stop offset="100%" stop-color="#040604"/>
+    </linearGradient>
+    <radialGradient id="og_glow" cx="30%" cy="50%" r="40%">
+      <stop offset="0%" stop-color="#c9a030" stop-opacity=".12"/>
+      <stop offset="100%" stop-color="#c9a030" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Fundo -->
+  <rect width="1200" height="630" fill="url(#og_bg)"/>
+  <rect width="1200" height="630" fill="url(#og_glow)"/>
+
+  <!-- Hexágonos decorativos (colmeia) -->
+  <g stroke="#c9a030" fill="none" stroke-width="1" opacity=".2">
+    <polygon points="100,200 120,212 120,236 100,248 80,236 80,212"/>
+    <polygon points="100,260 120,272 120,296 100,308 80,296 80,272"/>
+    <polygon points="130,230 150,242 150,266 130,278 110,266 110,242"/>
+    <polygon points="1070,350 1090,362 1090,386 1070,398 1050,386 1050,362"/>
+    <polygon points="1100,380 1120,392 1120,416 1100,428 1080,416 1080,392"/>
+    <polygon points="1070,410 1090,422 1090,446 1070,458 1050,446 1050,422"/>
+  </g>
+
+  <!-- Título KRAWZ -->
+  <text x="600" y="240" font-family="Georgia, 'Times New Roman', serif" font-size="120" font-weight="bold"
+        fill="#c9a030" text-anchor="middle" letter-spacing="16">KRAWZ</text>
+  <!-- Sombra -->
+  <text x="603" y="243" font-family="Georgia, 'Times New Roman', serif" font-size="120" font-weight="bold"
+        fill="#4a3008" text-anchor="middle" letter-spacing="16" opacity=".4">KRAWZ</text>
+
+  <!-- Subtítulo -->
+  <text x="600" y="310" font-family="Georgia, 'Times New Roman', serif" font-size="28"
+        fill="#a89060" text-anchor="middle" letter-spacing="6">O CORAÇÃO DA COLMEIA</text>
+
+  <!-- Separador -->
+  <line x1="380" y1="340" x2="550" y2="340" stroke="#c9a030" stroke-width="1" opacity=".3"/>
+  <text x="600" y="345" font-family="Georgia, serif" font-size="14" fill="#c9a030" fill-opacity=".4" text-anchor="middle">◆ LIVRO 1 ◆</text>
+  <line x1="650" y1="340" x2="820" y2="340" stroke="#c9a030" stroke-width="1" opacity=".3"/>
+
+  <!-- Tagline -->
+  <text x="600" y="400" font-family="Georgia, serif" font-size="22" fill="#8a8470" text-anchor="middle" font-style="italic">Entre dois mundos, o coração pulsa</text>
+
+  <!-- Autor -->
+  <text x="600" y="540" font-family="Georgia, serif" font-size="20" fill="#c9a030" text-anchor="middle" letter-spacing="5" opacity=".7">LUX VESPER</text>
+
+  <!-- Abelhas decorativas -->
+  <g fill="#c9a030" opacity=".4">
+    <ellipse cx="200" cy="400" rx="6" ry="3.5" transform="rotate(-20 200 400)"/>
+    <ellipse cx="1000" cy="250" rx="5" ry="3" transform="rotate(15 1000 250)"/>
+    <ellipse cx="150" cy="500" rx="4" ry="2.5" transform="rotate(10 150 500)"/>
+    <ellipse cx="1050" cy="450" rx="5" ry="3" transform="rotate(-10 1050 450)"/>
+  </g>
+
+  <!-- Partículas -->
+  <g fill="#c9a030">
+    <circle cx="250" cy="150" r="2.5" opacity=".3"/>
+    <circle cx="950" cy="130" r="2" opacity=".25"/>
+    <circle cx="180" cy="350" r="2" opacity=".2"/>
+    <circle cx="1020" cy="520" r="2.5" opacity=".25"/>
+    <circle cx="300" cy="550" r="1.5" opacity=".2"/>
+    <circle cx="900" cy="480" r="2" opacity=".2"/>
+  </g>
+
+  <!-- Borda -->
+  <rect x="8" y="8" width="1184" height="614" rx="4" fill="none" stroke="#c9a030" stroke-width="1" opacity=".2"/>
+
+  <!-- Site URL -->
+  <text x="600" y="590" font-family="Georgia, serif" font-size="16" fill="#5a5a4a" text-anchor="middle" letter-spacing="2">abstrato.krawz.net</text>
+</svg>
