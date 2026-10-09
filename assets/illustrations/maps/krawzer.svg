@@ -1,200 +1,219 @@
-﻿<!-- Krawzer — A Árvore-Mundo (vista diagonal, de cabeça para baixo) -->
-<!-- Raízes no topo (início da jornada), Castelo de Pedra na copa (embaixo) -->
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1600" width="1200" height="1600">
   <defs>
-    <radialGradient id="bg_sky" cx="50%" cy="60%" r="55%">
-      <stop offset="0%" stop-color="#0a1a0a"/>
-      <stop offset="100%" stop-color="#050a05"/>
-    </radialGradient>
-    <linearGradient id="bark" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#2a1a08"/>
-      <stop offset="50%" stop-color="#3a2810"/>
-      <stop offset="100%" stop-color="#2a1a08"/>
+    <linearGradient id="paper_bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5f3f0"/>
+      <stop offset="100%" stop-color="#e8ddf5"/>
     </linearGradient>
-    <radialGradient id="glow_roots" cx="50%" cy="20%" r="30%">
-      <stop offset="0%" stop-color="#c9a030" stop-opacity=".12"/>
-      <stop offset="100%" stop-color="#c9a030" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="glow_crown" cx="50%" cy="85%" r="35%">
-      <stop offset="0%" stop-color="#4a8a3a" stop-opacity=".1"/>
-      <stop offset="100%" stop-color="#4a8a3a" stop-opacity="0"/>
-    </radialGradient>
-    <filter id="soft_glow">
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+
+    <filter id="paper_noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" seed="2"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="0.5"/>
+    </filter>
+
+    <filter id="shadow_light">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.15"/>
     </filter>
   </defs>
 
-  <!-- Fundo -->
-  <rect width="800" height="600" fill="url(#bg_sky)"/>
-  <rect width="800" height="600" fill="url(#glow_roots)"/>
-  <rect width="800" height="600" fill="url(#glow_crown)"/>
+  <!-- Fundo papel -->
+  <rect width="1200" height="1600" fill="url(#paper_bg)"/>
+  
+  <!-- Manchas envelhecimento -->
+  <ellipse cx="100" cy="150" rx="120" ry="100" fill="#b8a890" opacity="0.05"/>
+  <ellipse cx="1100" cy="200" rx="140" ry="120" fill="#8b7a68" opacity="0.04"/>
+  <ellipse cx="150" cy="1450" rx="130" ry="110" fill="#b8a890" opacity="0.04"/>
+  <ellipse cx="1050" cy="1400" rx="150" ry="130" fill="#8b7a68" opacity="0.03"/>
 
-  <!-- Estrelas/partículas de fundo -->
-  <g fill="#c9a030" fill-opacity=".15">
-    <circle cx="120" cy="80" r="1"/><circle cx="680" cy="50" r="1.2"/>
-    <circle cx="200" cy="150" r=".8"/><circle cx="600" cy="130" r="1"/>
-    <circle cx="80" cy="400" r="1"/><circle cx="720" cy="420" r=".8"/>
-    <circle cx="150" cy="520" r="1.2"/><circle cx="650" cy="550" r="1"/>
+  <!-- Borda -->
+  <rect x="40" y="40" width="1120" height="1520" fill="none" stroke="#6a5a4a" stroke-width="3"/>
+  <rect x="50" y="50" width="1100" height="1500" fill="none" stroke="#a89a88" stroke-width="0.5" opacity="0.5"/>
+
+  <!-- TÍTULO -->
+  <text x="600" y="90" font-family="Georgia, serif" font-size="64" font-weight="bold" 
+        fill="#2a1a0a" text-anchor="middle" letter-spacing="2">KRAWZER</text>
+  
+  <line x1="250" y1="105" x2="400" y2="105" stroke="#4a3a2a" stroke-width="1" opacity="0.4"/>
+  <line x1="800" y1="105" x2="950" y2="105" stroke="#4a3a2a" stroke-width="1" opacity="0.4"/>
+
+  <text x="600" y="135" font-family="Georgia, serif" font-size="18" fill="#6a5a4a" 
+        text-anchor="middle" font-style="italic">A Árvore Invertida</text>
+
+  <!-- ① ALDEIA DA FOLHA (EMBAIXO) -->
+  <g id="aldeia_folha_base">
+    <!-- FOLHA ÚNICA -->
+    <polygon points="600,1520 520,1380 540,1280 580,1250 620,1250 660,1280 680,1380" 
+             fill="#3a6a2a" stroke="#1a3a08" stroke-width="3" filter="url(#paper_noise)"/>
+
+    <!-- Veios da folha -->
+    <line x1="600" y1="1250" x2="600" y2="1520" stroke="#1a3a08" stroke-width="2.5" opacity="0.35"/>
+    <line x1="560" y1="1300" x2="600" y2="1520" stroke="#1a3a08" stroke-width="1.5" opacity="0.25"/>
+    <line x1="640" y1="1300" x2="600" y2="1520" stroke="#1a3a08" stroke-width="1.5" opacity="0.25"/>
+    <line x1="540" y1="1380" x2="660" y2="1380" stroke="#1a3a08" stroke-width="1" opacity="0.2"/>
+    <line x1="535" y1="1450" x2="665" y2="1450" stroke="#1a3a08" stroke-width="1" opacity="0.2"/>
+
+    <!-- MARCADOR - Aldeia -->
+    <circle cx="600" cy="1400" r="24" fill="#5a8a45" stroke="#1a3a08" stroke-width="2" filter="url(#shadow_light)"/>
+    <polygon points="595,1390 605,1390 608,1410 592,1410" fill="#1a3a08" opacity="0.8"/>
+    <polygon points="590,1415 600,1420 595,1430" fill="#1a3a08" opacity="0.8"/>
+
+    <!-- TEXTO -->
+    <text x="600" y="1570" font-family="Georgia, serif" font-size="32" font-weight="bold" 
+          fill="#2a1a0a" text-anchor="middle">Aldeia da Folha</text>
   </g>
 
-  <!-- ═══ RAÍZES (TOPO) — A cidade de Raízes ═══ -->
-  <!-- Raízes se espalham para cima como galhos invertidos -->
-  <g stroke="#4a3018" fill="none" stroke-linecap="round">
-    <!-- Raiz principal esquerda -->
-    <path d="M400,180 C380,140 340,100 280,50" stroke-width="8" opacity=".7"/>
-    <path d="M280,50 C260,30 230,15 190,5" stroke-width="4" opacity=".5"/>
-    <path d="M280,50 C270,35 280,20 300,10" stroke-width="3" opacity=".4"/>
-    <!-- Raiz principal direita -->
-    <path d="M400,180 C420,140 460,100 520,50" stroke-width="8" opacity=".7"/>
-    <path d="M520,50 C540,30 570,15 610,5" stroke-width="4" opacity=".5"/>
-    <path d="M520,50 C530,35 520,20 500,10" stroke-width="3" opacity=".4"/>
-    <!-- Raízes secundárias -->
-    <path d="M380,160 C350,130 310,110 260,90" stroke-width="5" opacity=".5"/>
-    <path d="M260,90 C240,80 210,75 180,80" stroke-width="3" opacity=".4"/>
-    <path d="M420,160 C450,130 490,110 540,90" stroke-width="5" opacity=".5"/>
-    <path d="M540,90 C560,80 590,75 620,80" stroke-width="3" opacity=".4"/>
-    <!-- Raízes finas -->
-    <path d="M360,150 C330,120 290,105 250,100" stroke-width="3" opacity=".4"/>
-    <path d="M440,150 C470,120 510,105 550,100" stroke-width="3" opacity=".4"/>
-    <path d="M370,140 C360,110 340,80 310,60" stroke-width="2" opacity=".3"/>
-    <path d="M430,140 C440,110 460,80 490,60" stroke-width="2" opacity=".3"/>
+  <!-- ② GALHO ÚNICO - Linha reta conectando folha ao tronco -->
+  <g id="galho_unico">
+    <!-- GALHO PRINCIPAL - Linha reta e grossa -->
+    <line x1="600" y1="1250" x2="600" y2="900" stroke="#5a4a38" stroke-width="42" stroke-linecap="round" opacity="0.9"/>
+
+    <!-- Folhas pequenas penduradas -->
+    <polygon points="550,1180 535,1150 545,1170" fill="#2a5a1a" opacity="0.6" filter="url(#shadow_light)"/>
+    <polygon points="650,1050 665,1020 655,1040" fill="#2a5a1a" opacity="0.6" filter="url(#shadow_light)"/>
+    <polygon points="580,920 565,890 575,910" fill="#2a5a1a" opacity="0.55" filter="url(#shadow_light)"/>
+
+    <!-- Marcador do galho -->
+    <circle cx="600" cy="1075" r="26" fill="#7a9a4a" stroke="#4a6a2a" stroke-width="2.5" filter="url(#shadow_light)"/>
+    <circle cx="600" cy="1075" r="15" fill="#9aba6a" opacity="0.75"/>
+
+    <!-- TEXTO - Galho -->
+    <text x="350" y="1105" font-family="Georgia, serif" font-size="32" font-weight="bold" 
+          fill="#2a1a0a">Galho</text>
+    <text x="350" y="1135" font-family="Georgia, serif" font-size="14" fill="#6a5a4a" 
+          font-style="italic">Campos e Transição</text>
   </g>
 
-  <!-- Cidade de Raízes (aglomerado no topo, entre as raízes) -->
-  <g filter="url(#soft_glow)">
-    <!-- Luzes da cidade -->
-    <circle cx="350" cy="110" r="3" fill="#c9a030" fill-opacity=".6"/>
-    <circle cx="390" cy="95" r="2.5" fill="#c9a030" fill-opacity=".5"/>
-    <circle cx="420" cy="105" r="3" fill="#c9a030" fill-opacity=".6"/>
-    <circle cx="370" cy="80" r="2" fill="#e8c040" fill-opacity=".4"/>
-    <circle cx="440" cy="85" r="2" fill="#e8c040" fill-opacity=".4"/>
-    <circle cx="400" cy="70" r="2.5" fill="#c9a030" fill-opacity=".5"/>
-    <!-- Estruturas de Raízes (casas entre raízes) -->
-    <rect x="360" y="100" width="12" height="18" rx="2" fill="#3a2810" stroke="#c9a030" stroke-width=".5" stroke-opacity=".3"/>
-    <rect x="385" y="85" width="14" height="22" rx="2" fill="#3a2810" stroke="#c9a030" stroke-width=".5" stroke-opacity=".3"/>
-    <rect x="410" y="95" width="11" height="16" rx="2" fill="#3a2810" stroke="#c9a030" stroke-width=".5" stroke-opacity=".3"/>
-    <rect x="435" y="80" width="10" height="14" rx="2" fill="#3a2810" stroke="#c9a030" stroke-width=".5" stroke-opacity=".3"/>
+  <!-- ③ TRONCO - Centro -->
+  <g id="tronco_central">
+    <!-- Tronco principal -->
+    <polygon points="560,900 640,900 650,600 550,600" 
+             fill="#7a6a52" stroke="#3a2a18" stroke-width="2.5" filter="url(#paper_noise)"/>
+
+    <!-- Sombreado lateral -->
+    <polygon points="640,900 650,890 660,600 650,600" fill="#5a4a38" opacity="0.25"/>
+
+    <!-- Textura vertical -->
+    <line x1="575" y1="900" x2="575" y2="600" stroke="#3a2a18" stroke-width="1.5" opacity="0.2"/>
+    <line x1="600" y1="900" x2="600" y2="600" stroke="#3a2a18" stroke-width="1" opacity="0.15"/>
+    <line x1="625" y1="900" x2="625" y2="600" stroke="#3a2a18" stroke-width="1.5" opacity="0.2"/>
+
+    <!-- Marcas no tronco -->
+    <line x1="550" y1="770" x2="650" y2="770" stroke="#3a2a18" stroke-width="2" opacity="0.2"/>
+    <line x1="550" y1="670" x2="650" y2="670" stroke="#3a2a18" stroke-width="2" opacity="0.2"/>
+
+    <!-- Estruturas industriais -->
+    <rect x="572" y="720" width="16" height="26" fill="#3a2a18" stroke="#1a0a08" stroke-width="1" opacity="0.7"/>
+    <rect x="612" y="720" width="16" height="26" fill="#3a2a18" stroke="#1a0a08" stroke-width="1" opacity="0.7"/>
+    <circle cx="580" cy="715" r="2.5" fill="#6a5a4a" opacity="0.4"/>
+    <circle cx="620" cy="715" r="2.5" fill="#6a5a4a" opacity="0.4"/>
+
+    <!-- Marcador tronco -->
+    <circle cx="600" cy="750" r="27" fill="#6a5a48" stroke="#2a1a08" stroke-width="2.5" filter="url(#shadow_light)"/>
+    <circle cx="600" cy="750" r="16" fill="#8a7a68" opacity="0.75"/>
+
+    <!-- TEXTO - Tronco -->
+    <text x="800" y="765" font-family="Georgia, serif" font-size="32" font-weight="bold" 
+          fill="#2a1a0a">Tronco</text>
+    <text x="800" y="795" font-family="Georgia, serif" font-size="14" fill="#6a5a4a">Zona Industrial de Orin</text>
   </g>
 
-  <!-- Label: Raízes -->
-  <text x="400" y="45" font-family="Cinzel, serif" font-size="14" fill="#c9a030" text-anchor="middle" letter-spacing="3" opacity=".8">RAÍZES</text>
-  <text x="400" y="60" font-family="Cormorant Garamond, serif" font-size="9" fill="#8a8470" text-anchor="middle" font-style="italic">Início da Jornada</text>
+  <!-- ④ RAÍZES -->
+  <g id="raizes_invertidas">
+    <!-- Raízes principais -->
+    <polygon points="560,600 490,500 450,380" fill="none" stroke="#5a5a3a" stroke-width="26" stroke-linecap="miter" opacity="0.8" filter="url(#paper_noise)"/>
+    <polygon points="640,600 710,500 750,380" fill="none" stroke="#5a5a3a" stroke-width="26" stroke-linecap="miter" opacity="0.8" filter="url(#paper_noise)"/>
 
-  <!-- ═══ TRONCO PRINCIPAL (diagonal sutil) ═══ -->
-  <!-- Tronco massivo da árvore-mundo -->
-  <path d="M370,180 C365,220 360,280 355,340 C350,400 360,440 370,480 C375,500 385,520 400,540
-           C415,520 425,500 430,480 C440,440 450,400 445,340 C440,280 435,220 430,180 Z"
-        fill="url(#bark)" stroke="#4a3018" stroke-width="1"/>
+    <!-- Sub-raízes menores -->
+    <line x1="450" y1="380" x2="400" y2="280" stroke="#5a5a3a" stroke-width="14" opacity="0.7"/>
+    <line x1="750" y1="380" x2="800" y2="280" stroke="#5a5a3a" stroke-width="14" opacity="0.7"/>
 
-  <!-- Textura do tronco (linhas verticais) -->
-  <g stroke="#1a0e04" stroke-width=".5" opacity=".4">
-    <path d="M380,190 C378,260 376,340 380,420 C382,460 388,500 395,535"/>
-    <path d="M395,185 C393,260 392,340 394,420 C396,470 399,510 400,540"/>
-    <path d="M410,185 C412,260 413,340 411,420 C409,470 406,510 405,540"/>
-    <path d="M420,190 C422,260 424,340 420,420 C418,460 412,500 405,535"/>
+    <!-- Raízes finas terminais -->
+    <line x1="400" y1="280" x2="380" y2="180" stroke="#5a5a3a" stroke-width="8" opacity="0.6"/>
+    <line x1="800" y1="280" x2="820" y2="180" stroke="#5a5a3a" stroke-width="8" opacity="0.6"/>
+
+    <!-- Estruturas da capital -->
+    <rect x="575" y="620" width="18" height="22" fill="#5a6a4a" stroke="#3a4a2a" stroke-width="1" opacity="0.65"/>
+    <rect x="607" y="615" width="18" height="22" fill="#5a6a4a" stroke="#3a4a2a" stroke-width="1" opacity="0.65"/>
+
+    <!-- Marcador raízes -->
+    <circle cx="600" cy="550" r="26" fill="#6a7a5a" stroke="#3a5a2a" stroke-width="2.5" filter="url(#shadow_light)"/>
+    <circle cx="600" cy="550" r="15" fill="#8a9a7a" opacity="0.75"/>
+
+    <!-- TEXTO - Raízes -->
+    <text x="900" y="570" font-family="Georgia, serif" font-size="32" font-weight="bold" 
+          fill="#2a1a0a">Raízes</text>
+    <text x="900" y="600" font-family="Georgia, serif" font-size="14" fill="#6a5a4a">Capital Orgânica Subterrânea</text>
   </g>
 
-  <!-- ═══ ALDEIA DA FOLHA (lateral esquerda do tronco) ═══ -->
-  <g>
-    <!-- Galho lateral -->
-    <path d="M365,280 C340,270 300,260 260,265" stroke="#3a2810" stroke-width="6" fill="none" stroke-linecap="round"/>
-    <path d="M260,265 C240,268 220,275 200,285" stroke="#3a2810" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <!-- Folhas ao redor -->
-    <ellipse cx="260" cy="258" rx="20" ry="12" fill="#2a5a1a" fill-opacity=".5"/>
-    <ellipse cx="240" cy="270" rx="15" ry="10" fill="#3a7a2a" fill-opacity=".4"/>
-    <ellipse cx="220" cy="280" rx="12" ry="8" fill="#2a5a1a" fill-opacity=".3"/>
-    <!-- Casinhas da aldeia -->
-    <circle cx="258" cy="260" r="2.5" fill="#c9a030" fill-opacity=".5"/>
-    <circle cx="245" cy="268" r="2" fill="#e8c040" fill-opacity=".4"/>
-    <circle cx="232" cy="277" r="1.5" fill="#c9a030" fill-opacity=".4"/>
-  </g>
-  <text x="230" y="300" font-family="Cinzel, serif" font-size="10" fill="#5aaa40" text-anchor="middle" letter-spacing="1" opacity=".7">Aldeia da Folha</text>
+  <!-- ⑤ CASTELO DE PEDRA - NO MEIO DAS RAÍZES -->
+  <g id="castelo_topo">
+    <!-- Raízes conectando ao castelo -->
+    <line x1="380" y1="180" x2="360" y2="240" stroke="#5a5a3a" stroke-width="6" opacity="0.5"/>
+    <line x1="820" y1="180" x2="840" y2="240" stroke="#5a5a3a" stroke-width="6" opacity="0.5"/>
 
-  <!-- ═══ TRONCO INDUSTRIAL (lateral direita) ═══ -->
-  <g>
-    <!-- Galho lateral -->
-    <path d="M435,320 C460,310 500,305 540,310" stroke="#3a2810" stroke-width="6" fill="none" stroke-linecap="round"/>
-    <path d="M540,310 C560,315 580,320 600,330" stroke="#3a2810" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <!-- Estruturas industriais (Tronco) -->
-    <rect x="535" y="298" width="16" height="20" rx="1" fill="#2a2018" stroke="#5a4a30" stroke-width=".5"/>
-    <rect x="555" y="302" width="12" height="16" rx="1" fill="#2a2018" stroke="#5a4a30" stroke-width=".5"/>
-    <rect x="570" y="306" width="14" height="18" rx="1" fill="#2a2018" stroke="#5a4a30" stroke-width=".5"/>
-    <!-- Fumaça/vapor -->
-    <circle cx="543" cy="292" r="3" fill="#5a5a4a" fill-opacity=".2"/>
-    <circle cx="561" cy="296" r="2.5" fill="#5a5a4a" fill-opacity=".15"/>
-  </g>
-  <text x="560" y="340" font-family="Cinzel, serif" font-size="10" fill="#8a7a50" text-anchor="middle" letter-spacing="1" opacity=".7">Tronco</text>
-  <text x="560" y="352" font-family="Cormorant Garamond, serif" font-size="8" fill="#8a8470" text-anchor="middle" font-style="italic">Zona Industrial</text>
+    <!-- Base castelo -->
+    <polygon points="500,280 700,280 720,340 480,340" fill="#8a7a68" stroke="#3a2817" stroke-width="2.5" filter="url(#paper_noise)"/>
 
-  <!-- ═══ ENCRUZILHADA DOS VENTOS (entre tronco e copa, esquerda) ═══ -->
-  <g>
-    <path d="M360,400 C330,410 290,415 250,410" stroke="#3a2810" stroke-width="4" fill="none" stroke-linecap="round"/>
-    <!-- Espirais de vento -->
-    <path d="M250,400 C240,395 235,405 245,408" stroke="#6aaa80" stroke-width="1" fill="none" opacity=".4"/>
-    <path d="M240,410 C230,405 225,415 235,418" stroke="#6aaa80" stroke-width="1" fill="none" opacity=".3"/>
-    <path d="M260,395 C250,390 245,398 255,402" stroke="#6aaa80" stroke-width="1" fill="none" opacity=".35"/>
-    <circle cx="248" cy="406" r="2" fill="#6aaa80" fill-opacity=".3"/>
-  </g>
-  <text x="230" y="430" font-family="Cinzel, serif" font-size="9" fill="#6aaa80" text-anchor="middle" letter-spacing="1" opacity=".6">Encruzilhada</text>
-  <text x="230" y="441" font-family="Cormorant Garamond, serif" font-size="8" fill="#8a8470" text-anchor="middle" font-style="italic">dos Ventos</text>
+    <!-- Torres cantos -->
+    <polygon points="480,260 510,240 525,340 495,350" fill="#7a6a58" stroke="#3a2817" stroke-width="1.5" opacity="0.9"/>
+    <polygon points="690,260 720,240 735,340 705,350" fill="#7a6a58" stroke="#3a2817" stroke-width="1.5" opacity="0.9"/>
 
-  <!-- ═══ COPA / CASTELO DE PEDRA (base/fundo — destino final) ═══ -->
-  <!-- Copa massiva da árvore invertida (embaixo) -->
-  <ellipse cx="400" cy="560" rx="200" ry="50" fill="#1a3a12" fill-opacity=".4"/>
-  <ellipse cx="400" cy="550" rx="170" ry="40" fill="#2a4a1a" fill-opacity=".3"/>
-  <ellipse cx="400" cy="545" rx="140" ry="30" fill="#1a3a12" fill-opacity=".25"/>
+    <!-- Torre central -->
+    <polygon points="550,210 650,210 665,340 535,340" fill="#9a8a78" stroke="#3a2817" stroke-width="2"/>
 
-  <!-- Castelo de Pedra (na copa, embaixo) -->
-  <g>
-    <!-- Base do castelo -->
-    <rect x="370" y="515" width="60" height="35" rx="2" fill="#3a3a30" stroke="#6a6a50" stroke-width="1"/>
-    <!-- Torres -->
-    <rect x="368" y="500" width="14" height="50" rx="1" fill="#4a4a3a" stroke="#6a6a50" stroke-width=".5"/>
-    <rect x="418" y="500" width="14" height="50" rx="1" fill="#4a4a3a" stroke="#6a6a50" stroke-width=".5"/>
-    <!-- Torre central (mais alta) -->
-    <rect x="390" y="490" width="20" height="60" rx="1" fill="#5a5a48" stroke="#7a7a60" stroke-width=".5"/>
-    <!-- Topo das torres (merlões) -->
-    <rect x="366" y="497" width="4" height="5" fill="#5a5a48"/>
-    <rect x="372" y="497" width="4" height="5" fill="#5a5a48"/>
-    <rect x="378" y="497" width="4" height="5" fill="#5a5a48"/>
-    <rect x="416" y="497" width="4" height="5" fill="#5a5a48"/>
-    <rect x="422" y="497" width="4" height="5" fill="#5a5a48"/>
-    <rect x="428" y="497" width="4" height="5" fill="#5a5a48"/>
-    <!-- Torre central merlões -->
-    <rect x="389" y="487" width="4" height="5" fill="#6a6a58"/>
-    <rect x="395" y="487" width="4" height="5" fill="#6a6a58"/>
-    <rect x="401" y="487" width="4" height="5" fill="#6a6a58"/>
-    <rect x="407" y="487" width="4" height="5" fill="#6a6a58"/>
-    <!-- Janelas iluminadas -->
-    <rect x="394" y="510" width="5" height="8" rx="2" fill="#c9a030" fill-opacity=".5"/>
-    <rect x="401" y="510" width="5" height="8" rx="2" fill="#c9a030" fill-opacity=".4"/>
-    <rect x="373" y="520" width="4" height="6" rx="1" fill="#c9a030" fill-opacity=".3"/>
-    <rect x="423" y="520" width="4" height="6" rx="1" fill="#c9a030" fill-opacity=".3"/>
-    <!-- Portal -->
-    <path d="M393,545 L393,535 Q400,530 407,535 L407,545" fill="#1a1a10" stroke="#6a6a50" stroke-width=".5"/>
+    <!-- Merlões -->
+    <polygon points="505,255 510,235 515,255" fill="#3a2817" opacity="0.9"/>
+    <polygon points="540,240 545,220 550,240" fill="#3a2817" opacity="0.9"/>
+    <polygon points="575,235 580,215 585,235" fill="#3a2817" opacity="0.9"/>
+    <polygon points="610,235 615,215 620,235" fill="#3a2817" opacity="0.9"/>
+    <polygon points="645,240 650,220 655,240" fill="#3a2817" opacity="0.9"/>
+    <polygon points="685,255 690,235 695,255" fill="#3a2817" opacity="0.9"/>
+
+    <!-- Portão -->
+    <rect x="595" y="325" width="10" height="22" fill="#1a0a00"/>
+    <circle cx="592" cy="340" r="1.5" fill="#5a4a38" opacity="0.6"/>
+
+    <!-- Muralhas -->
+    <line x1="460" y1="340" x2="490" y2="340" stroke="#6a5a48" stroke-width="2" opacity="0.5"/>
+    <line x1="710" y1="340" x2="740" y2="340" stroke="#6a5a48" stroke-width="2" opacity="0.5"/>
+
+    <!-- Marcador castelo -->
+    <polygon points="600,360 615,355 620,375 605,380" fill="#7a6a58" stroke="#3a2817" stroke-width="2.5"/>
+    <circle cx="607.5" cy="365" r="15" fill="#9a8a78" opacity="0.85" filter="url(#shadow_light)"/>
+    <text x="607.5" y="372" font-family="Georgia, serif" font-size="13" font-weight="bold" 
+          fill="#1a0a00" text-anchor="middle">FIM</text>
+
+    <!-- TEXTO - Castelo -->
+    <text x="600" y="420" font-family="Georgia, serif" font-size="32" font-weight="bold" 
+          fill="#2a1a0a" text-anchor="middle">Castelo de Pedra</text>
+    <text x="600" y="445" font-family="Georgia, serif" font-size="13" fill="#6a5a4a" 
+          text-anchor="middle" font-style="italic">Fortaleza do Rei Pedro</text>
+    <text x="600" y="465" font-family="Georgia, serif" font-size="13" fill="#6a5a4a" 
+          text-anchor="middle" font-weight="bold">DESTINO FINAL</text>
   </g>
 
-  <!-- Label: Castelo de Pedra -->
-  <text x="400" y="575" font-family="Cinzel, serif" font-size="13" fill="#c9a030" text-anchor="middle" letter-spacing="2" opacity=".8">CASTELO DE PEDRA</text>
-  <text x="400" y="592" font-family="Cormorant Garamond, serif" font-size="9" fill="#8a8470" text-anchor="middle" font-style="italic">Fim da Jornada — Livro 1</text>
-
-  <!-- ═══ SETA DE JORNADA (de cima para baixo) ═══ -->
-  <g stroke="#c9a030" stroke-width="1" fill="none" opacity=".25" stroke-dasharray="4 6">
-    <path d="M400,65 C400,120 400,160 400,180"/>
-    <path d="M400,180 C400,250 400,350 400,480"/>
+  <!-- LINHAS DE CONEXÃO -->
+  <g stroke="#6a5a4a" stroke-width="2.5" fill="none" opacity="0.4" stroke-dasharray="12,8">
+    <path d="M 600,1250 L 600,1150"/>
+    <path d="M 600,950 L 600,900"/>
+    <path d="M 600,600 L 600,500"/>
+    <path d="M 500,200 L 450,150 L 400,100"/>
+    <path d="M 700,200 L 750,150 L 800,100"/>
   </g>
-  <!-- Pontos da jornada -->
-  <circle cx="400" cy="70" r="4" fill="none" stroke="#c9a030" stroke-width="1" opacity=".4"/>
-  <circle cx="400" cy="180" r="3" fill="#c9a030" fill-opacity=".3"/>
-  <circle cx="400" cy="340" r="3" fill="#c9a030" fill-opacity=".2"/>
-  <circle cx="400" cy="485" r="4" fill="none" stroke="#c9a030" stroke-width="1" opacity=".4"/>
 
-  <!-- ═══ TÍTULO DO MAPA ═══ -->
-  <text x="680" y="40" font-family="Cinzel Decorative, serif" font-size="18" fill="#c9a030" text-anchor="end" letter-spacing="2" opacity=".5">KRAWZER</text>
-  <text x="680" y="58" font-family="Cormorant Garamond, serif" font-size="11" fill="#8a8470" text-anchor="end" font-style="italic">A Árvore-Mundo</text>
+  <!-- RODAPÉ -->
+  <text x="600" y="1590" font-family="Georgia, serif" font-size="12" fill="#8b7a68" 
+        text-anchor="middle" font-style="italic">
+    O Coração da Colmeia — Krawzer, a Árvore Invertida
+  </text>
 
-  <!-- Borda ornamental -->
-  <rect x="8" y="8" width="784" height="584" rx="4" fill="none" stroke="#4a3a10" stroke-width="1" opacity=".3"/>
-  <rect x="12" y="12" width="776" height="576" rx="3" fill="none" stroke="#4a3a10" stroke-width=".5" opacity=".15"/>
+  <!-- Decorações -->
+  <g opacity="0.15">
+    <path d="M 100,300 Q 110,320 100,360" stroke="#8b7a68" stroke-width="1.5" fill="none"/>
+    <circle cx="105" cy="330" r="2" fill="#8b7a68"/>
+  </g>
+
+  <g opacity="0.15">
+    <path d="M 1100,400 Q 1090,420 1100,460" stroke="#8b7a68" stroke-width="1.5" fill="none"/>
+    <circle cx="1095" cy="430" r="2" fill="#8b7a68"/>
+  </g>
 </svg>
